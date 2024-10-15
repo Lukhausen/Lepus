@@ -1,5 +1,6 @@
 # Chain-of-Thought Prompting Pattern for Creating Synthetic Data
 
+Example: [open in ChatGPT](https://chatgpt.com/share/670ecf86-2b14-8008-980e-6fa782b271b1)
 This pattern breaks down complex queries into atomic steps, encouraging detailed analysis and creative thinking. The process should repeat at least 3 times before introduction the conclusion possibility.
 
 ## Prompt Structure
@@ -32,7 +33,7 @@ This pattern breaks down complex queries into atomic steps, encouraging detailed
    ```
    add something like
    `Be creative in your approach.` or `Be innovative in how you approach this.` or `Approach this in an unexpected way`
-   The Core Idea is to encourage creativity and out of the Box thinking to come to better solutions.
+   The Core Idea is to encourage creativity and out-of-the-box thinking to come to better solutions.
    
 
 7. **Repeat** steps 3-5 until giving the LLM the possibility to Finalize.
