@@ -42,3 +42,8 @@ This pattern breaks down complex queries into atomic steps, encouraging detailed
    ```
    What would be the next atomic step? If the Last Response was the final Answer just print "FINAL."
    ```
+
+
+
+# Notes
+I tried this with GPT 4o and it worked flawlessly, even replicating the style and approach of o1, but when trying it on the way dumber LLaMa 3.1 8B It struggled to understand the Query. Maybe more emphasis on Query Understanding is needed.
