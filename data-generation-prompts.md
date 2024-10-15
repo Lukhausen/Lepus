@@ -46,4 +46,9 @@ This pattern breaks down complex queries into atomic steps, encouraging detailed
 
 
 # Notes
-I tried this with GPT 4o and it worked flawlessly, even replicating the style and approach of o1, but when trying it on the way dumber LLaMa 3.1 8B It struggled to understand the Query. Maybe more emphasis on Query Understanding is needed.
+I tried this with GPT 4o and it worked flawlessly, even replicating the style and approach of o1, but when trying it on the way dumber Llama 3.1 8B It struggled to understand the Query. Maybe more emphasis on Query Understanding is needed.
+
+Tried: `Investigate the following query: "How many rs are in strawberry"  
+To formulate an informed answer, break this task down into as many steps as possible. Your first step is to evaluate all possible interpretations of how to act on this query. Come to a definitive answer to how you will from here one understand this query.  Only output the first atomic step you would take. Be very meticulous in your approach.`
+
+Improves Task understanding in Llama 3.1 8B but may introduce overexaggerated Focus on Task understanding in the Subsequent Steps, leading to no conclusion at all.
