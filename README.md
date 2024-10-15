@@ -49,3 +49,8 @@ This repository contains the research and code for the project titled **"Explori
 - **Performance Assessment:**
   - Evaluate the fine-tuned model on selected reasoning benchmarks.
   - Compare its performance against the un-fine-tuned baseline model.
+
+### Similar Projects:
+- [open-strawberry](https://github.com/pseudotensor/open-strawberry)
+- [g1](https://github.com/bklieger-groq/g1)
+- [Raspberry](https://github.com/daveshap/Raspberry)
