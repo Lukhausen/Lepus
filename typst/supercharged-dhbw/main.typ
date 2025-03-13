@@ -1,6 +1,7 @@
 #import "@preview/supercharged-dhbw:3.4.0": *
 #import "acronyms.typ": acronyms
 #import "glossary.typ": glossary
+#import "chapters/arcprize.typ": arcprize
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -48,6 +49,20 @@ The batch size must also be chosen carefully: Although large batches speed up ca
 In machine learning, batches refer to subsets of the training dataset that are processed together in one forward and backward pass during the training process. Rather than using the entire dataset to compute the gradient (as in full-batch gradient descent), the data is divided into smaller groups called batches. This method, known as mini-batch gradient descent, allows the model to update its parameters more frequently, making training more efficient and manageable, especially with large datasets. Moreover, processing batches takes advantage of modern hardware accelerators like GPUs, which are optimized for handling multiple data points in parallel.
 
 In addition, the number of layers influences how deeply the model processes its inputs, with more layers often meaning a higher computational load, but also a greater capacity for abstraction. Finally, dropout plays an important role in regularisation: it determines how many neurons are temporarily ‘switched off’ during training, which should reduce overfitting and improve generalisation. All of these components together significantly determine how well and how quickly a neural network learns.
+
+// Modular Chapter Import System
+// This document uses a modular approach for chapter management to enable collaborative work without merge conflicts.
+// Each chapter is defined in a separate file within the "chapters" directory using the pattern:
+//   #let chapter_name = [chapter content]
+// 
+// To add a new chapter:
+// 1. Create a new Typst file in the "chapters" directory (e.g., "chapters/your_chapter.typ")
+// 2. Define a variable with your content: #let your_chapter = [Your content here...]
+// 3. Import it in this main file: #import "chapters/your_chapter.typ": your_chapter
+// 4. Insert it where needed using: #your_chapter
+//
+// Example: The ARC Prize chapter below is imported from "chapters/arcprize.typ"
+#arcprize
 
 = Quellen
 
