@@ -46,23 +46,4 @@
 #arcprize
 
 = Quellen
-
-https://www.forwardfuture.ai/p/the-magic-of-prolonged-thinking-test-time-compute-part-2
-
-https://medium.com/thedeephub/test-time-training-ttt-a-new-approach-to-sequence-modeling-8baf1ea79ed7
-
-https://nanonets.com/blog/what-is-test-time-training/
-
-https://www.ibm.com/de-de/topics/chain-of-thoughts
-
-https://the-decoder.de/deeper-insights-fuer-ki-sprachmodelle-mit-chain-of-thought-prompting-als-erfolgsfaktor/
-
-https://aws.amazon.com/de/what-is/hyperparameter-tuning/
-
-https://www.entrypointai.com/blog/fine-tuning-hyperparameters/
-
-https://www.ibm.com/de-de/topics/deep-learning
-
-https://epoch.ai/blog/scaling-laws-literature-review
-
-https://medium.com/sage-ai/demystify-transformers-a-comprehensive-guide-to-scaling-laws-attention-mechanism-fine-tuning-fffb62fc2552
+// Sources are now properly cited in the document using BibTeX references
