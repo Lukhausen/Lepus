@@ -45,3 +45,47 @@ This project uses a modular approach for chapter management to enable collaborat
    - It's inserted in the document with `#arcprize`
 
 This modular system makes it easier to collaborate on large documents by reducing conflicts when multiple people work on different chapters simultaneously.
+
+## Working with Acronyms
+
+This template provides a comprehensive set of functions to reference acronyms in your document. The main benefit is that the first mention of an acronym is automatically written out in full, while subsequent mentions are shortened to just the acronym.
+
+For acronyms with special plural forms, use an array as the value:
+
+```typst
+#let acronyms = (
+  API: ("Application Programming Interface", "Application Programming Interfaces"),
+  HTTP: ("Hypertext Transfer Protocol", "Hypertext Transfer Protocols"),
+)
+```
+
+If you don't specify a plural form, the template will automatically add an "s" to the singular form.
+
+### Using Acronyms in Your Document
+
+#### Primary Functions
+
+These are the functions you should use in most cases:
+
+- **`acr()`**: Reference an acronym in the text
+  - First use: `acr("API")` → "Application Programming Interface (API)"
+  - Subsequent uses: `acr("API")` → "API"
+
+- **`acrpl()`**: Reference an acronym in plural form
+  - First use: `acrpl("API")` → "Application Programming Interfaces (APIs)"
+  - Subsequent uses: `acrpl("API")` → "APIs"
+
+**Note:** It's strongly recommended to use `acr()` and `acrpl()` in most cases, as they automatically handle the full/short form switching for you.
+
+#### Special Case Functions
+
+The following functions are available for specific use cases where you need more control and should be used sparingly:
+
+- **`acrs()`**: Always use the short form (e.g., `acrs("API")` → "API")
+- **`acrspl()`**: Short form in plural (e.g., `acrspl("API")` → "APIs")
+- **`acrl()`**: Always use the long form (e.g., `acrl("API")` → "Application Programming Interface")
+- **`acrlpl()`**: Long form in plural (e.g., `acrlpl("API")` → "Application Programming Interfaces")
+- **`acrf()`**: Always use the full form (e.g., `acrf("API")` → "Application Programming Interface (API)")
+- **`acrfpl()`**: Full form in plural (e.g., `acrfpl("API")` → "Application Programming Interfaces (APIs)")
+
+The acronyms referenced with these functions will be linked to their definitions in the list of acronyms that appears in your document.

@@ -1,5 +1,6 @@
 #let acronyms = (
-  API: "Application Programming Interface",
-  HTTP: "Hypertext Transfer Protocol",
-  REST: "Representational State Transfer",
+  ARC: "Abstraction and Reasoning Corpus",
+  RL: "Reinforcement Learning",
+  ML: "Machine Learning",
+  AGI: "Artificial General Intelligence",
 )
