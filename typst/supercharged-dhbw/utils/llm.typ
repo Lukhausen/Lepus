@@ -2,9 +2,9 @@
 
 // Input block with user message (shifted right)
 #let llm-input(content) = pad(
-  right: 8%,
+  right: 5%,
   block(
-    width: 92%,
+    width: 95%,
     fill: rgb("#FFFDF5"),
     stroke: none,
     radius: 4pt,
@@ -12,16 +12,16 @@
     [
       #text(weight: "medium", size: 0.9em, fill: rgb("#62574A"), [User])
       #v(5pt)
-      #text(fill: rgb("#2C2C2C"), [#content])
+      #text(fill: rgb("#2C2C2C"), content)
     ]
   )
 )
 
 // Output block with model response (shifted left)
 #let llm-output(model: "Model", content) = pad(
-  left: 8%,
+  left: 5%,
   block(
-    width: 92%,
+    width: 95%,
     fill: rgb("#EFF8FF"),
     stroke: none,
     radius: 4pt,
@@ -29,7 +29,7 @@
     [
       #text(weight: "medium", size: 0.9em, fill: rgb("#3B5F8B"), [#model])
       #v(5pt)
-      #text(fill: rgb("#2C2C2C"), [#content])
+      #text(fill: rgb("#2C2C2C"), content)
     ]
   )
 )
