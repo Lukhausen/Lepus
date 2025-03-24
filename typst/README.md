@@ -89,3 +89,64 @@ The following functions are available for specific use cases where you need more
 - **`acrfpl()`**: Full form in plural (e.g., `acrfpl("API")` → "Application Programming Interfaces (APIs)")
 
 The acronyms referenced with these functions will be linked to their definitions in the list of acronyms that appears in your document.
+
+## Working with LLM Interactions
+
+This template provides a set of utility functions for displaying LLM (Large Language Model) interactions in your document. These utilities make it easy to present AI conversations with consistent styling and formatting.
+
+### Core Functions
+
+There are three main functions available in `utils/llm.typ`:
+
+1. **`llm-input(content)`**: Creates a styled user input block
+   ```typst
+   #llm-input([How much is 2+2?])
+   ```
+
+2. **`llm-output(model: "Model", content)`**: Creates a styled model response block
+   ```typst
+   #llm-output(model: "GPT-4", [The sum of 2+2 is 4.])
+   ```
+
+3. **`llm-interaction(model: "Model", ...messages)`**: Creates an alternating conversation
+   ```typst
+   #llm-interaction(
+     model: "Claude 3",
+     [What is machine learning?],
+     [Machine learning is a subset of artificial intelligence...],
+     [How does it differ from traditional programming?],
+     [In traditional programming, humans write explicit rules...]
+   )
+   ```
+
+### Usage Patterns
+
+#### Basic Input-Output Pair
+```typst
+#llm-interaction(
+  model: "GPT-4",
+  [What's the capital of France?],
+  [The capital of France is Paris.]
+)
+```
+
+#### Fine-grained Control
+For more control, use the individual input and output functions:
+```typst
+#llm-input([What's the tallest mountain in the world?])
+#llm-output(model: "Claude 3", [Mount Everest is the tallest mountain...])
+```
+
+#### Multi-turn Conversations
+The `llm-interaction` function automatically alternates between user and model:
+```typst
+#llm-interaction(
+  model: "GPT-4",
+  [What is entropy?],
+  [Entropy is a measure of disorder or randomness...],
+  [How does this relate to information theory?],
+  [In information theory, entropy quantifies the amount of uncertainty...]
+)
+```
+
+The first message is treated as user input, the second as model output, the third as user input, and so on, creating a natural conversation flow with appropriate styling for each message.
