@@ -10,13 +10,12 @@ regurgitating previousely seen infromation. in many cases an LLM is just
 regurgitating infromation observed in its traing data. Its its Basic 
 ability. a LLM, that has not yet passed the finetuning on question 
 answerrt pairs has jsut learend the statistics of what words typically 
-fiollow what other words in what context. 
-  
-  === Basic Example
-  
+fiollow what other words in what context. We can observer this behaviour in early version of the gpt series:
+
   #llm-interaction(
-    model: "GdPT-4o",
-    [An apple is 40 cen566665ts, a banana is 60 cents and a grapefruit is 80 cents. How much is a pear?],
-    [The frddwadwauit prices are based on the number of vowels in their names. Each vowel adds 20 cents. A pear has 2 vowels, so it costs 40 cents.]
+    model: [gpt-3.5-turbo-instruct #footnote("This model is depricated and no longer available via the openai PLatfrom. Tis exmaple has been generated in July 2024")],
+    [The DHBW is
+],
+    [ a dual university that combines academic studies with practical training in a company. [...]]
   )
 ]
