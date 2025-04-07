@@ -1,0 +1,9 @@
+- Schauen Wie Datenstzen funkionere bzw wie man sie erstellt
+- Was für approaches gab es vorher und wie könne wir das verbessern
+- welche promtps bringen was? können wir durch priompting bessere ergebnisse bekommen
+- wie können wir die trainingsdaten datenmeng erhöhen (e.g. permutation der farben)
+- hyperparametertuning erweitern
+- wie läuft das traing ab
+- vorher ancher wie gut war modell vor treaing wie gut ist danahc?
+- was hätten wir besser amchen könne, was schießen wir aus dem erbeniss?
+- was für probleme soind aufgetreten?

@@ -96,4 +96,5 @@ In the following example, only the full JSON input was used; no prompt was appli
 
 The LLM did not have the understanding that the colors are sorted in descending order of their frequency of occurrence in the original input. 
 
+_So Far we have been using the ARC-AGI 1 Dataset. As While we were working on this paper, the ARG AGI2 dataset was released, from here on we will continute using the ARC AGI 2 dataset._
 ]
