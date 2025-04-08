@@ -39,7 +39,7 @@ Humans can quickly deduce the pattern in this example: colors are arranged based
 
 Yet for an LLM, this is less obvious. Let's test this specific task on GPT-4o. #footnote("OpenAI API was used")
 
-In the following example, only the full JSON input was used; no prompt was applied, and the model ran at a temperature of 1 to ensure a deterministic output.
+In the following example, only the full JSON input was used; no prompt was applied, and the model ran at a temperature of 1 to ensure a deterministic output. The Dataset itself uses numbers between 0 and 9 instead of colours.
 
 #figure(
   caption: [The actual representation of the task as it is represented in the JSON file #footnote("This is a simplified representation of the JSON structure for better readability. (training set task 392: f8ff0b80.json)")],
@@ -65,6 +65,7 @@ In the following example, only the full JSON input was used; no prompt was appli
   ```
 )
 
+This is, waht GPT-4o answered.
 
 #llm-output(
   model: [gpt-4o],
@@ -96,5 +97,32 @@ In the following example, only the full JSON input was used; no prompt was appli
 
 The LLM did not have the understanding that the colors are sorted in descending order of their frequency of occurrence in the original input. 
 
-So Far we have been using the ARC-AGI 1 Dataset. As While we were working on this paper, the ARG AGI2 dataset was released (March 24th), from here on we will continute using the ARC AGI 2 dataset. The ARC AGI Dataset 1 
+So Far we have been using the ARC-AGI 1 Dataset. As While we were working on this paper, the ARG AGI2 dataset was released (March 24th), from here on we will continute using the ARC AGI 2 dataset. Every single Experiment in this paper was conducted on the ARC AGI 2 dataset for consitency. Below is a table Showcasing the current Benchmarks of different models on the ARC AGI-2 Dataset. @arcprize_leaderboard
+
+
+
+#let models = (
+  ("Human", "100.0%"),
+  ("o3 (low)", "4.0%"),
+  ("o1 (high)", "3.0%"),
+  ("o3-mini (medium)", "1.7%"),
+  ("Gemini 2.0 Flash", "1.3%"),
+  ("Deepseek R1", "1.3%"),
+  ("Gemini-2.5-Pro-Exp-03-25", "1.3%"),
+  ("Claude 3.7 (8K)", "0.9%"),
+  ("GPT-4.5", "0.8%"),
+  ("o1 (low)", "0.8%"),
+  ("GPT-4o", "0.0%"),
+  ("GPT-4o-mini", "0.0%"),
+) 
+
+#table(
+  columns: (1fr, auto),
+  table.header(
+    [*Model* #footnote("Multiplpe other models and approaches were omited to reduce the table length, yet no models with higher scroes were ommited.")], [*ARC-AGI-2 Score*],
+  ),
+  ..models.flatten()
+) 
+
+
 ]

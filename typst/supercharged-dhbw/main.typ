@@ -32,6 +32,7 @@
 #set quote(block: true)
 #show quote: set pad(x: 3em)
 
+
 // Modular Chapter Import System
 // This document uses a modular approach for chapter management to enable collaborative work without merge conflicts.
 // Each chapter is defined in a separate file within the "chapters" directory using the pattern:

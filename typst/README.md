@@ -9,6 +9,12 @@
    ```
 3. Restart VS Code if it is already open.
 
+### Font Installation
+Note that Typst does not support variable font types. To ensure proper document rendering, you need to install the fonts provided in the `typst/fonts` directory:
+1. Navigate to the `typst/fonts` directory in your project
+2. Install all the provided font files (OpenSans and Montserrat variants)
+3. These fonts are required for proper document rendering and styling
+
 ## VS Code Extension
 
 1. Open VS Code.
