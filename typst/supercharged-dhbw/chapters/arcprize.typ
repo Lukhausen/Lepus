@@ -134,10 +134,10 @@ So Far we have been using the ARC-AGI 1 Dataset. As While we were working on thi
   == How Far Can Prompt Engineering Go?
 
  
+This exmaple above was only a singel manual run, so we wanted to benchmark the effectivness over the whole testing dataset. we wrotte python code to systematically test all 120 task with 2 different prompting techniques. 
 
 
-
-Running GPT 4o with the following prompt:
+first benchamrk Running GPT 4o with the following prompt:
 #figure(
   caption: [The USed Prompt Structre],
   ```python
@@ -157,10 +157,10 @@ USER_PROMPT_TEMPLATE = (
   ```
 )
 
-This prompt was completedwith a whopping 0 of 120 correct prediecitons. This is a succes rate of 0%. We have only tested oncewith a temperature setting of 1 for GPT-4o as a single benchmarking of the 120 evaluation tasks (consiting of in total 172 tasks as some tasks have more than a single test we need to pass.) whcih resuklts in roughly over 2 million tokens send and recieved, summing a single evaluation to roughly 5 dollars. 
+This prompt was completedwith a whopping 0 of 120 correct prediecitons. This is a succes rate of 0%. We have only tested oncewith a temperature setting of 1 for GPT-4o as a single benchmarking of the 120 evaluation tasks (consiting of in total 172 tasks as some tasks have more than a single test we need to pass.) whcih resuklts in roughly over 1 million tokens send and recieved, summing a single evaluation to roughly 5 euros. 
 Out of this reason we are not averaging multiple runs, even though this would be statistically more accurate. Yet also the official numbers for the ARG AGI Benchmark are at 0% for the GPT-4o model. @arcprize_leaderboard To see the full experiment: @marschhausen_lepus_benchmark
 
-The high price here is caused by the toklenisation that is appied to the raw input of the task, as in the raw jsons tring nearly every single character is a new token. 
+we suspected that the high token rate is caused by the toklenisation that is appied to the raw input of the task, as in the raw jsons tring nearly every single character is a new token. 
 
 #figure(
   image("../assets/screenshots/excessive-tokenisation-example.png", width: 60%),
@@ -175,7 +175,13 @@ Interestingsly the Tokenizer still tonekizes nearly every single single characte
   caption: [Tokenisation of the Input to the llm for task 0934a4d8 @openai_tokenizer],
 ) <excessive-tokenisazion-example>
 
-Yet, this is the closest we can repsent it as text, without using the vision capabilites of GPT 4o. In theory a representation using unicode colour blocks (🟥,🟦,🟧,🟨,🟩,🟪,🟫,⬛,⬜,🔲,🔳) could be used but its unliketly to yield better results. For now lets adjust the Prompt to encoperate Chain of HTought Thinking and Step by step verification to potentially improve the results of the benchamrk. Those techniques are shown to dignificantely improve model resoning skills @lightman2023letsverifystepstep @wei2023chainofthoughtpromptingelicitsreasoning
+This is likely due to the attention mecanism, which benifit from correct infromation tokenisation. if we e.g. compare the tokenisation of the previosue GPT 3 models to the new GPT 4 models, we can see that the tokenizsation of the represented data has changed to have every number as a single token, regardless of the space behind it, rather then havin number plus space as a token. This was implemented to actually have a better attention learning caibilty on amth, so that $3$ is parsed as the same token in all cases instead of the previouse parsing of $3$ as a different oken than $3$ with a space behind it.
+
+#figure(
+  image("../assets/screenshots/tokenizer-comparison.png", width: 100%),
+  caption: [Tokenisation Comparison between GPT4o and GPT3 @openai_tokenizer],
+)
+We were thinking of differnet ways to represent the grid, Yet, this is the closest an assumingly best for tokenisation we can repsent it as text, without using the vision capabilites of GPT 4o. In theory a representation using unicode colour blocks (🟥,🟦,🟧,🟨,🟩,🟪,🟫,⬛,⬜,🔲,🔳) could be used but its unliketly to yield better results. For now lets adjust the Prompt to encoperate Chain of HTought Thinking and Step by step verification to potentially improve the results of the benchamrk. Those techniques are shown to dignificantely improve model resoning skills @lightman2023letsverifystepstep @wei2023chainofthoughtpromptingelicitsreasoning
 
 Here is the New prompt Structrue we used:
 
