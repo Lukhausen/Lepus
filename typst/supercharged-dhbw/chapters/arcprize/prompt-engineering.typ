@@ -3,7 +3,7 @@
 #let prompt-engineering = [
   == How Far Can Prompt Engineering Go?
 
-As ARC Prize 2 was released 
+ 
 
 
 
