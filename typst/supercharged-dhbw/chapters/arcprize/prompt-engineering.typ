@@ -37,6 +37,6 @@ The high price here is caused by the toklenisation that is appied to the raw inp
   caption: [Tokenisation of the Input to the llm for task 0934a4d8 @openai_tokenizer],
 ) <excessive-tokenisazion-example>
 
-To battle this, we will go ahead and not give the llm just the raw json string. This should not only reduce the tokenisation ammount, but also the cost of the evaluation.
+To battle this, we will go ahead and not give the llm just the raw json string. This should not only reduce the tokenisation ammount, but also the cost of the evaluation. Also, as we are interacting with an llm, which is not trained for raw random jsons but for words, the perfromance could benefit from this chagne.
 
 ]
