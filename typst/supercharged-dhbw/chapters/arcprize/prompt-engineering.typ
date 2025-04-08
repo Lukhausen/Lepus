@@ -28,7 +28,7 @@ USER_PROMPT_TEMPLATE = (
 )
 
 This prompt was completedwith a whopping 0 of 120 correct prediecitons. This is a succes rate of 0%. We have only tested oncewith a temperature setting of 1 for GPT-4o as a single benchmarking of the 120 evaluation tasks (consiting of in total 172 tasks as some tasks have more than a single test we need to pass.) whcih resuklts in roughly over 2 million tokens send and recieved, summing a single evaluation to roughly 5 dollars. 
-Out of this reason we are not averaging multiple runs, even though this would be statistically more accurate.
+Out of this reason we are not averaging multiple runs, even though this would be statistically more accurate. To see the full experiment: @marschhausen_lepus_benchmark
 
 The high price here is caused by the toklenisation that is appied to the raw input of the task, as in the raw jsons tring nearly every single character is a new token. 
 
