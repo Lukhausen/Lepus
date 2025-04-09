@@ -3,6 +3,7 @@
 #import "glossary.typ": glossary
 #import "chapters/arcprize.typ": arcprize
 #import "chapters/introduction.typ": introduction
+#import "chapters/previouse_methods.typ": previouse_methods
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -49,3 +50,6 @@
 
 // Chapter 2: ARC Prize
 #arcprize
+
+// Chapter 3: Previous Methods
+#previouse_methods
