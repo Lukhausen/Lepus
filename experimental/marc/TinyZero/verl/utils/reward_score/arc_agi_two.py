@@ -145,8 +145,6 @@ def evalute_score(solution_str, test_answer):
 
     return grid_similarity_score * 0.5 + answer_imilarity_score * 0.5
 
-    print("test")
-
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
     # Remove everything before the first "Assistant:"
@@ -212,47 +210,19 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     train = ground_truth['train']
     test = ground_truth['test']
     test_answer = ground_truth['test_answer']
-    
-    final_answer = evalute_score(solution_str=solution_str, test_answer=test_answer)
+
+    solution_str = extract_solution(solution_str)
+    score = evalute_score(solution_str=solution_str, test_answer=test_answer)
     do_print = random.randint(1, 64) == 1
     
     if do_print:
         print(f"--------------------------------")
         print(f"Target: {train} | Numbers: {test}")
-        print(f"Extracted answer: {final_answer}")
+        print(f"Extracted answer: {solution_str}")
         print(f"Solution string: {solution_str}")
+        print(f"Score: {score}")
 
-    # if final_answer is None:
-    #     if do_print:
-    #         print(f"No equation found")
-    #     return 0
-    
-    # # Validate equation uses correct numbers
-    # if not validate_equation(equation, numbers):
-    #     if do_print:
-    #         print(f"Invalid equation")
-    #     return format_score
-        
-    # # Evaluate equation
-    # try:
-    #     result = evaluate_equation(equation)
-    #     if result is None:
-    #         if do_print:
-    #             print(f"Could not evaluate equation")
-    #         return format_score
-            
-    #     if abs(result - target) < 1e-5:  # Account for floating point precision
-    #         if do_print:
-    #             print(f"Correct equation: {equation} = {result}")
-    #         return score
-    #     else:
-    #         if do_print:
-    #             print(f"Wrong result: equation = {result}, target = {target}")
-    #         return format_score
-    # except:
-    #     if do_print:
-    #         print(f"Error evaluating equation")
-    #     return format_score 
+    return score
     
 if __name__ == "__main__":
     solution_str = "[ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 7, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 7, 0, 7, 0, 0, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]"
