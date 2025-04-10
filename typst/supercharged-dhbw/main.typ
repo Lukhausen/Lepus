@@ -29,7 +29,7 @@
   ),
   acronyms: acronyms, // displays the acronyms defined in the acronyms dictionary
   at-university: false, // if true the company name on the title page and the confidentiality statement are hidden
-  bibliography: bibliography("sources.bib"),
+  bibliography: bibliography(("bibliography/lukas_refs.bib", "bibliography/marc_refs.bib")),
   date: datetime.today(),
   glossary: glossary, // displays the glossary terms defined in the glossary dictionary
   language: "en", // en, de
