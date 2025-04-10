@@ -14,6 +14,7 @@
 #import "chapter_new/experimental.typ": experimental
 #import "chapter_new/results.typ": results
 #import "chapter_new/conclusion.typ": conclusion
+#import "chapter_new/reward.typ" : reward
 
 
 #show: supercharged-dhbw.with(
@@ -105,3 +106,5 @@
 //Conclusion
 #conclusion
 
+//Reward
+#reward
