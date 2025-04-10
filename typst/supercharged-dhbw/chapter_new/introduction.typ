@@ -32,7 +32,9 @@ Yet, in some cases it is still not capable of ansering simple reasoning question
   [[...] Therefore, the number of whole ice cubes in the pan at the end of the third minute is 11 #footnote([The confusion of the model mostly stems from the fact that it "forgets" the fact that an egg si fried while the ice cubes are in the pan, as it focuses on the mathematical aprt of the riidle])]
 )
 
-As OpenAI is - against their forunding statement- no longer an opensource but a for profit comapny, we have no possibility of knowng how the o1 model was traind and only can make assumptions. Yet, a few month after the release of o1, in January of 2025, Deepseek - a cinese AI company - released DeepSeek-R1. A LLM matching the perfromance of openais o1 model. They make the weights of the model fully availabe for everyone to donwlaod and use and publish a paper on how they archived this perfromance with minimal traing cost @deepseekai2025deepseekr1incentivizingreasoningcapability
+As OpenAI is - against their forunding statement- no longer an opensource but a for profit comapny, we have no possibility of knowng how the o1 model was traind and only can make assumptions. Yet, a few month after the release of o1, in January of 2025, Deepseek - a cinese AI company - released DeepSeek-R1. A LLM matching the perfromance of openais o1 model. They made the weights of the model fully availabe for everyone to donwlaod and use and published a paper on how they archived this perfromance with minimal traing cost @deepseekai2025deepseekr1incentivizingreasoningcapability
+
+The Basic idea in that paper is to only use an outcome reward model, which checks if the final answer is correct for reasoning based questions like math and coding and let the model figure out how to come to that concolusion by reinfromcent learning. To Encourage the model to generate a chain of though they rewarded it not only for correct outputs, but also for using a specific output structre in the fomrat $ "<think>...</think><answer>...</answer>" $
 
 One of the most lacking parts of reasoning in all present models it spacial reasoning using world knowledge like gravity, suction, mirroring etc.
 
