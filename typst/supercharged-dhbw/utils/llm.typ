@@ -5,7 +5,7 @@
   right: 5%,
   block(
     width: 95%,
-    fill: rgb("#FFFDF5"),
+    fill: rgb("#fffbea"),
     stroke: none,
     radius: 4pt,
     inset: (x: 12pt, y: 10pt),
@@ -22,7 +22,7 @@
   left: 5%,
   block(
     width: 95%,
-    fill: rgb("#EFF8FF"),
+    fill: rgb("#dcf0ff"),
     stroke: none,
     radius: 4pt,
     inset: (x: 12pt, y: 10pt),

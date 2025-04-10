@@ -1,8 +1,20 @@
 #import "@preview/supercharged-dhbw:3.4.0": *
 #import "acronyms.typ": acronyms
 #import "glossary.typ": glossary
-#import "chapters/arcprize.typ": arcprize
-#import "chapters/introduction.typ": introduction
+//#import "chapters/arcprize.typ": arcprize
+//#import "chapters/introduction.typ": introduction
+//#import "chapters/previouse_methods.typ": previouse_methods
+//#import "chapters/preparing_data.typ": preparing_data
+//#import "chapters/our_approach.typ": our_approach
+
+
+#import "chapter_new/introduction.typ": introduction
+#import "chapter_new/background.typ": background
+#import "chapter_new/methodology.typ": methodology
+#import "chapter_new/experimental.typ": experimental
+#import "chapter_new/results.typ": results
+#import "chapter_new/conclusion.typ": conclusion
+
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -17,7 +29,7 @@
   ),
   acronyms: acronyms, // displays the acronyms defined in the acronyms dictionary
   at-university: false, // if true the company name on the title page and the confidentiality statement are hidden
-  bibliography: bibliography("sources.bib"),
+  bibliography: bibliography(("bibliography/lukas_refs.bib", "bibliography/marc_refs.bib")),
   date: datetime.today(),
   glossary: glossary, // displays the glossary terms defined in the glossary dictionary
   language: "en", // en, de
@@ -44,8 +56,52 @@
 // 3. Import it in this main file: #import "chapters/your_chapter.typ": your_chapter
 // 4. Insert it where needed using: #your_chapter
 
-// Chapter 1: Introduction
-#introduction
+// Chapter 1: Introduction (
+// Research question and motivation
+// Significance of the work
+// Brief overview of approach and contributions)
+//#introduction
+
 
 // Chapter 2: ARC Prize
-#arcprize
+//#arcprize
+
+// Chapter 3: Previous Methods
+//#previouse_methods
+
+
+// Chapter 4: Our Approach (Deepseek)
+//#our_approach
+
+// Chapter 5: Preparing Data: Making shit avcailable to hugginface, chosing prompt
+//#preparing_data
+
+//How did our server work? what gpu did we try and failed with and tried again bla bla bla. what do the parmater do
+
+//reward model: Mathematical forms
+
+//evaluating model, how to evaluate model train sucess
+
+//Lessons learned (improvments e.g. though post train improvmenet like ARcitects)
+
+//conclusion 
+
+
+//Introduction
+#introduction
+
+//Background
+#background
+
+//Methodology
+#methodology
+
+//Experimental
+#experimental
+
+//Results
+#results
+
+//Conclusion
+#conclusion
+
