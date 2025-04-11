@@ -102,4 +102,27 @@ As a final augmentation step, we randomly shuffled the order of training example
 == Summary of Augmentation Process
 
 Our comprehensive augmentation methodology expanded the original 1,000-task dataset to approximately 28,000 tasks through a systematic application of geometric transformations (rotations and reflections), boundary modifications (padding), color permutations, and structural reorganizations (test pair isolation and training example reordering). The augmented dataset was formatted as JSONL for subsequent model training.
+
+= Creating teh Prompt.
+
+Prompt Engineering fro Few Shot prompting, as this is exactely, whet we are going to implement here is kind of hard to grasp. There are many Factros that can influence the Model Perfromance. How to you signify what is an exmaple and what is the input / output for that exmaple that is expected? Does the Training Examples oder affect affect the output perfromance of the model or not? 
+It was actually found, that the ordering of the Training Examples in the prompt can affect the output drasitcailly. a study showed that meryl reodering teh Training Examples can create perfromance variance from 54% up to 93% on a sentiment analysis benchmark. @zhao2021calibrateuseimprovingfewshot Forthermore LLMs seem to ahve a recency bias, where they weigh recently seen exmaple more heavily into their preidcion than traing exmaples further before. ONly Providing a single Exmaple for few shot prompoting is likely to worsen the perfromance as the model takes this exmaple too strying into considderation for the output it produces. @cleary2025fewshot
+Normaly Few Shot prompting improves output quality of every model, yet a study by Openai and Microsoft found that this does not seem to be the case fo test time compute models. @nori2024medprompto1explorationruntime The Perfromance actually devliden when applying few shot prompting to the o1 model. This was also observed by the Deepseek team on their Test time compute model Deepseek-R1 @deepseekai2025deepseekr1incentivizingreasoningcapability
+
+Furthermore when giving Exmaples it is improtaint to actually seperate them visually. As we need to craft a prompt given to the Model while traing, we will apply the the folloing tactics: 
+- Seperate Each Exmaple Clearly using indicators at the beginning like "\#Example 1" and using delimtors at the end "\n\n"
+- Remove the Json structre from the task to produce a more accurate "human readable" input.
+
+First Let us Understand how the Tokeinsation of the model we are gouing to use for out traing, actually works (Qwen2.5-3B). For out case we will inspect how json strings are tokenizes to pick the best fitting tokenisation for out usecase. 
+
+#figure(
+  grid(
+    rows: 2,
+
+    gutter: 2mm,
+    image("../assets/screenshots/example_tokenization_1.png", width: 60%),
+    image("../assets/screenshots/example_tokenization_2.png", width: 100%),
+  ),
+  caption: "Token Visualisation of a different Strings"
+)
 ]
