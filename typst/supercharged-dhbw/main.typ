@@ -15,7 +15,7 @@
 #import "chapter_new/results.typ": results
 #import "chapter_new/conclusion.typ": conclusion
 #import "chapter_new/reward.typ" : reward
-
+#import "chapter_new/data_augumentation.typ": data_augumentation
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -108,3 +108,6 @@
 
 //Reward
 #reward
+
+//Data Augumentation
+#data_augumentation
