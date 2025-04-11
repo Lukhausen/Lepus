@@ -48,7 +48,7 @@ if __name__ == '__main__':
     TEST_SIZE = args.test_size
 
     raw_dataset = load_dataset('Lukhausen/arc-test', split='train')
-    print(raw_dataset)
+    #print(raw_dataset)
 
     assert len(raw_dataset) > TRAIN_SIZE + TEST_SIZE
     train_dataset = raw_dataset.select(range(TRAIN_SIZE))
