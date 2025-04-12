@@ -36,8 +36,8 @@ if __name__ == '__main__':
     parser.add_argument('--max_target', type=int, default=1000)
     parser.add_argument('--min_number', type=int, default=1)
     parser.add_argument('--max_number', type=int, default=100)
-    parser.add_argument('--train_size', type=int, default=825)
-    parser.add_argument('--test_size', type=int, default=150)
+    parser.add_argument('--train_size', type=int, default=29000)
+    parser.add_argument('--test_size', type=int, default=1024)
     parser.add_argument('--template_type', type=str, default='base')
 
     args = parser.parse_args()
