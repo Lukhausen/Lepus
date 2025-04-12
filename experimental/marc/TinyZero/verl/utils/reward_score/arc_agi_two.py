@@ -134,16 +134,16 @@ def convert_and_return_value(solution_str):
         # Sollte es einen Fehler geben, geben wir 0.1 zurück
         return 0.1
 
-def evalute_score(solution_str, test_answer):
-
+def evaluate_score(solution_str, test_answer, weight_syntax=0.5, weight_content=0.5):
     if solution_str == test_answer:
-        return 1
+        return 1.0
 
-    grid_similarity_score = evaluate_grid_similarity(solution_str, test_answer)
-
-    answer_imilarity_score = compare_answers(solution_str, test_answer)
-
-    return grid_similarity_score * 0.5 + answer_imilarity_score * 0.5
+    syntax_score = evaluate_grid_similarity(solution_str, test_answer)
+    
+    content_score = compare_answers(solution_str, test_answer)
+    
+    combined_score = weight_syntax * syntax_score + weight_content * content_score
+    return combined_score
 
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
