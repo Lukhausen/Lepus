@@ -19,11 +19,11 @@ def make_prefix(dp, template_type):
     if template_type == 'base':
         """This works for any base model"""
         prefix = f"""<|im_start|>system\nYou will be provided with example inputs and outputs. 
-        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <answer> </answer> tags as a nested list.<|im_end|>\n<|im_start|>assistant\nLet me solve this step by step.\n<think>"""
+        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <output> </output> tags as a nested list.<|im_end|>\n<|im_start|>assistant\n<think>\nLet me solve this step by step. """
     elif template_type == 'qwen-instruct':
         """This works for Qwen Instruct Models"""
         prefix = f"""<|im_start|>system\nYou will be provided with example inputs and outputs. 
-        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <answer> </answer> tags as a nested list.<|im_end|>\n<|im_start|>assistant\nLet me solve this step by step.\n<think>"""
+        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <output> </output> tags as a nested list.<|im_end|>\n<|im_start|>assistant\n<think>\nLet me solve this step by step. """
     return prefix
 
 
