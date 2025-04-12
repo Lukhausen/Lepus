@@ -254,12 +254,25 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     # print("text_ground_truth['test_answer']:"+str(ground_truth['test_answer']))
     train = ground_truth['train']
     test = ground_truth['test']
-    test_answer = ground_truth['test_answer'].tolist()
+    test_answer = [
+        x.tolist() if isinstance(x, np.ndarray) else x
+        for x in ground_truth['test_answer']
+    ]
+    #print("text_test_answer:"+str(test_answer))
     # print("type_test_answer:"+str(type(test_answer)))
     # print("text_test_answer:"+str(test_answer))
     solution_str_alt = solution_str
-    solution_str = extract_solution(solution_str)
-    score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
+    solution_str = "[[3, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 6, 6, 1, 6, 3, 3, 6, 3, 6, 6, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 6, 6, 6, 6, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 1, 3, 3, 3, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 6, 1, 6, 6, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 3, 3, 3, 6, 1, 1, 6, 3, 6, 3, 3, 3, 3, 3], [3, 3, 3, 3, 6, 6, 6, 6, 3, 6, 6, 6, 6, 6, 6], [3, 3, 6, 2, 6, 6, 6, 6, 0, 3, 6, 6, 6, 0, 1], [6, 6, 6, 3, 3, 3, 3, 3, 6, 6, 6, 3, 3, 3, 3], [1, 6, 6, 3, 3, 3, 3, 3, 1, 6, 3, 3, 3, 3, 3], [6, 6, 6, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]"#extract_solution(solution_str)
+    try:
+        score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
+    except Exception as e:
+        print("type_solution_str:"+str(type(solution_str_alt)))
+        print("text_solution_str:"+str(solution_str_alt))
+        print("type_ground_truth['test_answer']:"+str(type(ground_truth['test_answer'])))
+        print("text_ground_truth['test_answer']:"+str(ground_truth['test_answer']))
+        print("type_test_answer:"+str(type(test_answer)))
+        print("text_test_answer:"+str(test_answer))
+        raise e
     do_print = random.randint(1, 64) == 1
     
     if do_print:
