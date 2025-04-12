@@ -1,6 +1,8 @@
 import re
 import random
 import ast
+import ast
+import numpy as np
 import operator
 import math
 from difflib import SequenceMatcher
@@ -8,18 +10,16 @@ from difflib import SequenceMatcher
 def evaluate_grid_similarity(solution_str, test_answer):
 
     try:
-        expected_grid = ast.literal_eval(test_answer)
         solution_grid = ast.literal_eval(solution_str)
     except Exception as e:
         # Falls die Umwandlung fehlschlägt, gib den schlechtesten Score zurück.
         return 0.1
 
     # Überprüfe, ob beide in der erwarteten Struktur (Liste von Listen) vorliegen.
-    if not (isinstance(expected_grid, list) and all(isinstance(row, list) for row in expected_grid)):
-        return 0.1
     if not (isinstance(solution_grid, list) and all(isinstance(row, list) for row in solution_grid)):
         return 0.1
-
+    
+    expected_grid = test_answer
     # Ermitteln der Dimensionen des erwarteten Grids.
     n_expected = len(expected_grid)
     n_received = len(solution_grid)
@@ -70,6 +70,11 @@ def evaluate_grid_similarity(solution_str, test_answer):
         return sim
     
 def compare_answers(solution_str: str, test_answer: str) -> float:
+
+    # print("type_solution_str:"+str(type(solution_str)))
+    # print("text_solution_str:"+str(solution_str))
+    # print("type_test_answer:"+str(type(test_answer)))
+    # print("text_test_answer:"+str(test_answer))
     
     def try_parse(s: str):
         """Versucht, den String mittels ast.literal_eval zu parsen."""
@@ -80,7 +85,7 @@ def compare_answers(solution_str: str, test_answer: str) -> float:
 
     def flatten(lst):
         """Flacht eine (verschachtelte) Liste in eine einfache Liste ab."""
-        if isinstance(lst, list):
+        if isinstance(lst, (list, np.ndarray)):
             res = []
             for item in lst:
                 res.extend(flatten(item))
@@ -89,10 +94,10 @@ def compare_answers(solution_str: str, test_answer: str) -> float:
             return [lst]
     
     # Parse den TestAnswer-String (sollte korrekt sein).
-    test_parsed = try_parse(test_answer)
-    if test_parsed is None:
-        raise ValueError("TestAnswer ist nicht korrekt formatiert.")
-    
+    # test_parsed = try_parse(test_answer)
+    # if test_parsed is None:
+    #     raise ValueError("TestAnswer ist nicht korrekt formatiert.")
+    test_parsed = test_answer
     # Versuch, solution_str zu parsen.
     sol_parsed = try_parse(solution_str)
     
@@ -102,12 +107,21 @@ def compare_answers(solution_str: str, test_answer: str) -> float:
         if sol_parsed == test_parsed:
             return 1.0
         # Andernfalls vergleiche die flachen Versionen.
+        # print("type_test_parsed:"+str(type(test_parsed)))
+        # print("text_test_parsed:"+str(test_parsed))
+        # print("type_sol_parsed:"+str(type(sol_parsed)))
+        # print("text_sol_parsed:"+str(sol_parsed))
         flat_test = flatten(test_parsed)
         flat_sol = flatten(sol_parsed)
+        # print("type_flat_test:"+str(type(flat_test)))
+        # print("text_flat_test:"+str(flat_test))
+        # print("type_flat_sol:"+str(type(flat_sol)))
+        # print("text_flat_sol:"+str(flat_sol))
         ratio = SequenceMatcher(a=flat_test, b=flat_sol).ratio()
     else:
         # Fallback: Es können Formatierungsprobleme in solution_str vorliegen.
         # Mit Regex alle Zahlen extrahieren und als Ganzzahlen interpretieren.
+        test_answer = str(test_parsed)
         nums_test = list(map(int, re.findall(r'-?\d+', test_answer)))
         nums_sol = list(map(int, re.findall(r'-?\d+', solution_str)))
         # Prüfe, ob die extrahierten Zahlen gleich sind.
@@ -135,8 +149,9 @@ def convert_and_return_value(solution_str):
         return 0.1
 
 def evaluate_score(solution_str, test_answer, weight_syntax=0.5, weight_content=0.5):
-    if solution_str == test_answer:
-        return 1.0
+
+    if solution_str == None:
+        return 0.1
 
     syntax_score = evaluate_grid_similarity(solution_str, test_answer)
     
@@ -164,7 +179,7 @@ def extract_solution(solution_str):
     # else:
     #     final_answer = None
 
-    answer_pattern = r'<answer>(.*?)</answer>'
+    answer_pattern = r'<output>(.*?)</output>'
     
     # Find all matches in the string (using DOTALL if multiline content is expected)
     matches = list(re.finditer(answer_pattern, solution_str, flags=re.DOTALL))
@@ -233,9 +248,15 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
         format_score: the score for correct format but wrong answer
         score: the score for the correct answer
     """
+    # print("type_solution_str:"+str(type(solution_str)))
+    # print("text_solution_str:"+str(solution_str))
+    # print("type_ground_truth['test_answer']:"+str(type(ground_truth['test_answer'])))
+    # print("text_ground_truth['test_answer']:"+str(ground_truth['test_answer']))
     train = ground_truth['train']
     test = ground_truth['test']
-    test_answer = ground_truth['test_answer']
+    test_answer = ground_truth['test_answer'].tolist()
+    # print("type_test_answer:"+str(type(test_answer)))
+    # print("text_test_answer:"+str(test_answer))
     solution_str_alt = solution_str
     solution_str = extract_solution(solution_str)
     score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
@@ -263,10 +284,215 @@ if __name__ == "__main__":
 []
 ]</answer>
 """
-    solution_str = """<|im_start|>assistant\nLet me solve this step by step.\n<think>Habibi hab gedacht…. “““[[1,2],[1,2]] “““</think><answer>Here you go! Weh ave solved teh answer: \n“““\n[\n[1,2],\n[1,2]\n] “““</answer><|im_end|>"""
+    solution_str = """<|im_start|>system
+You will be provided with example inputs and outputs.
+        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>
+<|im_start|>user
+ ### Train Example 1:
+Input:
+[
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,2],
+[3,3,3,3,3,3,3,3,3,3,2,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+]
+
+Output:
+[
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,2,9],
+[9,3,3,3,3,3,3,3,3,3,3,2,3,9],
+[9,3,3,3,3,3,3,3,3,3,8,3,3,9],
+[9,8,3,3,3,3,3,3,3,8,3,3,3,9],
+[9,3,8,3,3,3,3,3,8,3,3,3,3,9],
+[9,3,3,8,3,3,3,8,3,3,3,3,3,9],
+[9,3,3,3,8,3,8,3,3,3,3,3,3,9],
+[9,3,3,3,3,8,3,3,3,3,3,3,3,9],
+[9,0,0,0,0,0,0,0,0,0,0,0,0,9],
+[9,0,0,0,0,0,0,0,0,0,0,0,0,9],
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+]
+
+### Train Example 2:
+Input:
+[
+[3,3,2,3,3,3,3,3,3,0,0,0],
+[3,3,3,2,3,3,3,3,3,0,0,0],
+[3,3,3,3,2,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+[3,3,3,3,3,3,3,3,3,0,0,0],
+]
+
+Output:
+[
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+[9,3,3,2,3,3,3,3,3,3,0,0,0,9],
+[9,3,3,3,2,3,3,3,3,3,0,0,0,9],
+[9,3,3,3,3,2,3,3,3,3,0,0,0,9],
+[9,3,3,3,3,3,8,3,3,3,0,0,0,9],
+[9,3,3,3,3,3,3,8,3,3,0,0,0,9],
+[9,3,3,3,3,3,3,3,8,3,0,0,0,9],
+[9,3,3,3,3,3,3,3,3,8,0,0,0,9],
+[9,3,3,3,3,3,3,3,8,3,0,0,0,9],
+[9,3,3,3,3,3,3,8,3,3,0,0,0,9],
+[9,3,3,3,3,3,8,3,3,3,0,0,0,9],
+[9,3,3,3,3,8,3,3,3,3,0,0,0,9],
+[9,3,3,3,8,3,3,3,3,3,0,0,0,9],
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+]
+
+### Train Example 3:
+Input:
+[
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,2,3,3],
+[3,3,3,3,3,3,3,3,3,3,2,3],
+[3,3,3,3,3,3,3,3,3,3,3,2],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+]
+
+Output:
+[
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+[9,0,0,0,0,0,0,0,0,0,0,0,0,9],
+[9,0,0,0,0,0,0,0,0,0,0,0,0,9],
+[9,3,3,3,3,3,8,3,3,3,3,3,3,9],
+[9,3,3,3,3,8,3,8,3,3,3,3,3,9],
+[9,3,3,3,8,3,3,3,8,3,3,3,3,9],
+[9,3,3,8,3,3,3,3,3,8,3,3,3,9],
+[9,3,8,3,3,3,3,3,3,3,2,3,3,9],
+[9,8,3,3,3,3,3,3,3,3,3,2,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,2,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+]
+
+
+ ### Test Input:
+[
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[2,3,3,3,3,3,3,3,3,3,3,3],
+[3,2,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[3,3,3,3,3,3,3,3,3,3,3,3],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0],
+]
+
+ Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <answer> </answer> tags as a nested list.<|im_end|>
+<|im_start|>assistant
+Let me solve this step by step.
+<think> </think>
+
+1.
+
+
+
+The input is a 4x13 grid. From the given input and output, the value 3 is replaced by 0 if the neighbors of (3,3,3,3,3,3,3,3,3,3,3) are 2.
+
+
+
+2.
+
+
+
+The neighbors of the node are the five nodes around it. With the given example, the value 9 is replaced by a value ten times larger than the value of the node's neighbors if the node's value is more than zero.
+
+
+
+3.
+
+
+
+The value between 3 and 9 must be in increments of 1.
+
+
+
+4.
+
+
+
+The test output with a value of 9 is generated by replacing the value <3,3,2,3,3,3,3,3,3,0,0,0> with the value 9 in the first step of this transformation.
+
+
+
+5.
+
+
+
+This value can be calculated, where the new value of a cell is multiplied by the number of neighbors that are greater than the cell, divided by the number of total neighbors. The new value of the neighbor is replaced with the original value of the cell.
+
+With this concluding thought, the way to transform the test input into the test output is found. This input's test value is constructed by replacing all the 3s and 2s in the grid with 9s.
+
+
+
+<output>
+
+[
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+[9,3,3,2,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,8,3,3,3,3,3,3,9],
+[9,3,3,3,3,8,3,8,3,3,3,3,3,9],
+[9,3,3,3,8,3,3,3,8,3,3,3,3,9],
+[9,3,3,3,8,3,3,3,3,8,3,3,3,9],
+[9,3,3,8,3,3,3,3,3,3,8,3,3,9],
+[9,3,8,3,3,3,3,3,3,3,3,8,3,9],
+[9,8,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,3,3,3,3,3,3,3,3,3,3,3,3,9],
+[9,9,9,9,9,9,9,9,9,9,9,9,9,9],
+]
+
+</output><|endoftext|>"""
     ground_truth = {
         "train":'[ { "input": [ [ 7, 9 ], [ 4, 3 ] ], "output": [ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ] }, { "input": [ [ 8, 6 ], [ 6, 4 ] ], "output": [ [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ], [ 6, 8, 6, 8, 6, 8 ], [ 4, 6, 4, 6, 4, 6 ], [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ] ] } ]',
         "test":'[ [ 3, 2 ], [ 7, 8 ] ]',
-        "test_answer":'[ [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ], [ 2, 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]'
+        "test_answer": np.array([np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 9]),
+np.array([9, 2, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 9]),
+np.array([9, 3, 2, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 8, 3, 3, 3, 8, 3, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 3, 8, 3, 8, 3, 3, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9])])
     }
     compute_score(solution_str, ground_truth)
