@@ -134,16 +134,16 @@ def convert_and_return_value(solution_str):
         # Sollte es einen Fehler geben, geben wir 0.1 zurück
         return 0.1
 
-def evalute_score(solution_str, test_answer):
-
+def evaluate_score(solution_str, test_answer, weight_syntax=0.5, weight_content=0.5):
     if solution_str == test_answer:
-        return 1
+        return 1.0
 
-    grid_similarity_score = evaluate_grid_similarity(solution_str, test_answer)
-
-    answer_imilarity_score = compare_answers(solution_str, test_answer)
-
-    return grid_similarity_score * 0.5 + answer_imilarity_score * 0.5
+    syntax_score = evaluate_grid_similarity(solution_str, test_answer)
+    
+    content_score = compare_answers(solution_str, test_answer)
+    
+    combined_score = weight_syntax * syntax_score + weight_content * content_score
+    return combined_score
 
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
@@ -154,15 +154,41 @@ def extract_solution(solution_str):
         solution_str = solution_str.split("<|im_start|>assistant", 1)[1]
     else:
         return None
-    solution_str = solution_str.split('\n')[-1]
+    #solution_str = solution_str.split('\n')[-1]
+
+    # answer_pattern = r'<answer>(.*?)</answer>'
+    # match = re.finditer(answer_pattern, solution_str)
+    # matches = list(match)
+    # if matches:
+    #     final_answer = matches[-1].group(1).strip()
+    # else:
+    #     final_answer = None
 
     answer_pattern = r'<answer>(.*?)</answer>'
-    match = re.finditer(answer_pattern, solution_str)
-    matches = list(match)
+    
+    # Find all matches in the string (using DOTALL if multiline content is expected)
+    matches = list(re.finditer(answer_pattern, solution_str, flags=re.DOTALL))
+    
+    # If at least one match exists, use the last one; otherwise, return None.
     if matches:
         final_answer = matches[-1].group(1).strip()
     else:
         final_answer = None
+
+    # If the answer contains square brackets, extract and return the bracketed part
+    if final_answer is not None:
+        start_index = final_answer.find('[')
+        if start_index != -1:
+            final_answer = final_answer[start_index:]
+        
+        end_index = final_answer.rfind(']')
+        if end_index != -1:
+            final_answer = final_answer[:end_index+1]
+        
+        # Return substring from the first '[' to the first ']' (including ']')
+        final_answer = final_answer.replace("\n","")
+        
+    
     return final_answer
 
 
@@ -210,14 +236,15 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     train = ground_truth['train']
     test = ground_truth['test']
     test_answer = ground_truth['test_answer']
-
+    solution_str_alt = solution_str
     solution_str = extract_solution(solution_str)
-    score = evalute_score(solution_str=solution_str, test_answer=test_answer)
+    score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
     do_print = random.randint(1, 64) == 1
     
     if do_print:
         print(f"--------------------------------")
         print(f"Target: {train} | Numbers: {test}")
+        print(f"Original answer: {solution_str_alt}")
         print(f"Extracted answer: {solution_str}")
         print(f"Solution string: {solution_str}")
         print(f"Score: {score}")
@@ -230,7 +257,13 @@ if __name__ == "__main__":
     #solution_str = "[ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ]"
     #solution_str = "[ [ 3, 2, 3, , 2 ], [ 7,  8, 7, 8 ], 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 8, 7, 8, 7, 8 ] ]"
     #solution_str = "[ [ 3, 2, 3, 5, 3, 2 ], [ 7, 8, 7, 9, 9, 8 ], [ 2, 3, 0, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]"
-    
+    solution_str = """Assistant: Here you go: <answer>
+[
+[dwad],
+[]
+]</answer>
+"""
+    solution_str = """<|im_start|>assistant\nLet me solve this step by step.\n<think>Habibi hab gedacht…. “““[[1,2],[1,2]] “““</think><answer>Here you go! Weh ave solved teh answer: \n“““\n[\n[1,2],\n[1,2]\n] “““</answer><|im_end|>"""
     ground_truth = {
         "train":'[ { "input": [ [ 7, 9 ], [ 4, 3 ] ], "output": [ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ] }, { "input": [ [ 8, 6 ], [ 6, 4 ] ], "output": [ [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ], [ 6, 8, 6, 8, 6, 8 ], [ 4, 6, 4, 6, 4, 6 ], [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ] ] } ]',
         "test":'[ [ 3, 2 ], [ 7, 8 ] ]',
