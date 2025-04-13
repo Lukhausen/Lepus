@@ -207,8 +207,20 @@ def extract_solution(solution_str):
         
         # Return substring from the first '[' to the first ']' (including ']')
         final_answer = final_answer.replace("\n","")
-        
-    
+
+        final_answer = final_answer.replace("0","0,")
+        final_answer = final_answer.replace("1","1,")
+        final_answer = final_answer.replace("2","2,")
+        final_answer = final_answer.replace("3","3,")
+        final_answer = final_answer.replace("4","4,")
+        final_answer = final_answer.replace("5","5,")
+        final_answer = final_answer.replace("6","6,")
+        final_answer = final_answer.replace("7","7,")
+        final_answer = final_answer.replace("8","8,")
+        final_answer = final_answer.replace("9","9,")
+
+
+
     return final_answer
 
 
@@ -571,19 +583,23 @@ if __name__ == "__main__":
  Complete the output as indicated by the previous instance.
 
  <output>
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,6,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
- [0,0,0,0,0,0,0,0,0,0],
+[ [6666666666666666],
+ [6666666666666666],
+ [6655565666566666],
+ [6655555555555566],
+ [6655555555555566],
+ [6655565666566666],
+ [6655566666666666],
+ [6655566666666666],
+ [6555566666666666],
+ [6655566666666666],
+ [6655566666666666],
+ [6655566666666666],
+ [6655566666666666],
+ [6655566666666666],
+ [6666666666666666],
+ [6666666666666666]
+]
  </output>
 
  You are an AI assistant that helps people find information. User will you give you a question. Your task is to answer as faithfully as you can. While answering think step-by-step and justify your answer.<|endoftext|>"""
