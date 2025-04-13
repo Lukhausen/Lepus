@@ -16,6 +16,9 @@
 #import "chapter_new/conclusion.typ": conclusion
 #import "chapter_new/reward.typ" : reward
 #import "chapter_new/data_augumentation.typ": data_augumentation
+#import "chapter_new/previouse_methods.typ": previouse_methods
+#import "chapter_new/arcprize.typ": arcprize
+#import "chapter_new/our_approach.typ": our_approach
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -93,9 +96,12 @@
 
 //Background
 //#background
+#arcprize 
 
 //Methodology
-#methodology
+#previouse_methods  
+
+#our_approach
 
 //Experimental
 #experimental

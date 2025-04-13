@@ -2,7 +2,7 @@
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
 
 #let arcprize = [
-= #acr("ARC")-AGI Benchmark
+= The #acr("ARC")-AGI Benchmark and current Model Perfromance
   == Introduction
 In 2019, François Chollet, a researcher at Google, introduced a framework to define and measure the intelligence of computational systems @chollet2019measureintelligence. Chollet differentiated between two distinct categories of intelligence: narrow, skill-based intelligence and generalization-capable intelligence. Narrow intelligence describes systems that excel at singular, predefined tasks but lack flexibility in adapting their knowledge to new or unfamiliar situations. \ 
 Conversely, generalization-capable intelligence encompasses systems that can effectively transfer learned patterns and experiences to novel tasks, adapting their understanding dynamically.
