@@ -20,6 +20,8 @@
 #import "chapter_new/arcprize.typ": arcprize
 #import "chapter_new/our_approach.typ": our_approach  
 #import "chapter_new/terminology.typ": terminology
+#import "chapter_new/abstract.typ": abstract
+
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -42,6 +44,7 @@
   university: "Cooperative State University Baden-Württemberg",
   university-location: "Mannheim",
   university-short: "DHBW",
+  abstract: abstract,
   // for more options check the package documentation (https://typst.app/universe/package/supercharged-dhbw)
 )
 
@@ -101,7 +104,7 @@
 
 //Background
 //#background
-#arcprize 
+#background 
 
 //Methodology
 #previouse_methods  
