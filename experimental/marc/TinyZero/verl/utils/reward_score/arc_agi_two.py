@@ -62,7 +62,9 @@ def evaluate_grid_similarity(solution_str, test_answer):
         # Hier wird explizit so transformiert, dass bei ungenügender Ähnlichkeit (0) fast
         # der Minimalwert (0.1) und bei fast exakter Übereinstimmung (aber noch nicht 1)
         # Werte um 0.9 zurückgegeben werden.
-        sim = 0.1 + 0.9 * (math.exp(structural_score) - 1) / (math.e - 1)
+
+        k= 4
+        sim = 0.1 + 0.8 * (np.exp(k * structural_score) - 1) / (np.exp(k) - 1)
         # Damit wir nie 1 zurückgeben, solange structural_score nicht exakt 1 ist,
         # erzwingen wir ein Maximum von 0.9.
         if sim >= 1:
@@ -266,12 +268,29 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     try:
         score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
     except Exception as e:
-        print("type_solution_str:"+str(type(solution_str_full)))
-        print("text_solution_str:"+str(solution_str_full))
-        print("type_ground_truth['test_answer']:"+str(type(ground_truth['test_answer'])))
-        print("text_ground_truth['test_answer']:"+str(ground_truth['test_answer']))
-        print("type_test_answer:"+str(type(test_answer)))
-        print("text_test_answer:"+str(test_answer))
+        print("========== DEBUG INFO ==========")
+        print("Exception encountered during score evaluation:")
+        print("Exception: ", e)
+        print("")
+        print("Raw solution string (full):")
+        print("Type: {}".format(type(solution_str_full)))
+        print("Value: {}".format(solution_str_full))
+        print("")
+        print("Extracted solution string:")
+        print("Type: {}".format(type(solution_str)))
+        print("Value: {}".format(solution_str))
+        print("")
+        print("Parsed test_answer used in evaluation:")
+        print("Type: {}".format(type(test_answer)))
+        print("Value: {}".format(test_answer))
+        print("")
+        print("Ground Truth:")
+        print("Full ground_truth dict: {}".format(ground_truth))
+        print("Train: (Type: {}) - Value: {}".format(type(ground_truth.get('train')), ground_truth.get('train')))
+        print("Test: (Type: {}) - Value: {}".format(type(ground_truth.get('test')), ground_truth.get('test')))
+        print("Test Answer (raw): (Type: {}) - Value: {}".format(type(ground_truth.get('test_answer')), ground_truth.get('test_answer')))
+        print("")
+        print("================================")
         raise e
     do_print = random.randint(1, 64) == 1
     
