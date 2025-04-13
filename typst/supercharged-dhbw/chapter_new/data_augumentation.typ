@@ -1,5 +1,6 @@
 #import "@preview/supercharged-dhbw:3.4.0": acr, acrf
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
+#import "../utils/note.typ": note
 
 #let data_augumentation = [
 
@@ -344,6 +345,12 @@ This optimized format systematically addresses multiple performance constraints:
 2. Computational efficiency through whitespace elimination
 3. Alignment with empirically validated model representation preferences, reducing cognitive dissonance during pattern identification and generation
 
+#note[
+Despite identifying the nested array format with delimiters as optimal for model comprehension, computational limitations forced a compromise. The semantically optimal variant generated 22,000-token prompts, creating unacceptable overhead during training on our dual H200 GPU setup and significantly slowing backpropagation.
+
+We implemented a hybrid format that preserved structural integrity while reducing computational demands by maintaining brackets for hierarchical structure but eliminating internal delimiters between numerical elements (e.g., `[[123],[456]]` instead of `[[1,2,3],[4,5,6]]`). This optimization substantially reduced token count while preserving essential spatial relationship processing capabilities.
+]
+
 == System Prompt Implementation
 
 Our investigation into prompt structure optimization extends to the fundamental mechanisms through which language models process sequential input during training procedures. While the structural elements of prompts establish semantic frameworks, their implementation within neural language model architectures requires token-level control mechanisms that directly interface with the model's generative processes.
@@ -355,6 +362,10 @@ Language models operate fundamentally as conditional probability distribution fu
 
 
 These control tokens (<|im_start|> and <|im_end|>) serve as attentional anchors within the model's representational space, establishing contextual boundaries that modulate next-token prediction dynamics. Unlike conventional interface abstractions, these tokens directly influence the attention mechanisms and hidden state transformations that govern the model's generative behavior. Each role designation (system, user, assistant) activates distinct parameter configurations encoded during the model's pre-training phase, effectively constraining the probability distribution toward role-appropriate output patterns.
+
+
+
+
 
 The full JSONL dataset of train, test, and train_answer pairs employing this prompt structure can be found on Hugging Face @lukhausen2025arcagi.
 
