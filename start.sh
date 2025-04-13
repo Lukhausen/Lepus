@@ -2,6 +2,8 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 
 echo "Starting Minimal TinyZero Setup..."
+apt update
+apt upgrade -y
 
 # --- 1. System Dependencies (Minimal - as root) ---
 echo "[1/6] Updating package lists and installing essential packages..."
@@ -102,7 +104,7 @@ echo "B. Prepare Data (while 'zero' env is active):"
 echo "   python ./examples/data_preprocess/arc_agi_two.py --local_dir ./data/arc_agi_two"
 echo ""
 echo "C. Set Environment Variables (while 'zero' env is active):"
-echo "   export N_GPUS=1"
+echo "   export N_GPUS=2"
 echo "   export BASE_MODEL=./models/Qwen2.5-3B"
 echo "   export DATA_DIR=./data/arc_agi_two"
 echo "   export ROLLOUT_TP_SIZE=1"

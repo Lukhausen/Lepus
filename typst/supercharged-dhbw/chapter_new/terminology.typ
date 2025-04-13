@@ -1,5 +1,5 @@
-#let introduction = [
-= Introduction
+#let terminology = [
+= Basic Terminology
 
 == Chain of Thought
 

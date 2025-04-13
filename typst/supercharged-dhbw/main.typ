@@ -16,6 +16,13 @@
 #import "chapter_new/conclusion.typ": conclusion
 #import "chapter_new/reward.typ" : reward
 #import "chapter_new/data_augumentation.typ": data_augumentation
+#import "chapter_new/previouse_methods.typ": previouse_methods
+#import "chapter_new/arcprize.typ": arcprize
+#import "chapter_new/our_approach.typ": our_approach  
+#import "chapter_new/terminology.typ": terminology
+#import "chapter_new/abstract.typ": abstract
+#import "chapter_new/use_of_ai.typ": use_of_ai
+
 
 #show: supercharged-dhbw.with(
   title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
@@ -38,11 +45,13 @@
   university: "Cooperative State University Baden-Württemberg",
   university-location: "Mannheim",
   university-short: "DHBW",
+  abstract: abstract,
   // for more options check the package documentation (https://typst.app/universe/package/supercharged-dhbw)
 )
 
 //Defining the quote block estetics
 #set quote(block: true)
+#set text(size: 10pt)
 #show quote: set pad(x: 3em)
 
 
@@ -87,15 +96,28 @@
 
 //conclusion 
 
+#use_of_ai  
+
+#terminology
 
 //Introduction
 #introduction
 
 //Background
 //#background
+#background 
 
 //Methodology
-#methodology
+#previouse_methods  
+
+#our_approach
+
+//Data Augumentation
+#data_augumentation
+
+
+//Reward
+#reward
 
 //Experimental
 #experimental
@@ -106,8 +128,4 @@
 //Conclusion
 #conclusion
 
-//Reward
-#reward
 
-//Data Augumentation
-#data_augumentation
