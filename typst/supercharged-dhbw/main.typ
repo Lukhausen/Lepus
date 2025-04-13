@@ -96,7 +96,6 @@
 
 //conclusion 
 
-= Use of AI in this Paper
 #use_of_ai  
 
 #terminology
