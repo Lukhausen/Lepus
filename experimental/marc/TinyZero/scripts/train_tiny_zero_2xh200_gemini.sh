@@ -44,7 +44,6 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.rollout.top_p=1.0 \
     actor_rollout_ref.rollout.top_k=-1 \
     \
-    actor_rollout_ref.ref.strategy='fsdp' \
     actor_rollout_ref.ref.fsdp_config.fsdp_size=-1 \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
     actor_rollout_ref.ref.log_prob_micro_batch_size=4 \
