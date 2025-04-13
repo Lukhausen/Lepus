@@ -46,6 +46,7 @@
 
 //Defining the quote block estetics
 #set quote(block: true)
+#set text(size: 10pt)
 #show quote: set pad(x: 3em)
 
 
