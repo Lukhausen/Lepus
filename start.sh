@@ -2,6 +2,8 @@
 set -e # Exit immediately if a command exits with a non-zero status.
 
 echo "Starting Minimal TinyZero Setup..."
+apt update
+apt upgrade -y
 
 # --- 1. System Dependencies (Minimal - as root) ---
 echo "[1/6] Updating package lists and installing essential packages..."
