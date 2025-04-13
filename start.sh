@@ -7,12 +7,12 @@ apt upgrade -y
 
 # --- 1. System Dependencies (Minimal - as root) ---
 echo "[1/6] Updating package lists and installing essential packages..."
-apt-get update > /dev/null # Suppress verbose output
+apt-get update > /dev/null  # Suppress verbose output
 apt-get install -y --no-install-recommends \
     git \
     git-lfs \
     curl \
-    ca-certificates > /dev/null # Suppress verbose output
+    ca-certificates > /dev/null  # Suppress verbose output
 echo "    Done."
 
 # Initialize Git LFS system-wide (needed before cloning LFS repos)
@@ -25,11 +25,11 @@ if [ ! -d "/opt/miniconda3" ]; then
     echo "    Downloading Miniconda..."
     curl -s -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh # -s for silent
     echo "    Installing Miniconda..."
-    bash ./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3 > /dev/null # Suppress verbose output
+    bash ./Miniconda3-latest-Linux-x86_64.sh -b -p /opt/miniconda3 # Suppress verbose output
     rm ./Miniconda3-latest-Linux-x86_64.sh # Clean up installer
     echo "    Initializing Conda for future sessions..."
     eval "$(/opt/miniconda3/bin/conda shell.bash hook)"
-    conda init bash > /dev/null # Suppress verbose output
+    conda init bash # Suppress verbose output
 else
     echo "    Miniconda already installed."
     eval "$(/opt/miniconda3/bin/conda shell.bash hook)" # Ensure conda command is available for this script
@@ -39,21 +39,15 @@ source ~/.bashrc
 echo "    Done."
 
 # --- 3. Project Repo Clone ---
-echo "[3/6] Cloning TinyZero repository..."
-# Check if the directory exists
-if [ ! -d "TinyZero" ]; then
-    git clone https://github.com/Lukhausen/Lepus.git > /dev/null
-else
-    echo "    TinyZero directory already exists."
-fi
-cd ./Lepus/experimental/marc/TinyZero/
+echo "[3/6] Navigating to TinyZero directory..."
+cd ./experimental/marc/TinyZero/
 echo "    Done. Current directory: $(pwd)"
 
 # --- 4. Conda Environment and Core Dependencies ---
 echo "[4/6] Creating/Updating Conda environment 'zero' and installing packages..."
 # Create the environment only if it doesn't exist
 if ! conda env list | grep -q '\bzero\b'; then
-    conda create -n zero python=3.9 -y > /dev/null
+    conda create -n zero python=3.9 -y
 else
     echo "    Conda environment 'zero' already exists."
 fi
