@@ -262,7 +262,7 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     # print("type_test_answer:"+str(type(test_answer)))
     # print("text_test_answer:"+str(test_answer))
     solution_str_alt = solution_str
-    solution_str = "[[3, 6, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 6, 6, 1, 6, 3, 3, 6, 3, 6, 6, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 6, 6, 6, 6, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 1, 3, 3, 3, 6, 3, 3, 3], [3, 6, 6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 6, 1, 6, 6, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], [3, 3, 3, 3, 6, 1, 1, 6, 3, 6, 3, 3, 3, 3, 3], [3, 3, 3, 3, 6, 6, 6, 6, 3, 6, 6, 6, 6, 6, 6], [3, 3, 6, 2, 6, 6, 6, 6, 0, 3, 6, 6, 6, 0, 1], [6, 6, 6, 3, 3, 3, 3, 3, 6, 6, 6, 3, 3, 3, 3], [1, 6, 6, 3, 3, 3, 3, 3, 1, 6, 3, 3, 3, 3, 3], [6, 6, 6, 3, 3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6], [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]"#extract_solution(solution_str)
+    solution_str = extract_solution(solution_str)
     try:
         score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
     except Exception as e:
@@ -278,9 +278,8 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     if do_print:
         print(f"--------------------------------")
         print(f"Target: {train} | Numbers: {test}")
-        print(f"Original answer: {solution_str_alt}")
         print(f"Extracted answer: {solution_str}")
-        print(f"Solution string: {solution_str}")
+        print(f"Solution string: {test_answer}")
         print(f"Score: {score}")
 
     return score
