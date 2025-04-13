@@ -21,6 +21,7 @@
 #import "chapter_new/our_approach.typ": our_approach  
 #import "chapter_new/terminology.typ": terminology
 #import "chapter_new/abstract.typ": abstract
+#import "chapter_new/use_of_ai.typ": use_of_ai
 
 
 #show: supercharged-dhbw.with(
@@ -96,6 +97,7 @@
 //conclusion 
 
 = Use of AI in this Paper
+#use_of_ai  
 
 #terminology
 
