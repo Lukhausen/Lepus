@@ -53,8 +53,8 @@ python3 -m verl.trainer.main_ppo \
     critic.model.path=$BASE_MODEL \
     critic.model.tokenizer_path=$BASE_MODEL \
     critic.model.enable_gradient_checkpointing=True \
-    critic.strategy='fsdp' \
-    critic.fsdp_config.fsdp_size=-1 \
+    critic.model.fsdp_config.fsdp_size=-1 \ 
+    critic.strategy='fsdp' \               
     critic.optim.lr=1e-5 \
     critic.ppo_epochs=1 \
     critic.ppo_mini_batch_size=64 \
