@@ -331,7 +331,7 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     solution_str_full = solution_str
     solution_str = extract_solution(solution_str)
     try:
-        score = evaluate_score(solution_str=solution_str, test_answer=test_answer, solution_str_full = solution_str_full, score_variant=RewardScoreVariants.V_CONTEXT)
+        score = evaluate_score(solution_str=solution_str, test_answer=test_answer, solution_str_full = solution_str_full, score_variant=RewardScoreVariants.NORMAL)
 
     except Exception as e:
         print("========== DEBUG INFO ==========")
