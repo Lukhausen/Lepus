@@ -176,7 +176,7 @@ def check_think_length(solution_str_full):
     score =  (np.exp(-k * ratio) - 1) / (np.exp(-k) - 1)
     return score 
 
-def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0.3, weight_content=0.7):
+def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0.1, weight_content=0.9):
 
     if solution_str == None:
         return 0.1
