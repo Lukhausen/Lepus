@@ -8,11 +8,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import logging
 import re
 from datasets import Dataset, load_dataset
-from random import randint, seed, choice
-from typing import List, Tuple
-from tqdm import tqdm
-from verl.utils.hdfs_io import copy, makedirs
-import argparse
 
 # Setup basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
