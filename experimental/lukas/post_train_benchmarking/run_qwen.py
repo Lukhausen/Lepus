@@ -15,7 +15,7 @@ def main():
     model_dir = os.path.join(script_dir, "qwen_2.5_7B_ARC_v0.2")
     prompt = "Explain the concept of artificial intelligence in simple terms."
     device_map = "auto" # Recommended for multi-GPU or large models
-    torch_dtype = torch.float16 # Good for performance on compatible GPUs
+    torch_dtype = torch.bfloat16 # Use bfloat16 instead of float16
     use_fast_tokenizer = False # As per original script, can help with compatibility
     trust_remote_code = True # Often required for models like Qwen
 
