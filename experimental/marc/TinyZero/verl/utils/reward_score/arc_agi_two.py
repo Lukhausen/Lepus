@@ -172,7 +172,8 @@ def check_think_length(solution_str_full):
         return 0
     
     ratio = min(len(final_answer)/10000,1)
-    score = ratio
+    k=5
+    score =  (np.exp(-k * ratio) - 1) / (np.exp(-k) - 1)
     return score 
 
 def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0.3, weight_content=0.7):
