@@ -1,42 +1,47 @@
 #!/bin/bash
 
-# 1. Install system packages (if already installed, this will do nothing)
+# ----- Install system packages -----
 sudo apt update
 sudo apt install -y python3 python3-pip python3-venv git git-lfs
 
-# 2. Initialize git-lfs
-git lfs install
+# Initialize Git LFS (if it's recognized by your system)
+git lfs install || echo "git-lfs not recognized. Ensure git-lfs is installed properly."
 
-# 3. Clone the Qwen 2.5 7B ARC v0.2 model repository (if not already present)
+# ----- Clone the model repo if not already present -----
 if [ ! -d "qwen_2.5_7B_ARC_v0.2" ]; then
   git clone https://huggingface.co/Lukhausen/qwen_2.5_7B_ARC_v0.2
   cd qwen_2.5_7B_ARC_v0.2
-  git lfs pull
+  git lfs pull || echo "git lfs pull failed. Large files might not be pulled."
   cd ..
 else
-  echo "The model repository qwen_2.5_7B_ARC_v0.2 already exists."
+  echo "Model repo qwen_2.5_7B_ARC_v0.2 already exists."
 fi
 
-# 4. Create and activate a virtual environment
+# ----- Create (if needed) and activate a Python virtual environment -----
 if [ ! -d "qwen_env" ]; then
   python3 -m venv qwen_env
 fi
 source qwen_env/bin/activate
 
-# 5. Upgrade pip and install required Python packages
+# ----- Upgrade pip -----
 pip install --upgrade pip
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install transformers accelerate huggingface_hub sentencepiece
 
-# 6. Create the run_qwen.py script
+# ----- Install required Python packages -----
+# You can adjust the Torch/CUDA version index URL if needed
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+
+# Transformers >= 4.37.0 supports Qwen; also installing protobuf explicitly
+pip install transformers>=4.37.0 accelerate huggingface_hub sentencepiece protobuf
+
+# ----- Create the run_qwen.py script (overwrite existing if any) -----
 cat << 'EOF' > run_qwen.py
 #!/usr/bin/env python3
-from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 def main():
     model_dir = "./qwen_2.5_7B_ARC_v0.2"
-    
+
     # Load tokenizer and model from local directory
     tokenizer = AutoTokenizer.from_pretrained(model_dir)
     model = AutoModelForCausalLM.from_pretrained(
@@ -67,8 +72,8 @@ if __name__ == "__main__":
     main()
 EOF
 
-# Make the Python script executable
+# Make run_qwen.py executable
 chmod +x run_qwen.py
 
-# 7. Run the script
+# ----- Run the script -----
 ./run_qwen.py
