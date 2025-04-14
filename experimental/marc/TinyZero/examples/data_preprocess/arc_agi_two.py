@@ -36,7 +36,7 @@ if __name__ == '__main__':
     parser.add_argument('--max_target', type=int, default=1000)
     parser.add_argument('--min_number', type=int, default=1)
     parser.add_argument('--max_number', type=int, default=100)
-    parser.add_argument('--train_size', type=int, default=29000)
+    parser.add_argument('--train_size', type=int, default=27000)
     parser.add_argument('--test_size', type=int, default=1024)
     parser.add_argument('--template_type', type=str, default='base')
 
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     TRAIN_SIZE = args.train_size
     TEST_SIZE = args.test_size
 
-    raw_dataset = load_dataset('Lukhausen/arc-agi-lepus-v1', split='train')
+    raw_dataset = load_dataset('Lukhausen/arc-agi-lepus-v1-easy', split='train')
     #print(raw_dataset)
 
     assert len(raw_dataset) > TRAIN_SIZE + TEST_SIZE
