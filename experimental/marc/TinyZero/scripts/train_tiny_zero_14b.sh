@@ -1,4 +1,4 @@
-export N_GPUS=2
+export N_GPUS=4
 export BASE_MODEL=./models/Qwen2.5-14B
 export DATA_DIR=./data/arc_agi_two
 export ROLLOUT_TP_SIZE=1
