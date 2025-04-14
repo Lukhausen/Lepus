@@ -46,7 +46,7 @@ if __name__ == '__main__':
     TRAIN_SIZE = args.train_size
     TEST_SIZE = args.test_size
 
-    raw_dataset = load_dataset('Lukhausen/arc-agi-lepus-v1', split='train')
+    raw_dataset = load_dataset('Lukhausen/arc-agi-lepus-v1-easy', split='train')
     #print(raw_dataset)
 
     assert len(raw_dataset) > TRAIN_SIZE + TEST_SIZE
