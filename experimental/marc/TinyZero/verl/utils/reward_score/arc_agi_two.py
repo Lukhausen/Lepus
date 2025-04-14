@@ -136,7 +136,7 @@ def compare_answers(solution_str, test_answer) -> float:
     
     # Mapping: Ist die similarity nicht exakt 1,
     # wird der Wert linear in den Bereich [0.1, 0.9] abgebildet.
-    k=5
+    k=4
     score = 0.1 + 0.8 * (np.exp(k * ratio) - 1) / (np.exp(k) - 1)
     # Falls der Score (aufgrund numerischer Effekte) etwas über 0.9 liegt, sichern wir den Maximalwert.
     score = min(score, 0.9)
