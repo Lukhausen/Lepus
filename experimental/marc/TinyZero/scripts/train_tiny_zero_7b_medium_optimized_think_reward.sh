@@ -1,5 +1,5 @@
 export N_GPUS=2
-export BASE_MODEL=./models/Qwen2.5-7B
+export BASE_MODEL=./checkpoints/TinyZero/arc_agi_two-qwen2.5-7B/actor/global_step_30
 export DATA_DIR=./data/arc_agi_two
 export ROLLOUT_TP_SIZE=1
 export EXPERIMENT_NAME=arc_agi_two-qwen2.5-7B_think_reward
