@@ -5,7 +5,7 @@ sudo apt update
 sudo apt install -y git git-lfs
 
 # Initialize Git LFS
-git lfs install || echo "Warning: git-lfs not recognized. Make sure Git LFS is installed properly."
+git lfs install || echo "Warning: git-lfs not recognized. Please ensure Git LFS is installed properly."
 
 # Clone the model repository if not already present
 if [ ! -d "qwen_2.5_7B_ARC_v0.2" ]; then
@@ -21,7 +21,7 @@ fi
 # Upgrade pip
 pip install --upgrade pip
 
-# Install required Python libraries globally (or into your user site)
+# Install required Python libraries globally
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install transformers>=4.37.0 accelerate huggingface_hub sentencepiece protobuf
 
