@@ -259,6 +259,7 @@ def main():
                 inputs = tokenizer(formatted_prompt, return_tensors="pt").to(model.device)
             except Exception as e:
                 logging.error(f"Failed to tokenize prompt: {e}")
+                print(f"Failed to tokenize prompt: {e}")
                 continue # Ask for input again
 
             # Generate
@@ -296,6 +297,7 @@ def main():
 
             except Exception as e:
                 logging.error(f"Error during generation or decoding: {e}")
+                print(f"Error during generation or decoding: {e}")
             
         if wrong_task == 0 and correct_task == len(task["test"]):
             correct = correct + 1
