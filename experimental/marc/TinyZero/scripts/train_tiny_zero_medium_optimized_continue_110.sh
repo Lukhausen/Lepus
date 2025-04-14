@@ -1,8 +1,8 @@
 export N_GPUS=2
-export BASE_MODEL=./models/Qwen2.5-3B
+export BASE_MODEL=./checkpoints/TinyZero/arc_agi_two-qwen2.5-3B/actor/global_step_110
 export DATA_DIR=./data/arc_agi_two
 export ROLLOUT_TP_SIZE=1
-export EXPERIMENT_NAME=arc_agi_two-qwen2.5-3B
+export EXPERIMENT_NAME=arc_agi_two-qwen2.5-3B-continue-110
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export WANDB_API_KEY="724a473f54d00ed3c8fab36dc7abf32c23523360"
 
@@ -42,8 +42,8 @@ python3 -m verl.trainer.main_ppo \
     trainer.default_hdfs_dir=null \
     trainer.n_gpus_per_node=$N_GPUS \
     trainer.nnodes=1 \
-    trainer.save_freq=10 \
-    trainer.test_freq=10 \
+    trainer.save_freq=30 \
+    trainer.test_freq=30 \
     trainer.project_name=TinyZero \
     trainer.experiment_name=$EXPERIMENT_NAME \
     trainer.total_epochs=15 2>&1 | tee verl_demo.log

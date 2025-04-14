@@ -1,3 +1,4 @@
 .env*
 modded_tasks/
 formatted_arc_tasks_custom.jsonl
+models/
