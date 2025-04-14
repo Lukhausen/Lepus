@@ -152,8 +152,30 @@ def convert_and_return_value(solution_str):
     except Exception as error:
         # Sollte es einen Fehler geben, geben wir 0.1 zurück
         return 0.1
+    
+def check_think_length(solution_str_full):
+    if "Assistant:" in solution_str_full:
+        solution_str_full = solution_str_full.split("Assistant:", 1)[1]
+    elif "<|im_start|>assistant" in solution_str_full:
+        solution_str_full = solution_str_full.split("<|im_start|>assistant", 1)[1]
+    else:
+        return 0
+    answer_pattern = r'<think>(.*?)</think>'
+    length = 10000
+    # Find all matches in the string (using DOTALL if multiline content is expected)
+    matches = list(re.finditer(answer_pattern, solution_str_full, flags=re.DOTALL))
+    
+    # If at least one match exists, use the last one; otherwise, return None.
+    if matches:
+        final_answer = matches[-1].group(1).strip()
+    else:
+        return 0
+    
+    ratio = min(len(final_answer)/10000,1)
+    score = ratio
+    return score 
 
-def evaluate_score(solution_str, test_answer, weight_syntax=0.3, weight_content=0.7):
+def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0.3, weight_content=0.7):
 
     if solution_str == None:
         return 0.1
@@ -161,8 +183,16 @@ def evaluate_score(solution_str, test_answer, weight_syntax=0.3, weight_content=
     syntax_score = evaluate_grid_similarity(solution_str, test_answer)
     
     content_score = compare_answers(solution_str, test_answer)
+
+    if True:
+        think_score = check_think_length(solution_str_full)
+        weight_syntax = 0.1
+        weight_content = 0.5
+        weight_think = 0.4
+        combined_score = weight_think *think_score + weight_syntax * syntax_score + weight_content * content_score
+    else:
+        combined_score = weight_syntax * syntax_score + weight_content * content_score
     
-    combined_score = weight_syntax * syntax_score + weight_content * content_score
     return combined_score
 
 def extract_solution(solution_str):
@@ -253,6 +283,12 @@ def evaluate_equation(equation_str):
         return result
     except Exception as e:
         return None
+    
+
+    
+
+
+    
 
 
 def compute_score(solution_str, ground_truth, method='strict', format_score=0.1, score=1.):
@@ -281,7 +317,8 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     solution_str_full = solution_str
     solution_str = extract_solution(solution_str)
     try:
-        score = evaluate_score(solution_str=solution_str, test_answer=test_answer)
+        score = evaluate_score(solution_str=solution_str, test_answer=test_answer, solution_str_full = solution_str_full)
+
     except Exception as e:
         print("========== DEBUG INFO ==========")
         print("Exception encountered during score evaluation:")
@@ -325,162 +362,162 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
 
     return score
     
-# if __name__ == "__main__":
-#     solution_str = "[ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 7, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 7, 0, 7, 0, 0, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]"
-#     #solution_str = "[ [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ], [ 2, 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]"
-#     #solution_str = "[ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ]"
-#     #solution_str = "[ [ 3, 2, 3, , 2 ], [ 7,  8, 7, 8 ], 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 8, 7, 8, 7, 8 ] ]"
-#     #solution_str = "[ [ 3, 2, 3, 5, 3, 2 ], [ 7, 8, 7, 9, 9, 8 ], [ 2, 3, 0, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]"
-#     solution_str = """<|im_start|>system
-# You will be provided with example inputs and outputs.
-#         Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>
-# <|im_start|>user
-#  ### Train Example 1:
-# Input:
-# [[22222222229199],
-# [99922991229919],
-# [99922199221919],
-# [22222919229999],
-# [22222999222222],
-# [22222222222222],
-# [99922222222222],
-# [19922229999222],
-# [99922229199222],
-# [22222229919222],
-# [22999229999222],
-# [22999222222222],
-# [22919222222222],
-# [22999222222222]]
+if __name__ == "__main__":
+    solution_str = "[ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 0, 0, 7, 0, 7, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 0, 7, 0, 7, 0, 0, 0, 7 ], [ 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]"
+    #solution_str = "[ [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ], [ 2, 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]"
+    #solution_str = "[ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ]"
+    #solution_str = "[ [ 3, 2, 3, , 2 ], [ 7,  8, 7, 8 ], 3, 2, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 8, 7, 8, 7, 8 ] ]"
+    #solution_str = "[ [ 3, 2, 3, 5, 3, 2 ], [ 7, 8, 7, 9, 9, 8 ], [ 2, 3, 0, 3, 2, 3 ], [ 8, 7, 8, 7, 8, 7 ], [ 3, 2, 3, 2, 3, 2 ], [ 7, 8, 7, 8, 7, 8 ] ]"
+    solution_str = """<|im_start|>system
+You will be provided with example inputs and outputs.
+        Analyze the train examples. Your goal is to find common transformation patterns among those and apply the found patterns to the test input to create the test output.<|im_end|>
+<|im_start|>user
+ ### Train Example 1:
+Input:
+[[22222222229199],
+[99922991229919],
+[99922199221919],
+[22222919229999],
+[22222999222222],
+[22222222222222],
+[99922222222222],
+[19922229999222],
+[99922229199222],
+[22222229919222],
+[22999229999222],
+[22999222222222],
+[22919222222222],
+[22999222222222]]
 
-# Output:
-# [[22222222222222],
-# [99922222222222],
-# [99922222222222],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222],
-# [99922222222222],
-# [19922222222222],
-# [99922222222222],
-# [22222222222222],
-# [22999222222222],
-# [22999222222222],
-# [22919222222222],
-# [22999222222222]]
+Output:
+[[22222222222222],
+[99922222222222],
+[99922222222222],
+[22222222222222],
+[22222222222222],
+[22222222222222],
+[99922222222222],
+[19922222222222],
+[99922222222222],
+[22222222222222],
+[22999222222222],
+[22999222222222],
+[22919222222222],
+[22999222222222]]
 
-# ### Train Example 2:
-# Input:
-# [[22222999222222],
-# [22222919222222],
-# [22192999222222],
-# [22992222222222],
-# [22222222299992],
-# [22222222299992],
-# [22991922299192],
-# [22919922222222],
-# [22999122222222],
-# [22222222222222],
-# [29122221992222],
-# [21922229992222],
-# [29922229192222],
-# [22222222222222]]
+### Train Example 2:
+Input:
+[[22222999222222],
+[22222919222222],
+[22192999222222],
+[22992222222222],
+[22222222299992],
+[22222222299992],
+[22991922299192],
+[22919922222222],
+[22999122222222],
+[22222222222222],
+[29122221992222],
+[21922229992222],
+[29922229192222],
+[22222222222222]]
 
-# Output:
-# [[22222999222222],
-# [22222919222222],
-# [22192999222222],
-# [22992222222222],
-# [22222222299992],
-# [22222222299992],
-# [22222222299192],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222],
-# [22222222222222]]
+Output:
+[[22222999222222],
+[22222919222222],
+[22192999222222],
+[22992222222222],
+[22222222299992],
+[22222222299992],
+[22222222299192],
+[22222222222222],
+[22222222222222],
+[22222222222222],
+[22222222222222],
+[22222222222222],
+[22222222222222],
+[22222222222222]]
 
-# ### Train Example 3:
-# Input:
-# [[2229992222222],
-# [2229992222222],
-# [9129192222222],
-# [1929992221991],
-# [2222222229199],
-# [2222222229991],
-# [9199222222222],
-# [9991222222222],
-# [9999229992222],
-# [9199229192999],
-# [2222221992999],
-# [2999229912999],
-# [2999229992999],
-# [2919222222222],
-# [2999222222222]]
+### Train Example 3:
+Input:
+[[2229992222222],
+[2229992222222],
+[9129192222222],
+[1929992221991],
+[2222222229199],
+[2222222229991],
+[9199222222222],
+[9991222222222],
+[9999229992222],
+[9199229192999],
+[2222221992999],
+[2999229912999],
+[2999229992999],
+[2919222222222],
+[2999222222222]]
 
-# Output:
-# [[2229992222222],
-# [2229992222222],
-# [2229192222222],
-# [2229992222222],
-# [2222222222222],
-# [2222222222222],
-# [2222222222222],
-# [2222222222222],
-# [2222222222222],
-# [2222222222999],
-# [2222222222999],
-# [2999222222999],
-# [2999222222999],
-# [2919222222222],
-# [2999222222222]]
+Output:
+[[2229992222222],
+[2229992222222],
+[2229192222222],
+[2229992222222],
+[2222222222222],
+[2222222222222],
+[2222222222222],
+[2222222222222],
+[2222222222222],
+[2222222222999],
+[2222222222999],
+[2999222222999],
+[2999222222999],
+[2919222222222],
+[2999222222222]]
 
 
-#  ### Test Input:
-# [[9912229999222],
-# [9992229199299],
-# [1912229999299],
-# [9992229999299],
-# [2222222222222],
-# [2229919299992],
-# [2229999291992],
-# [2221999299992],
-# [2222222299992],
-# [2999222299192],
-# [2999222299992],
-# [2919222222222]]
+ ### Test Input:
+[[9912229999222],
+[9992229199299],
+[1912229999299],
+[9992229999299],
+[2222222222222],
+[2229919299992],
+[2229999291992],
+[2221999299992],
+[2222222299992],
+[2999222299192],
+[2999222299992],
+[2919222222222]]
 
-#  Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <output> </output> tags as a nested list.<|im_end|>
-# <|im_start|>assistant
-# <think>
-# Let me solve this step by step. 1). The first transformation of the 1st row is a transformed of the 2nd row by swapping the "2" and "9" element and modifying the "9" element to "9". 2).Similarly, the first transformation of the 2nd column is swapping "1" and "2" and replacing "2" with "9". 3). In the 3rd and 4th columns, "9" in the original item is replaced by "2". 4). Corresponding position in the 5th sequence is transformed as follow: 5). Both the 5th row and the 5th column are fluxed from 9 to 2. 6). For 7th to 10th column, each element is exchanged with "1" and "9" is replaced with "2". 7). Likewise, in the middle and left columns, the "2" in original item is exchanged with 9. </think>
+ Figure out how to create the test output. Use <think> </think> tags to reason about the problem. Return the final answer in <output> </output> tags as a nested list.<|im_end|>
+<|im_start|>assistant
+<think>
+Let me solve this step by step. 1). The first transformation of the 1st row is a transformed of the 2nd row by swapping the "2" and "9" element and modifying the "9" element to "9". 2).Similarly, the first transformation of the 2nd column is swapping "1" and "2" and replacing "2" with "9". 3). In the 3rd and 4th columns, "9" in the original item is replaced by "2". 4). Corresponding position in the 5th sequence is transformed as follow: 5). Both the 5th row and the 5th column are fluxed from 9 to 2. 6). For 7th to 10th column, each element is exchanged with "1" and "9" is replaced with "2". 7). Likewise, in the middle and left columns, the "2" in original item is exchanged with 9. </think>
 
-#  <output>
+ <output>
 
-# [{"1929992222222", "9199229192999", "1022222199222", "29922229919222", "9199222222222", "9992229999222",
-#   "2229992222222", "2229992222222", "2299222222222", "2229192222222", "9992229199299",
-#   "1912229999299", "9992229999299", "2222222222222", "2229919299992", "2229999291992",
-#   "2221999299992", "2222222299992", "2999222299192", "2999222299992",
-#   "2919222222222"}]
+[{"1929992222222", "9199229192999", "1022222199222", "29922229919222", "9199222222222", "9992229999222",
+  "2229992222222", "2229992222222", "2299222222222", "2229192222222", "9992229199299",
+  "1912229999299", "9992229999299", "2222222222222", "2229919299992", "2229999291992",
+  "2221999299992", "2222222299992", "2999222299192", "2999222299992",
+  "2919222222222"}]
 
-# </output><|endoftext|>"""
-#     ground_truth = {
-#         "train":'[ { "input": [ [ 7, 9 ], [ 4, 3 ] ], "output": [ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ] }, { "input": [ [ 8, 6 ], [ 6, 4 ] ], "output": [ [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ], [ 6, 8, 6, 8, 6, 8 ], [ 4, 6, 4, 6, 4, 6 ], [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ] ] } ]',
-#         "test":'[ [ 3, 2 ], [ 7, 8 ] ]',
-#         "test_answer": np.array([np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]),
-# np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 9]),
-# np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 9]),
-# np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 9]),
-# np.array([9, 2, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 9]),
-# np.array([9, 3, 2, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 9]),
-# np.array([9, 3, 3, 8, 3, 3, 3, 8, 3, 3, 3, 3, 3, 9]),
-# np.array([9, 3, 3, 3, 8, 3, 8, 3, 3, 3, 3, 3, 3, 9]),
-# np.array([9, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 9]),
-# np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
-# np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
-# np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
-# np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
-# np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9])])
-#     }
-#     compute_score(solution_str, ground_truth)
+</output><|endoftext|>"""
+    ground_truth = {
+        "train":'[ { "input": [ [ 7, 9 ], [ 4, 3 ] ], "output": [ [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ], [ 9, 7, 9, 7, 9, 7 ], [ 3, 4, 3, 4, 3, 4 ], [ 7, 9, 7, 9, 7, 9 ], [ 4, 3, 4, 3, 4, 3 ] ] }, { "input": [ [ 8, 6 ], [ 6, 4 ] ], "output": [ [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ], [ 6, 8, 6, 8, 6, 8 ], [ 4, 6, 4, 6, 4, 6 ], [ 8, 6, 8, 6, 8, 6 ], [ 6, 4, 6, 4, 6, 4 ] ] } ]',
+        "test":'[ [ 3, 2 ], [ 7, 8 ] ]',
+        "test_answer": np.array([np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 9]),
+np.array([9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 9]),
+np.array([9, 2, 3, 3, 3, 3, 3, 3, 3, 8, 3, 3, 3, 9]),
+np.array([9, 3, 2, 3, 3, 3, 3, 3, 8, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 8, 3, 3, 3, 8, 3, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 3, 8, 3, 8, 3, 3, 3, 3, 3, 3, 9]),
+np.array([9, 3, 3, 3, 3, 8, 3, 3, 3, 3, 3, 3, 3, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]),
+np.array([9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9])])
+    }
+    compute_score(solution_str, ground_truth)
