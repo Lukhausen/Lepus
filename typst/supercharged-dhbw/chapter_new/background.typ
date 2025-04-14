@@ -126,14 +126,17 @@ Our initial experiments utilized the ARC-AGI-1 Dataset. However, with the releas
  ("GPT-4o", "0.0%", "4.5%"),
  ("GPT-4o-mini", "0.0%", "N/A"),
 )
-
-#table(
+#figure(
+table(
  columns: (1fr, auto, auto),
  table.header(
  [*Model* #footnote("Multiple other models and approaches were omitted to reduce the table length, yet no models with higher scores were omitted.")], [*ARC-AGI-2 Score*], [ARC-AGI-1 Score],
  ),
-  ..models.flatten()
-) 
+  ..models.flatten(),
+),
+caption: [The current ARC AGI Leaderboard. @arcprize_leaderboard]
+) <arc_leaderboard>
+
   == Investigation of Prompt Engineering Efficacy
 
 To evaluate prompt engineering's potential for improving abstract reasoning capabilities, we implemented a systematic evaluation framework using two distinct prompting strategies across all 120 ARC-AGI-2 evaluation tasks.
