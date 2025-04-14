@@ -1,40 +1,74 @@
 #!/bin/bash
 
-echo "🚀 Starting Qwen 2.5 7B ARC v0.2 setup..."
+# 1. Install system packages (if already installed, this will do nothing)
+sudo apt update
+sudo apt install -y python3 python3-pip python3-venv git git-lfs
 
-# Set environment name
-ENV_NAME="qwen_env"
+# 2. Initialize git-lfs
+git lfs install
 
-# Install system dependencies (optional, comment out if already done)
-echo "📦 Installing basic system tools..."
-sudo apt update && sudo apt install -y python3 python3-pip python3-venv git
-
-# Create virtual environment if it doesn't exist
-if [ ! -d "$ENV_NAME" ]; then
-    echo "🐍 Creating Python virtual environment: $ENV_NAME"
-    python3 -m venv $ENV_NAME
+# 3. Clone the Qwen 2.5 7B ARC v0.2 model repository (if not already present)
+if [ ! -d "qwen_2.5_7B_ARC_v0.2" ]; then
+  git clone https://huggingface.co/Lukhausen/qwen_2.5_7B_ARC_v0.2
+  cd qwen_2.5_7B_ARC_v0.2
+  git lfs pull
+  cd ..
 else
-    echo "✅ Virtual environment already exists."
+  echo "The model repository qwen_2.5_7B_ARC_v0.2 already exists."
 fi
 
-# Activate the virtual environment
-echo "🔁 Activating virtual environment..."
-source $ENV_NAME/bin/activate
+# 4. Create and activate a virtual environment
+if [ ! -d "qwen_env" ]; then
+  python3 -m venv qwen_env
+fi
+source qwen_env/bin/activate
 
-# Upgrade pip
+# 5. Upgrade pip and install required Python packages
 pip install --upgrade pip
-
-# Install required Python packages
-echo "📦 Installing Python dependencies..."
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install transformers>=4.37.0 accelerate huggingface_hub sentencepiece
+pip install transformers accelerate huggingface_hub sentencepiece
 
-# Check if the run script exists
-if [ ! -f "run_qwen.py" ]; then
-    echo "❌ run_qwen.py not found! Please create it in the same directory."
-    exit 1
-fi
+# 6. Create the run_qwen.py script
+cat << 'EOF' > run_qwen.py
+#!/usr/bin/env python3
+from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 
-# Run the Python script
-echo "🚀 Running Qwen 2.5 7B ARC v0.2 model..."
-python run_qwen.py
+def main():
+    model_dir = "./qwen_2.5_7B_ARC_v0.2"
+    
+    # Load tokenizer and model from local directory
+    tokenizer = AutoTokenizer.from_pretrained(model_dir)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_dir,
+        device_map="auto",
+        torch_dtype=torch.float16
+    )
+
+    # Simple preset prompt
+    prompt = "Explain the concept of artificial intelligence in simple terms."
+
+    # Generate output
+    inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+    with torch.no_grad():
+        output_ids = model.generate(
+            **inputs,
+            max_new_tokens=200,
+            temperature=0.7,
+            top_p=0.9,
+            do_sample=True
+        )
+
+    # Decode and print the response
+    response = tokenizer.decode(output_ids[0], skip_special_tokens=True)
+    print("Response:\n", response)
+
+if __name__ == "__main__":
+    main()
+EOF
+
+# Make the Python script executable
+chmod +x run_qwen.py
+
+# 7. Run the script
+./run_qwen.py
