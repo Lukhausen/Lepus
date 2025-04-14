@@ -6,6 +6,12 @@ import numpy as np
 import operator
 import math
 from difflib import SequenceMatcher
+from enum import Enum
+
+class RewardScoreVariants(Enum):
+    THINK = 1
+    V_CONTEXT = 2
+    NORMAL = 3
 
 def evaluate_grid_similarity(solution_str, test_answer):
 
@@ -176,7 +182,7 @@ def check_think_length(solution_str_full):
     score =  (np.exp(-k * ratio) - 1) / (np.exp(-k) - 1)
     return score 
 
-def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0.1, weight_content=0.9):
+def evaluate_score(solution_str, test_answer, solution_str_full, score_variant= RewardScoreVariants.NORMAL):
 
     if solution_str == None:
         return 0.1
@@ -185,17 +191,24 @@ def evaluate_score(solution_str, test_answer, solution_str_full, weight_syntax=0
     
     content_score = compare_answers(solution_str, test_answer)
 
-    if True:
+    if score_variant == RewardScoreVariants.THINK:
         think_score = check_think_length(solution_str_full)
         weight_syntax = 0.1
         weight_content = 0.5
         weight_think = 0.4
-        combined_score = weight_think *think_score + weight_syntax * syntax_score + weight_content * content_score
+        return weight_think *think_score + weight_syntax * syntax_score + weight_content * content_score
+    elif score_variant == RewardScoreVariants.NORMAL:
+        weight_syntax = 0.1
+        weight_content = 0.9
+        return weight_syntax * syntax_score + weight_content * content_score
+    elif score_variant == RewardScoreVariants.V_CONTEXT:
+        return content_score
     else:
-        combined_score = weight_syntax * syntax_score + weight_content * content_score
+        weight_syntax = 0.1
+        weight_content = 0.9
+        return weight_syntax * syntax_score + weight_content * content_score
     
-    return combined_score
-
+    
 def extract_solution(solution_str):
     """Extract the equation from the solution string."""
     # Remove everything before the first "Assistant:"
@@ -318,7 +331,7 @@ def compute_score(solution_str, ground_truth, method='strict', format_score=0.1,
     solution_str_full = solution_str
     solution_str = extract_solution(solution_str)
     try:
-        score = evaluate_score(solution_str=solution_str, test_answer=test_answer, solution_str_full = solution_str_full)
+        score = evaluate_score(solution_str=solution_str, test_answer=test_answer, solution_str_full = solution_str_full, score_variant=RewardScoreVariants.V_CONTEXT)
 
     except Exception as e:
         print("========== DEBUG INFO ==========")
