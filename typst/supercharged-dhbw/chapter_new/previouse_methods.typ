@@ -25,7 +25,7 @@
     ..models_2.flatten(),
   ),
   caption: [The current top 5 of the ARC AGI Leaderboard. @arcprize_leaderboard]
-)
+) 
 
 Besides the Openai Models, which are closed source and do not lay open their workings, there are two independed teams, namely the "ARChitects" and "Icecuber" havin suceeded in reaching high scores for both the ARC AGI 1 and the ARC AGI 2 Benchmark. In This section of the paper we will investigate their approches.
 
