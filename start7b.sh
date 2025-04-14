@@ -68,18 +68,18 @@ conda deactivate
 echo "    Done. Python packages installed into 'zero' environment."
 
 # --- 5. Model Download (using Git LFS) ---
-echo "[5/6] Downloading Qwen2.5-3B model (if needed)..."
+echo "[5/6] Downloading Qwen2.5-7B model (if needed)..."
 mkdir -p models/
 # Check if model directory exists before cloning
-if [ ! -d "models/Qwen2.5-3B/.git" ]; then # Check for .git to be more robust
+if [ ! -d "models/Qwen2.5-7B/.git" ]; then # Check for .git to be more robust
     cd models/
     echo "    Cloning model repo (this uses LFS and may take time)..."
     # Clone the model - Git LFS is essential here
-    git lfs clone https://huggingface.co/Qwen/Qwen2.5-3B # Keep output for progress
+    git lfs clone https://huggingface.co/Qwen/Qwen2.5-7B # Keep output for progress
     cd ../ # Go back to TinyZero project root
     echo "    Model download complete."
 else
-    echo "    Model directory models/Qwen2.5-3B already exists."
+    echo "    Model directory models/Qwen2.5-7B already exists."
 fi
 
 # --- 6. Final Instructions ---
@@ -99,10 +99,10 @@ echo "   python ./examples/data_preprocess/arc_agi_two.py --local_dir ./data/arc
 echo ""
 echo "C. Set Environment Variables (while 'zero' env is active):"
 echo "   export N_GPUS=2"
-echo "   export BASE_MODEL=./models/Qwen2.5-3B"
+echo "   export BASE_MODEL=./models/Qwen2.5-7B"
 echo "   export DATA_DIR=./data/arc_agi_two"
 echo "   export ROLLOUT_TP_SIZE=1"
-echo "   export EXPERIMENT_NAME=arc_agi_two-qwen2.5-3B"
+echo "   export EXPERIMENT_NAME=arc_agi_two-qwen2.5-7B"
 echo "   export VLLM_ATTENTION_BACKEND=XFORMERS"
 echo "   export WANDB_API_KEY=\"724a473f54d00ed3c8fab36dc7abf32c23523360\"" # Using provided key
 echo "   (Optional, for low VRAM GPUs): export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True"

@@ -1,8 +1,8 @@
 export N_GPUS=2
-export BASE_MODEL=./models/Qwen2.5-3B
+export BASE_MODEL=./models/Qwen2.5-7B
 export DATA_DIR=./data/arc_agi_two
 export ROLLOUT_TP_SIZE=1
-export EXPERIMENT_NAME=arc_agi_two-qwen2.5-3B
+export EXPERIMENT_NAME=arc_agi_two-qwen2.5-7B
 export VLLM_ATTENTION_BACKEND=XFORMERS
 export WANDB_API_KEY="724a473f54d00ed3c8fab36dc7abf32c23523360"
 
