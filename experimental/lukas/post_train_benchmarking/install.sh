@@ -21,6 +21,9 @@ fi
 # Upgrade pip
 pip install --upgrade pip
 
+# Upgrade safetensors to help avoid header deserialization issues
+pip install --upgrade safetensors
+
 # Install required Python libraries globally
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 pip install transformers>=4.37.0 accelerate huggingface_hub sentencepiece protobuf

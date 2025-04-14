@@ -6,8 +6,8 @@ def main():
     # Path to the locally downloaded model repository
     model_dir = "./qwen_2.5_7B_ARC_v0.2"
 
-    # Load the tokenizer and model from the local directory using non-fast tokenizer
-    # and trusting the remote code provided in the repository.
+    # Load the tokenizer and model from the local directory
+    # Using non-fast tokenizer and trusting the remote code helps in custom implementations
     tokenizer = AutoTokenizer.from_pretrained(
         model_dir,
         use_fast=False,
@@ -15,8 +15,8 @@ def main():
     )
     model = AutoModelForCausalLM.from_pretrained(
         model_dir,
-        device_map="auto",         # Automatically allocate layers to available GPUs
-        torch_dtype=torch.float16, # Use half-precision for efficiency
+        device_map="auto",
+        torch_dtype=torch.float16,
         trust_remote_code=True
     )
 
@@ -24,7 +24,7 @@ def main():
     prompt = "Explain the concept of artificial intelligence in simple terms."
     print("Prompt:", prompt)
     
-    # Tokenize the prompt and move to GPU
+    # Tokenize the prompt and send the input tensors to GPU
     inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
     
     # Generate output from the model
