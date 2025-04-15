@@ -23,6 +23,7 @@
 #import "chapter_new/abstract.typ": abstract
 #import "chapter_new/use_of_ai.typ": use_of_ai
 #import "chapter_new/post_training_benchmark.typ": post_training_benchmark
+#import "chapter_new/limitations.typ": limitations
 
 
 #show: supercharged-dhbw.with(
@@ -124,6 +125,7 @@
 
 #post_training_benchmark
 
+#limitations
 
 //Conclusion
 #conclusion
