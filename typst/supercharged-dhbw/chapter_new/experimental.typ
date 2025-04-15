@@ -68,12 +68,13 @@ By transitioning from Windows to a Linux-based on-demand cloud instance, automat
 
 After Prparing the Traing data, setting up the Reward fucntion and Tungin the Hyperparmeters, we were ready to start training the model using 2 H200SMX5 with a total of 282GB GPU VRAM we started with the first run, using a 3-billion-parameter model. However, iwe did not observe the desired emergent behaviour of rasoning to com to a concolusion, as it primarily optimized for the critic score, and basically hacked the reward fuction. We had assigned 0.3 for structure reward and 0.7 for content reward. The model realized it could easily achieve the structure reward by producing the correct grid size and the correct format using output brackets ($"<output></output>"$) aand a nested array. It heavily optimized for this, resulting in a completely fixed and ineffective thinking pattern—essentially useless and utter nonsense, as shown in the display below. 
 
-#figure(
-  image("../assets/screenshots/example_tokenization_4.png", width: 90%)
+#figure(caption: [Mean Critic Rewards Left and Models Response Length right for the first traing run with a 3B model @hausen2025tinyzero],
+
+  image("../assets/screenshots/train_1.png", width: 100%)
 )
 
 #figure(
-  caption: "Exmaple of Local Minimum thinking pattern",
+  caption: "Exmaple of Local Minimum thinking pattern. This pattern was present in all outputs of the model",
   sourcecode[```
 <think>
 Let me solve this step by step. 1. I'll compare the input and output for each example. 2. I'll look for common patterns in the number changes. 3. I'll try to find the transformation pattern. 4. I'll apply that pattern to the test input.
@@ -83,9 +84,13 @@ Let me solve this step by step. 1. I'll compare the input and output for each ex
     ```],
 )
 
-After stopping this run, we considered two possibilities: either the reward score wasn't well-balanced, or we were essentially trying to teach a hamster to fly—meaning the model size was too small to grasp the reasoning needed to boost the content reward score. The minimum content reward was 0.1, which led the critic reward to max out at 0.4, as the model fully understood the 0.3 portion and often produced a correct output structure. However, it didn’t understand how to improve the content within that structure to reach higher scores.
+After stopping this run, we considered two possibilities: either the reward score wasn't well-balanced, or we were essentially trying to teach a hamster to fly—meaning the model size was too small to grasp the reasoning needed to boost the content reward score. The same issue with the limited capability of the model to grasp reasoning tasks is also showcased by Jian Pan and his Project. @pan2025tinyzero_run @pan2025tinyzero The minimum structre reward was 0.1 for the model and the maximum the model could archive by only getting the structre right was 0.3 for teh structre componet. as the minim content reward awas 0.1 this added up to 0.4 This is why the critic reward is visibly capped at 0.4. it didn’t understand how to improve the content within that structure to reach higher scores.
 
 To test both hypotheses, we took a checkpoint of the model and modified the reward function to decrease the reward for correct output structure. We assigned 0.1 for structure and 0.9 for content. After running this version for a little over three hours and approximately 80 steps, we canceled it. The critic showed no signs of improvement, and the response length remained consistently flat.
+
+#figure(caption: [Stagnant Critic response and rsagnant Response length],
+  image("../assets/screenshots/stagnant_critic_chart.png", width: 100%)
+)
 
 This led us to conclude that a 3-billion-parameter model lacks the inherent capability to learn the type of reasoning required for ARC tasks. After some consideration, we decided to use a 7-billion-parameter model and repeat the process.
 
