@@ -117,7 +117,7 @@ After just 10 steps with the modified reward function, we observed significant i
 
 #figure(
   caption: "Example of increased reasoning length through modified reward function",
-  sourcecode[```
+  ```
 <think>
 Let me solve this step by step. 1. I observe that in each train example, the input is a 2-dimensional list with varying number of rows and two elements in each row. 2. The output pattern is that each row of the input is duplicated one or more times to create the corresponding row of the output. 3. The number of times a row is duplicated in the output seems to be related to the number of digits in the elements of the row - the more digits, the more times it seems to be duplicated. 4. However, the row at the top of the input ("3999" in this example) is never duplicated. Applying these observations to the test input, I see that:
 - The top row ("3999") should not be duplicated in the output.
@@ -126,7 +126,7 @@ Let me solve this step by step. 1. I observe that in each train example, the inp
 - The fourth row ("9964") has four digits, so it should be duplicated four times in the output.
 - The bottom row ("9994") has four digits, so it should be duplicated four times in the output.
 </think>
-```],
+```,
 )
 
 After successfully increasing the reasoning elaboration, we transitioned to a purely content-based reward function to encourage meaningful reasoning rather than merely verbose output.
@@ -171,6 +171,8 @@ Let me solve this step by step.
 )
 
 The model developed a meta-cognitive pattern of thinking about how to think, rather than applying reasoning to the specific task. Instead of engaging with the problem content, it generated increasingly lengthy pseudo-reasoning chains devoid of task-relevant information or insights.
+
+Upon reverting to our standard reward configuration (10% for structure and 90% for content), the model persistently maintained its non-substantive reasoning patterns without demonstrating performance improvements. We attribute this phenomenon to premature convergence during initial training phases, which appears to have constrained the model's optimization trajectory to a suboptimal local minimum in the parameter space. This early fixation potentially impeded the model's capacity to explore more promising regions of the solution landscape, effectively crystallizing ineffective reasoning strategies that proved resistant to subsequent refinement efforts. This observation underscores a fundamental challenge in reinforcement learning for complex reasoning tasks: maintaining sufficient exploration capabilities throughout the optimization process to avoid entrapment in suboptimal solution manifolds.
 
 
 ]
