@@ -88,7 +88,7 @@ After stopping this run, we considered two possibilities: either the reward scor
 
 To test both hypotheses, we took a checkpoint of the model and modified the reward function to decrease the reward for correct output structure. We assigned 0.1 for structure and 0.9 for content. After running this version for a little over three hours and approximately 80 steps, we canceled it. The critic showed no signs of improvement, and the response length remained consistently flat.
 
-#figure(caption: [Stagnant Critic response and rsagnant Response length],
+#figure(caption: [Stagnant Critic response and rsagnant Response length https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
   image("../assets/screenshots/stagnant_critic_chart.png", width: 100%)
 )
 
@@ -96,7 +96,11 @@ This led us to conclude that a 3-billion-parameter model lacks the inherent capa
 
 This run lasted about 450 minutes (more than seven hours). Based on prior experience by Jian Pan with TinyZero, we knew models sometimes had delayed realizations when learning required thinking patterns. However, after seven and a half hours, we also stopped this run. As seen in the graphic below, there were no signs of improved response length or reward score.
 
-We observed the same pattern as with the previous 3-billion run: the model optimized only for the structural component of the reward and not for the actual content. The outputs showed identical “thinking patterns,” indicating the model wasn’t generating meaningful reasoning. This run also failed.
+#figure(caption: [No significan Changes in the behaviour of the model https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
+  image("../assets/screenshots/7b_wandb.png", width: 100%)
+)
+
+We observed the same pattern as with the previous 3-billion run: the model optimized only for the structural component of the reward and not for the actual content. The outputs showed identical “thinking patterns,” indicating the model wasn’t generating meaningful reasoning. We suspected that this was caused either by the models inherent disability to learn the deificult ARC Tasks, or by our malfunctiong reward score, encouraging reawad hacking. On all previouse runs we rewarded dthe model with 30% for structre and and 70% for actual content.
 
 Afterward, we adjusted the reward distribution—not to 30% for content and 70% for structure, but instead to 30% for structure and 70% for content. We ran this setup for about 220 minutes (roughly three and a half hours), completing 43 steps. Again, the logarithmic curve of the reward score didn’t improve, and the response length kept decreasing.
 
