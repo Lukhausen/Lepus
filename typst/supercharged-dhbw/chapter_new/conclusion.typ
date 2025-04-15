@@ -19,7 +19,7 @@ Fourth, we discovered that reasoning behaviors can be effectively cultivated thr
 
 == Key Methodological Insights
 
-The reward function design proved absolutely critical. By evaluating structure and content separately (inspired by MORLAIF research), we created more precise training signals that balanced basic requirements with higher-level reasoning goals.
+The reward function design proved absolutely critical. By evaluating structure and content separately, we created more precise training signals that balanced basic requirements with higher-level reasoning goals.
 We also made significant improvements in tokenization efficiency. Our analysis of Qwen2.5's tokenization patterns helped us develop grid representations that used 62% fewer tokens while preserving all the structural information. This made training much more efficient.
 When our initial approaches hit dead ends, we had to adapt. Our pivot to rewarding reasoning length first, then transitioning to content-focused rewards, helped guide our models through learning plateaus they otherwise couldn't overcome.
 
