@@ -22,6 +22,7 @@
 #import "chapter_new/terminology.typ": terminology
 #import "chapter_new/abstract.typ": abstract
 #import "chapter_new/use_of_ai.typ": use_of_ai
+#import "chapter_new/post_training_benchmark.typ": post_training_benchmark
 
 
 #show: supercharged-dhbw.with(
@@ -30,7 +31,7 @@
     (name: "Lukas Marschhausen", student-id: "1840227", course: "TINF22AI1", course-of-studies: "Applied Computer Science", company: (
       (name: "Cisco Systems GmbH", post-code: "65760", city: "Eschborn")
     )),
-    (name: "Marc Schmengler", student-id: "1234567", course: "TINF22AI1", course-of-studies: "Applied Computer Science", company: (
+    (name: "Marc Schmengler", student-id: "1708015", course: "TINF22AI1", course-of-studies: "Applied Computer Science", company: (
       (name: "XYZ GmbH", post-code: "12345", city: "Berlin")
     )),
 
@@ -121,6 +122,8 @@
 
 //Experimental
 #experimental
+
+#post_training_benchmark
 
 //Results
 #results
