@@ -8,6 +8,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import logging
 import re
 from datasets import Dataset, load_dataset
+from tqdm import tqdm
 
 # Setup basic logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
