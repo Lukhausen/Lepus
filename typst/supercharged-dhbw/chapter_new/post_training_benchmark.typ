@@ -11,7 +11,7 @@ After completing the training phase, where the reward function evaluated both ou
 
 To achieve this, we developed a dedicated Python script that builds on the content evaluation mechanism used in our reward function. This script calculates two distinct performance scores:
 
-1. *Content Reward Score:* This metric leverages the same evaluation function defined in the "Defining Reward Function" chapter. It specifically assesses the content quality of the output without considering syntax. By using this score, we can directly compare the generated response against a set of content-specific criteria.
+1. *Content Reward Score:* This metric leverages the same evaluation function defined in the "Defining Reward Function" chapter. It specifically assesses the content quality of the output without considering syntax. The only difference is that we don't use a linear function as in the actual reward function. Instead, we output the ratio value directly without incorporating it into an e-function. By using this score, we can directly compare the models and see more indeph learning improvments.
 2. *Correctness Percentage:* Independently, the script checks each response to determine whether it is factually correct or incorrect. By tallying the number of correct responses and dividing by the total number of tests, we obtain a percentage score that reflects the overall accuracy of the model.
 
 == Methodology and Data Set
