@@ -66,70 +66,58 @@ By transitioning from Windows to a Linux-based on-demand cloud instance, automat
 
 = Training the Model
 
-After Prparing the Traing data, setting up the Reward fucntion and Tungin the Hyperparmeters, we were ready to start training the model using 2 H200SMX5 with a total of 282GB GPU VRAM we started with the first run, using a 3-billion-parameter model. However, iwe did not observe the desired emergent behaviour of rasoning to com to a concolusion, as it primarily optimized for the critic score, and basically hacked the reward fuction. We had assigned 0.3 for structure reward and 0.7 for content reward. The model realized it could easily achieve the structure reward by producing the correct grid size and the correct format using output brackets ($"<output></output>"$) aand a nested array. It heavily optimized for this, resulting in a completely fixed and ineffective thinking pattern—essentially useless and utter nonsense, as shown in the display below. 
+After preparing the training data, establishing the reward function, and tuning the hyperparameters, we proceeded with model training using dual H200SMX5 GPUs with a combined 282GB VRAM capacity. Our initial experiment employed a 3-billion-parameter model. However, we did not observe the desired emergent reasoning behavior. Instead, the model primarily optimized for the critic score by exploiting weaknesses in our reward function. With our initial configuration allocating 30% for structural accuracy and 70% for content quality, the model discovered it could easily satisfy the structural requirements by generating correctly formatted output using the prescribed brackets ($"<output></output>"$) and nested array structure. This optimization strategy resulted in a fixed, ineffective thinking pattern—essentially producing formulaic, non-informative responses as illustrated in Figure 18.
 
-#figure(caption: [Mean Critic Rewards Left and Models Response Length right for the first traing run with a 3B model @hausen2025tinyzero],
-
+#figure(caption: [Mean Critic Rewards Left and Models Response Length right for the first training run with a 3B model @hausen2025tinyzero],
   image("../assets/screenshots/train_1.png", width: 100%)
 )
 
 #figure(
-  caption: "Exmaple of Local Minimum thinking pattern. This pattern was present in all outputs of the model",
+  caption: "Example of Local Minimum thinking pattern. This pattern was present in all outputs of the model",
   sourcecode[```
 <think>
 Let me solve this step by step. 1. I'll compare the input and output for each example. 2. I'll look for common patterns in the number changes. 3. I'll try to find the transformation pattern. 4. I'll apply that pattern to the test input.
 </think>
-
-
-    ```],
+```],
 )
 
-After stopping this run, we considered two possibilities: either the reward score wasn't well-balanced, or we were essentially trying to teach a hamster to fly—meaning the model size was too small to grasp the reasoning needed to boost the content reward score. The same issue with the limited capability of the model to grasp reasoning tasks is also showcased by Jian Pan and his Project. @pan2025tinyzero_run @pan2025tinyzero The minimum structre reward was 0.1 for the model and the maximum the model could archive by only getting the structre right was 0.3 for teh structre componet. as the minim content reward awas 0.1 this added up to 0.4 This is why the critic reward is visibly capped at 0.4. it didn’t understand how to improve the content within that structure to reach higher scores.
+After terminating this initial training run, we considered two potential explanations: either our reward function lacked proper balance, or the model's capacity (3B parameters) was insufficient to develop the complex reasoning capabilities required for ARC tasks. This limitation of smaller models to develop sophisticated reasoning capabilities aligns with observations documented by Jian Pan in the TinyZero project @pan2025tinyzero_run @pan2025tinyzero. In our case, the reward structure imposed a minimum score of 0.1 for structural compliance, with a maximum potential structural reward of 0.3. Combined with the minimum content reward of 0.1, this created a performance ceiling of approximately 0.4, which is evident in the critic reward plateau shown in Figure 18. The model failed to discover strategies for improving content quality beyond this threshold.
 
-To test both hypotheses, we took a checkpoint of the model and modified the reward function to decrease the reward for correct output structure. We assigned 0.1 for structure and 0.9 for content. After running this version for a little over three hours and approximately 80 steps, we canceled it. The critic showed no signs of improvement, and the response length remained consistently flat.
+To test these hypotheses, we extracted a checkpoint from the initial model and modified the reward distribution to 0.1 for structure and 0.9 for content, thereby significantly increasing the incentive for content improvement. After running this modified configuration for approximately three hours (80 steps), we observed no significant performance improvements—the critic reward remained stagnant, and response length stayed consistently flat.
 
-#figure(caption: [Stagnant Critic response and rsagnant Response length https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
+#figure(caption: [Stagnant Critic response and stagnant Response length https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
   image("../assets/screenshots/stagnant_critic_chart.png", width: 100%)
 )
 
-This led us to conclude that a 3-billion-parameter model lacks the inherent capability to learn the type of reasoning required for ARC tasks. After some consideration, we decided to use a 7-billion-parameter model and repeat the process.
+Based on these results, we concluded that the 3-billion-parameter model lacked sufficient capacity to develop the reasoning capabilities required for ARC tasks. We subsequently scaled up to a 7-billion-parameter model and repeated the experimental process.
 
-This run lasted about 450 minutes (more than seven hours). Based on prior experience by Jian Pan with TinyZero, we knew models sometimes had delayed realizations when learning required thinking patterns. However, after seven and a half hours, we also stopped this run. As seen in the graphic below, there were no signs of improved response length or reward score.
+This larger model was trained for approximately 450 minutes (7.5 hours). Despite prior research by Jian Pan suggesting that models sometimes experience delayed emergence of reasoning capabilities, we observed no improvements in response quality or reward metrics throughout this extended training period, as illustrated in Figure 20.
 
-#figure(caption: [No significan Changes in the behaviour of the model https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
+#figure(caption: [No significant Changes in the behavior of the model https://wandb.ai/lukhausen-dhbw/TinyZero/runs/tbo3orw4?nw=nwuserlukhausen],
   image("../assets/screenshots/7b_wandb.png", width: 100%)
 )
 
-We observed the same pattern as with the previous 3-billion run: the model optimized only for the structural component of the reward and not for the actual content. The outputs showed identical “thinking patterns,” indicating the model wasn’t generating meaningful reasoning. We suspected that this was caused either by the models inherent disability to learn the deificult ARC Tasks, or by our malfunctiong reward score, encouraging reawad hacking. On all previouse runs we rewarded dthe model with 30% for structre and and 70% for actual content.
+The 7B model exhibited the same optimization pattern as the 3B variant—focusing exclusively on structural compliance while failing to develop meaningful reasoning capabilities. The outputs continued to display identical, formulaic thinking patterns, suggesting no substantive improvement in reasoning. We hypothesized this failure could stem from either an inherent limitation in the model's capacity to learn the complex ARC tasks or suboptimal reward function design that encouraged reward hacking rather than genuine reasoning. In previous runs, we had allocated 30% of the reward to structural compliance and 70% to content quality.
 
-Afterward, we adjusted the reward distribution—not to 30% for structre and 70% for content, but instead to 10% for structure and 90% for content. We ran this setup for about 220 minutes (roughly three and a half hours), completing 43 steps. Again, the logarithmic curve of the reward score didn’t improve, and the response length kept decreasing.
+We subsequently adjusted the reward distribution to 10% for structure and 90% for content, further emphasizing content quality. This configuration ran for approximately 220 minutes (3.5 hours) and completed 43 training steps. However, the reward curve maintained its logarithmic shape without improvement, and response length continued to decrease.
 
-#figure(caption: [Logarythmic curce evena fter adjusting the reward score https://wandb.ai/lukhausen-dhbw/TinyZero/runs/acmyhkji?nw=nwuserlukhausen
-],
+#figure(caption: [Logarithmic curve even after adjusting the reward score https://wandb.ai/lukhausen-dhbw/TinyZero/runs/acmyhkji?nw=nwuserlukhausen],
   image("../assets/screenshots/7b_wandb_2.png", width: 100%)
 )
 
-So, we decided to implement an incentive for the model to think longer. We stopped this run and created a modified reward function that also rewarded the "length" of the thinking output it generated. The goal was to encourage longer reasoning sequences and help the model escape the local minimum it kept falling into—where it would only optimize structure without addressing content.
+To address this persistent local minimum, we implemented a novel incentive structure designed to encourage more extensive reasoning. We modified the reward function to explicitly reward the length of content within the thinking tags, with the goal of promoting more elaborate reasoning sequences. Using the checkpoint from the previous 7B model, we implemented a balanced reward distribution: 10% for structural correctness, 40% for thinking output length, and 50% for content quality.
 
-Using the checkpoint from the last 7-billion-parameter model run, we ran it again with the new reward function: 10% for structural correctness, 40% for thinking output length (within the “thinking” tags), and 50% for the quality of the actual content.
+This approach aimed to first establish longer reasoning chains before gradually shifting focus toward reasoning quality and content accuracy. We deployed this length-optimized reward function starting from step 30 of the previous model checkpoint, which had already learned the correct output structure but struggled with coherent reasoning. Within just 10 steps, the model demonstrated notable improvements in reasoning length while maintaining correct output formatting.
 
-The idea here is to boost the model's reasoning length first. Once we see it generating meaningful chains of thought, we will remove the length incentive to push the model to focus more on logical reasoning and content accuracy, maximizing both content structure and content reward score.
-
-We ran theis think length optimized reward fucntion from teh 30th setp of the previouse model, which allready effectively had learend the output structre, yet strugglred with the chain of though. just 10 steps in, the model learedn to increase its thinking length while aminting correctly formatted output.
-
-#figure(caption: [ten Steps of boosting the thinking length of the model. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/oq6kjqvf?nw=nwuserlukhausen
-
-],
+#figure(caption: [Ten steps of boosting the thinking length of the model. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/oq6kjqvf?nw=nwuserlukhausen],
   image("../assets/screenshots/7b_thinking_boost.png", width: 100%)
 )
 
-After jsut 10 steps of boosting the thinking length though the modified reward function, we saw noteble improvements in the reasoning patterns of the LLM
-
-
+After just 10 steps with the modified reward function, we observed significant improvements in the reasoning patterns produced by the model:
 
 #figure(
-  caption: "Exmaple of increased reasong length though modified reward function",
-```
+  caption: "Example of increased reasoning length through modified reward function",
+  sourcecode[```
 <think>
 Let me solve this step by step. 1. I observe that in each train example, the input is a 2-dimensional list with varying number of rows and two elements in each row. 2. The output pattern is that each row of the input is duplicated one or more times to create the corresponding row of the output. 3. The number of times a row is duplicated in the output seems to be related to the number of digits in the elements of the row - the more digits, the more times it seems to be duplicated. 4. However, the row at the top of the input ("3999" in this example) is never duplicated. Applying these observations to the test input, I see that:
 - The top row ("3999") should not be duplicated in the output.
@@ -138,45 +126,38 @@ Let me solve this step by step. 1. I observe that in each train example, the inp
 - The fourth row ("9964") has four digits, so it should be duplicated four times in the output.
 - The bottom row ("9994") has four digits, so it should be duplicated four times in the output.
 </think>
-```
+```],
 )
 
+After successfully increasing the reasoning elaboration, we transitioned to a purely content-based reward function to encourage meaningful reasoning rather than merely verbose output.
 
-Now after increating the reasoning length, we changes the reward function to be purlyrelying on the quality of output content in the subsequent run. 
-
-
-#figure(caption: [Running the purely content based reward. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vbfszi8j?nw=nwuserlukhausen
-
-],
+#figure(caption: [Running the purely content based reward. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vbfszi8j?nw=nwuserlukhausen],
   image("../assets/screenshots/7b_run_only_content.png", width: 100%)
 )
 
-We can clearly see that the output length decreases again and even after more than 30 steps the model stil can not overcome its inherent disabilities. 
+Despite this intervention, we observed that output length decreased again, and even after more than 30 additional training steps, the model failed to overcome its fundamental limitations in reasoning capabilities.
 
-== Traing on an easier dataset.
+== Training on an Easier Dataset
 
-We suspect that may be the model size of 7B parameters is not sufficient for the model to develop the inherent reasoning capabilites needed to complete the arc tasks. Due to burdget constrainst we did not try to scale the traing to a 14B model, as the requred ressources (min. 4x H200) were too expensive to rent as on demand cloud gpu intnaces. Instead we decided to decrease the difficulty of the tasks. As we were currently operating soley on the ARG-AGI-2 Dataset, we decided to Create a new dataset (including augumentations) that encoperated easier versions of the same tasks. To create this dataset we used the ARG-AGI-1 Traing set and combined it together with the Concept Arc Dataset, which inclused variouse easier tasks. @moskvichev2023the The idea was to first use this easy dataset to se if the model has any learning sucess or develops the emergent behaviour of reasoning and then if this suceeds, mix both the easy and the hard dataset to gradually increase the models capaibilties. It has been proven that traing on easy examples can ahve a suprising effect on teh reasoning and generailsaion capability of an mode. @hase2024unreasonableeffectivenesseasytraining
+We hypothesized that the 7B parameter scale might be insufficient for developing the sophisticated reasoning capabilities required for complex ARC tasks. Due to budget constraints, we opted not to scale to a 14B model, as the required resources (minimum 4× H200 GPUs) were prohibitively expensive for on-demand cloud GPU instances. Instead, we strategically reduced task difficulty.
 
-after Crafting the dataset #footnote("https://huggingface.co/datasets/Lukhausen/arc-agi-lepus-v1-easy") we started a run with the 7B model.
+Having focused exclusively on the ARC-AGI-2 dataset, we created a new dataset incorporating easier variants of similar tasks. This dataset combined the ARC-AGI-1 training set with the Concept Arc Dataset, which includes various simplified tasks @moskvichev2023the. Our strategy was to first determine if the model could develop emergent reasoning capabilities on simpler problems before gradually increasing task complexity. This approach is supported by research demonstrating that training on simpler examples can significantly enhance reasoning and generalization capabilities @hase2024unreasonableeffectivenesseasytraining.
 
-#figure(caption: [Reward and response length for the easy dataset. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vps13688?nw=nwuserlukhausen
+After creating this dataset #footnote("https://huggingface.co/datasets/Lukhausen/arc-agi-lepus-v1-easy") we initiated training with the 7B model.
 
-],
+#figure(caption: [Reward and response length for the easy dataset. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vps13688?nw=nwuserlukhausen],
   image("../assets/screenshots/easy_dataset_chart.png", width: 100%)
 )
 
-instead of running the model for jsut 40 steps as in the prevoise run, we fully let it converge and chsoe to take the checkpoint at step 70, as it had the highest reward scroe. The reward score for this run was 10% cstructre and 90% content.
+Rather than limiting training to 40 steps as in previous runs, we allowed the model to converge fully, selecting the checkpoint at step 70 which achieved the highest reward score. The reward distribution for this run maintained our 10% structure and 90% content allocation.
 
-as the model failed to develop reasoning capbilites emengently, we decided to kick start the reasoning devleopment again as we previousely sucessfully did with the 7B model on the harder dataset. 
+Despite the simplified dataset, the model still failed to develop emergent reasoning capabilities. We attempted to kickstart reasoning development using the same approach that previously succeeded with the 7B model on the more complex dataset. The reasoning boost run implemented a reward distribution of 30% for output length, 60% for content correctness, and 10% for structural compliance.
 
-The Reasoning Boost run was conducted at 30% reward for output length, 60% for content correctnedd and 10% for structrual correctneds.
-
-The model quickly caught on to this reward fuction and started to produce longer outputs. yet unlike last time, wehre the model started to actually reason about the task on hand, this time it hacked the reward to score highly by jsut producing verry long outputs that were not in line with the tasks on hand at all.
-
+The model quickly adapted to this reward function and began producing longer outputs. However, unlike our previous experience where extended outputs demonstrated meaningful task-specific reasoning, this time the model exploited the reward mechanism by generating verbose but uninformative content that bore little relevance to the tasks at hand:
 
 #figure(
-  caption: "Long, yet non infromational reasoning chain.",
-```
+  caption: "Long, yet non-informational reasoning chain.",
+  ```
 <think>
 Let me solve this step by step.
 1. I will carefully analyze the given train examples, focusing on the pattern of transformation from the train input to the train output. I will look for similarities in the transformation patterns among the examples, such as the repetitive sequences and the specific elements that remain unchanged during the transformation process.
@@ -186,10 +167,10 @@ Let me solve this step by step.
 
 40. I will reflect on the problem-solving process and identify potential areas for improvement in understanding the significance and relevance of the transformation patterns in relation to the overall problem. By considering the broader context and implications of the transformation process, I can gain a more holistic understanding of its impact and contribute to a more effective and meaningful solution.
 </think>
-```
+```,
 )
 
-The Model started to think about how to think, yet did not apply the thinking to the task on hand, but just created ever longer pseudo reasoning chains, that held absolutely no information.
+The model developed a meta-cognitive pattern of thinking about how to think, rather than applying reasoning to the specific task. Instead of engaging with the problem content, it generated increasingly lengthy pseudo-reasoning chains devoid of task-relevant information or insights.
 
 
 ]

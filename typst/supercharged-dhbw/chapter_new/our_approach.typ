@@ -4,11 +4,12 @@
 #let our_approach = [
 = Our Approach
 
-All curretnt opensource approcahes relie soley on the direct inferencing without any Chain of though or intermediate reasoning steps. tjhe ARCitect, Ice Cuber, as well as all other open source approchaes present on the leaderboard had no measures in place, that actually tried extract the reasoning part and logical thinking requried to solve an arc task. Yet, as we can clearly see on the benchmark pubkishged by ARC (see @arcprize_leaderboard) that reasoning model like openais o1 or o3 score higher out of the box than non reasoning models.
+Current open-source approaches predominantly rely on direct inferencing without implementing chain-of-thought or intermediate reasoning steps. Notably, solutions such as ARChitect and Icecuber, as well as other open-source methodologies represented on the leaderboard, lack mechanisms that explicitly extract reasoning processes and logical thinking required to solve ARC tasks. However, as evidenced by the ARC benchmark results (see @arcprize_leaderboard), reasoning-oriented models like OpenAI's o1 and o3 achieve superior performance without additional optimization compared to non-reasoning models.
 
-This is due to their capability of test time compute. Their traing was structred in a way that made them not directly complete a input prompt with an output prompt but to have an intermediade step in which they use chain of though to reason about what they should answer. 
+This performance differential stems from their implementation of test-time compute capabilities. These models are structured to incorporate an intermediate step between input processing and output generation, utilizing chain-of-thought mechanisms to reason through potential solutions before producing answers.
 
-Deepseek were the first to comoditize this approach, though releasing their model as open weight and pubnlsihing how they archived their results. 
+DeepSeek pioneered the commoditization of this approach by releasing their model with open weights and publishing their methodological framework. Subsequently, Jian Pan successfully replicated DeepSeek's methodology in his project TinyZero @pan2025tinyzero, which provides the foundation for our research. We aim to adapt this framework to develop a reasoning-oriented model specifically tailored for ARC tasks.
 
+Our primary research objective is to investigate whether emergent reasoning behaviors can be cultivated when training on complex spatial datasets. Unlike previous approaches that focus primarily on pattern matching or transformation libraries, our methodology emphasizes the development of intermediate reasoning processes that more closely approximate human problem-solving strategies when addressing abstract reasoning challenges.
 
 ]
