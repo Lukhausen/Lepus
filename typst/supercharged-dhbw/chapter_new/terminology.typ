@@ -20,21 +20,21 @@ can better understand the explanations.
 
 == Scaling Laws
 
-Unter dem Begriff „Scaling Laws" versteht man Richtlinien oder Beobachtungen, die 
-beschreiben, wie sich die Leistung von KI-Modellen in Abhängigkeit von ihrer Größe, der 
-verfügbaren Datenmenge und der aufgewendeten Rechenleistung entwickelt. Je größer ein 
-neuronales Netzwerk und je umfangreicher die Trainingsdaten ausfallen, desto stärker 
-kann im Regelfall die Genauigkeit steigen – allerdings treten oft ab einem gewissen 
-Punkt abnehmende Grenzerträge auf. Das heißt, während die Genauigkeit zu Beginn durch 
-zusätzliches Wachstum des Modells oder mehr Datensamples rasch verbessert wird, nimmt 
-der Zugewinn bei gleichermaßen wachsendem Aufwand später oft nur noch langsam zu. Durch 
-die Analyse solcher Skalierungseffekte lassen sich Vorhersagen treffen, wie viele 
-Ressourcen nötig sind, um ein bestimmtes Leistungsniveau zu erreichen, was für die 
-Planung groß angelegter Trainingsprojekte von erheblicher Bedeutung ist. Gleichzeitig 
-helfen Scaling Laws dabei einzuschätzen, an welcher Stelle Optimierungen im 
-Modelldesign oder bei den Daten am effektivsten sind.
+The term "scaling laws" refers to guidelines or observations that 
+describe how the performance of AI models develops depending on their size, the amount of data available 
+and the computing power used. The larger a 
+neural network and the more extensive the training data, the more 
+the accuracy can generally increase - however, diminishing marginal returns often occur from a certain 
+point onwards. This means that while the accuracy is improved rapidly at the beginning by 
+additional growth of the model or more data samples, 
+the gain often only increases slowly later on with equally increasing effort. By 
+analysing such scaling effects, predictions can be made as to how many 
+resources are required to achieve a certain level of performance, which is of considerable importance for the 
+planning of large-scale training projects. At the same time, 
+scaling laws help to assess where optimisations in the 
+model design or in the data are most effective.
 
-== Trainingsprozess und Inferenz (Train-Time vs. Test-Time)
+== Training process and inference (Train-Time vs. Test-Time)
 
 Two central phases can be distinguished in the context of modern AI applications: One 
 is the training process and the other is inference. During training, often referred to 
