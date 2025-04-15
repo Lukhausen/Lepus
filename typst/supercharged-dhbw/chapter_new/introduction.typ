@@ -3,7 +3,7 @@
 
 #let introduction = [
 
-= Introduction
+= Introduction <into>
 
 
 Large language models (LLMs) have historically improved through scaling laws, where increases in parameters and training data correlate with enhanced performance. Emergent abilities, such as solving unseen mathematical problems, validated this approach. However, performance gains began to plateau nonlinearly: doubling model size no longer doubled capability, while computational costs grew exponentially. This diminishing return necessitated alternative strategies, leading to the exploration of test-time compute — enhancing reasoning during inference rather than solely relying on larger architectures.

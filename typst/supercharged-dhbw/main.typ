@@ -16,7 +16,6 @@
 #import "chapter_new/reward.typ" : reward
 #import "chapter_new/data_augumentation.typ": data_augumentation
 #import "chapter_new/previouse_methods.typ": previouse_methods
-#import "chapter_new/arcprize.typ": arcprize
 #import "chapter_new/our_approach.typ": our_approach  
 #import "chapter_new/terminology.typ": terminology
 #import "chapter_new/abstract.typ": abstract
@@ -99,11 +98,10 @@
 
 #use_of_ai  
 
-#terminology
-
 //Introduction
 #introduction
 
+#terminology
 //Background
 //#background
 #background 
