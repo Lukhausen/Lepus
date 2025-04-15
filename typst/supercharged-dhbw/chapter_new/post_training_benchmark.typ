@@ -35,11 +35,11 @@ arc-agi-lepus-v1-evaluation
 Correct: 0
 Wrong: 120
 Score: 0.0
-RewardScore: 14.346043597785235
+RewardScore: 18.30003843640773
  ```
  ]
  )
-], caption: "Exmaple benchmark Output for our ...."
+], caption: "Example benchmark output for the arc-agi-lepus-v1-evaluation model"
 ) <exmaple-out-eval>
 
 == Conclusion
