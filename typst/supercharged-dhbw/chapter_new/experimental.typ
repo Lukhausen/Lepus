@@ -2,7 +2,7 @@
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
 
 #let experimental = [
-= Experimental Results
+= Experimental Setup
 
 For our project, we initially attempted to set up the development environment on our Windows 10 machines, following the steps outlined in Project TinyZero @pan2025tinyzero. We created a Conda environment using Python 3.9, installed CUDA 11.8, and configured the appropriate environment variables (including CUDA_HOME, CUDA_PATH, and adding CUDA's include and bin directories to the system PATH).
 

@@ -105,7 +105,7 @@
 
 //Background
 //#background
-//#background 
+#background 
 
 //Methodology
 #previouse_methods  
@@ -124,10 +124,10 @@
 
 #post_training_benchmark
 
-//Results
-#results
 
 //Conclusion
 #conclusion
+
+
 
 

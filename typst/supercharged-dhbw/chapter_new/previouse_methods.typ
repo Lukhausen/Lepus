@@ -94,7 +94,7 @@ Wind's approach consisted of three main components:
 
 The DSL implementation encapsulated fundamental visual reasoning primitives including component segmentation, color manipulation, geometric transformation, and compositional operations. This transformation library was empirically derived through manual analysis of approximately 200 ARC tasks, ensuring comprehensive coverage of recurring visual patterns. The search process implemented state deduplication mechanisms through efficient hashing techniques, enabling the exploration of substantially larger solution spaces than would otherwise be feasible within the competition's computational constraints. For tasks where no single transformation sequence solved all training examples, the system employed a "greedy stacking" approach that combined multiple partial solutions by selecting the most effective transformation for each specific example.
 
-== Solution Strategy
+=== Solution Strategy
 
 The search process worked by:
 
@@ -104,7 +104,7 @@ The search process worked by:
 + Selecting the transformation sequence that correctly solved all training examples
 
 
-== Performance Enhancement Techniques
+=== Performance Enhancement Techniques
 
 Wind employed several techniques to improve results:
 
