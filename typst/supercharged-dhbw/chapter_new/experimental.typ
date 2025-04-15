@@ -102,18 +102,94 @@ This run lasted about 450 minutes (more than seven hours). Based on prior experi
 
 We observed the same pattern as with the previous 3-billion run: the model optimized only for the structural component of the reward and not for the actual content. The outputs showed identical “thinking patterns,” indicating the model wasn’t generating meaningful reasoning. We suspected that this was caused either by the models inherent disability to learn the deificult ARC Tasks, or by our malfunctiong reward score, encouraging reawad hacking. On all previouse runs we rewarded dthe model with 30% for structre and and 70% for actual content.
 
-Afterward, we adjusted the reward distribution—not to 30% for content and 70% for structure, but instead to 30% for structure and 70% for content. We ran this setup for about 220 minutes (roughly three and a half hours), completing 43 steps. Again, the logarithmic curve of the reward score didn’t improve, and the response length kept decreasing.
+Afterward, we adjusted the reward distribution—not to 30% for structre and 70% for content, but instead to 10% for structure and 90% for content. We ran this setup for about 220 minutes (roughly three and a half hours), completing 43 steps. Again, the logarithmic curve of the reward score didn’t improve, and the response length kept decreasing.
+
+#figure(caption: [Logarythmic curce evena fter adjusting the reward score https://wandb.ai/lukhausen-dhbw/TinyZero/runs/acmyhkji?nw=nwuserlukhausen
+],
+  image("../assets/screenshots/7b_wandb_2.png", width: 100%)
+)
 
 So, we decided to implement an incentive for the model to think longer. We stopped this run and created a modified reward function that also rewarded the "length" of the thinking output it generated. The goal was to encourage longer reasoning sequences and help the model escape the local minimum it kept falling into—where it would only optimize structure without addressing content.
 
 Using the checkpoint from the last 7-billion-parameter model run, we ran it again with the new reward function: 10% for structural correctness, 40% for thinking output length (within the “thinking” tags), and 50% for the quality of the actual content.
 
-The idea here is to boost the model’s reasoning length first. Once we see it generating meaningful chains of thought, we plan to remove the length incentive to push the model to focus more on logical reasoning and content accuracy, maximizing both content structure and content reward score.
+The idea here is to boost the model's reasoning length first. Once we see it generating meaningful chains of thought, we will remove the length incentive to push the model to focus more on logical reasoning and content accuracy, maximizing both content structure and content reward score.
 
-We ran theis think length optimized reward fucntion from teh 30th setp of the previouse model, which allready effectively had learend the output structre, yet strugglred with the chain of though. An interesting observation during teh 10 step long thinking elongation run was, that the model started to inclrease not only its chain of though in the thinking tags, but also from step 7 onwards started reward hacking by "inspecting the inputs in more detail"
+We ran theis think length optimized reward fucntion from teh 30th setp of the previouse model, which allready effectively had learend the output structre, yet strugglred with the chain of though. just 10 steps in, the model learedn to increase its thinking length while aminting correctly formatted output.
+
+#figure(caption: [ten Steps of boosting the thinking length of the model. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/oq6kjqvf?nw=nwuserlukhausen
+
+],
+  image("../assets/screenshots/7b_thinking_boost.png", width: 100%)
+)
+
+After jsut 10 steps of boosting the thinking length though the modified reward function, we saw noteble improvements in the reasoning patterns of the LLM
 
 
 
+#figure(
+  caption: "Exmaple of increased reasong length though modified reward function",
+```
+<think>
+Let me solve this step by step. 1. I observe that in each train example, the input is a 2-dimensional list with varying number of rows and two elements in each row. 2. The output pattern is that each row of the input is duplicated one or more times to create the corresponding row of the output. 3. The number of times a row is duplicated in the output seems to be related to the number of digits in the elements of the row - the more digits, the more times it seems to be duplicated. 4. However, the row at the top of the input ("3999" in this example) is never duplicated. Applying these observations to the test input, I see that:
+- The top row ("3999") should not be duplicated in the output.
+- The second row ("9355") has four digits, so it should be duplicated four times in the output.
+- The third row ("9569") has four digits, so it should be duplicated four times in the output.
+- The fourth row ("9964") has four digits, so it should be duplicated four times in the output.
+- The bottom row ("9994") has four digits, so it should be duplicated four times in the output.
+</think>
+```
+)
+
+
+Now after increating the reasoning length, we changes the reward function to be purlyrelying on the quality of output content in the subsequent run. 
+
+
+#figure(caption: [Running the purely content based reward. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vbfszi8j?nw=nwuserlukhausen
+
+],
+  image("../assets/screenshots/7b_run_only_content.png", width: 100%)
+)
+
+We can clearly see that the output length decreases again and even after more than 30 steps the model stil can not overcome its inherent disabilities. 
+
+== Traing on an easier dataset.
+
+We suspect that may be the model size of 7B parameters is not sufficient for the model to develop the inherent reasoning capabilites needed to complete the arc tasks. Due to burdget constrainst we did not try to scale the traing to a 14B model, as the requred ressources (min. 4x H200) were too expensive to rent as on demand cloud gpu intnaces. Instead we decided to decrease the difficulty of the tasks. As we were currently operating soley on the ARG-AGI-2 Dataset, we decided to Create a new dataset (including augumentations) that encoperated easier versions of the same tasks. To create this dataset we used the ARG-AGI-1 Traing set and combined it together with the Concept Arc Dataset, which inclused variouse easier tasks. @moskvichev2023the The idea was to first use this easy dataset to se if the model has any learning sucess or develops the emergent behaviour of reasoning and then if this suceeds, mix both the easy and the hard dataset to gradually increase the models capaibilties. It has been proven that traing on easy examples can ahve a suprising effect on teh reasoning and generailsaion capability of an mode. @hase2024unreasonableeffectivenesseasytraining
+
+after Crafting the dataset #footnote("https://huggingface.co/datasets/Lukhausen/arc-agi-lepus-v1-easy") we started a run with the 7B model.
+
+#figure(caption: [Reward and response length for the easy dataset. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vps13688?nw=nwuserlukhausen
+
+],
+  image("../assets/screenshots/easy_dataset_chart.png", width: 100%)
+)
+
+instead of running the model for jsut 40 steps as in the prevoise run, we fully let it converge and chsoe to take the checkpoint at step 70, as it had the highest reward scroe. The reward score for this run was 10% cstructre and 90% content.
+
+as the model failed to develop reasoning capbilites emengently, we decided to kick start the reasoning devleopment again as we previousely sucessfully did with the 7B model on the harder dataset. 
+
+The Reasoning Boost run was conducted at 30% reward for output length, 60% for content correctnedd and 10% for structrual correctneds.
+
+The model quickly caught on to this reward fuction and started to produce longer outputs. yet unlike last time, wehre the model started to actually reason about the task on hand, this time it hacked the reward to score highly by jsut producing verry long outputs that were not in line with the tasks on hand at all.
+
+
+#figure(
+  caption: "Long, yet non infromational reasoning chain.",
+```
+<think>
+Let me solve this step by step.
+1. I will carefully analyze the given train examples, focusing on the pattern of transformation from the train input to the train output. I will look for similarities in the transformation patterns among the examples, such as the repetitive sequences and the specific elements that remain unchanged during the transformation process.
+2. I will pay attention to the recurring 
+
+[...]
+
+40. I will reflect on the problem-solving process and identify potential areas for improvement in understanding the significance and relevance of the transformation patterns in relation to the overall problem. By considering the broader context and implications of the transformation process, I can gain a more holistic understanding of its impact and contribute to a more effective and meaningful solution.
+</think>
+```
+)
+
+The Model started to think about how to think, yet did not apply the thinking to the task on hand, but just created ever longer pseudo reasoning chains, that held absolutely no information.
 
 
 ]
