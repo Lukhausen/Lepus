@@ -18,6 +18,6 @@ The primary authorship for each chapter is allocated as follows:
 - Training the Model: Lukas Marschhausen
 - Benchmarking of the Trained Models: Marc Schmengler
 - Limitations and Future Research Directions: Lukas Marschhausen
-- Conclusion: Lukas Marschhausen und Marc Schmengler
+- Conclusion: Lukas Marschhausen and Marc Schmengler
 
 ]

@@ -357,7 +357,7 @@ Our investigation into prompt structure optimization extends to the fundamental 
 Language models operate fundamentally as conditional probability distribution functions that predict subsequent tokens based on the preceding context. When transitioning from API-mediated interactions to direct model training, we must engage with the underlying token-level architecture through control sequences:
 
 ```
-<|im_start|>system\nYou will be provided with example inputs and outputs. Analyze the train examples. Your Goal is to find common Trasnformation pattern among those and apply the found patterns to the test input to create the Test Output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the Test Output. Use <think> </think> tags to reason about the problem. Return the final answer in <answer> </answer> tags as a nested list.<|im_end|>\n<|im_start|>assistant\nLet me solve this step by step.\n<think>
+<|im_start|>system\nYou will be provided with example inputs and outputs. Analyze the train examples. Your Goal is to find common Transformation pattern among those and apply the found patterns to the test input to create the Test Output.<|im_end|>\n<|im_start|>user\n {train} \n\n\n {test}\n\n Figure out how to create the Test Output. Use <think> </think> tags to reason about the problem. Return the final answer in <answer> </answer> tags as a nested list.<|im_end|>\n<|im_start|>assistant\nLet me solve this step by step.\n<think>
 ```
 
 
