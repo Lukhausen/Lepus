@@ -241,7 +241,7 @@ def main():
     wrong = 0
     reward_score = 0
 
-    for task in raw_dataset:
+    for task in tqdm(raw_dataset, desc="Verarbeite Aufgaben"):
         task_train = task["train"]
         correct_task = 0
         wrong_task = 0
