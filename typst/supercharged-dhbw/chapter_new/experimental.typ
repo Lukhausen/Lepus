@@ -68,7 +68,7 @@ By transitioning from Windows to a Linux-based on-demand cloud instance, automat
 
 After preparing the training data, establishing the reward function, and tuning the hyperparameters, we proceeded with model training using dual H200SMX5 GPUs with a combined 282GB VRAM capacity. Our initial experiment employed a 3-billion-parameter model. However, we did not observe the desired emergent reasoning behavior. Instead, the model primarily optimized for the critic score by exploiting weaknesses in our reward function. With our initial configuration allocating 30% for structural accuracy and 70% for content quality, the model discovered it could easily satisfy the structural requirements by generating correctly formatted output using the prescribed brackets ($"<output></output>"$) and nested array structure. This optimization strategy resulted in a fixed, ineffective thinking pattern—essentially producing formulaic, non-informative responses as illustrated in Figure 18.
 
-#figure(caption: [Mean Critic Rewards Left and Models Response Length right for the first training run with a 3B model @hausen2025tinyzero],
+#figure(caption: [Mean Critic Rewards Left and Models Response Length right for the first training run with a 3B model https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vps13688?nw=nwuserlukhausen],
   image("../assets/screenshots/train_1.png", width: 100%)
 )
 

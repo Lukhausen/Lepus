@@ -2,9 +2,9 @@
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
 
 #let previouse_methods = [
-= Previous Methodologys and Approaches
+= Previous Methodologies and Approaches
 
-
+This chapter presents an examination of leading methodological frameworks that have demonstrated significant performance on the ARC-AGI Benchmark. While OpenAI's proprietary models currently occupy prominent positions on the leaderboard, our analysis focuses on two independent research teams—"ARChitects" and "Icecuber"—whose open methodologies have achieved substantial results across both the ARC-AGI-1 and ARC-AGI-2 Benchmarks, as illustrated in @arc-leaderboard-mini.
 
 #let models_2 = (
     ("Human Panel", "100.0%", "98.0%", "$17.00"),
@@ -25,9 +25,7 @@
     ..models_2.flatten(),
   ),
   caption: [The current top 5 of the ARC AGI Leaderboard. @arcprize_leaderboard]
-) 
-
-Besides the Openai Models, which are closed source and do not lay open their workings, there are two independed teams, namely the "ARChitects" and "Icecuber" havin suceeded in reaching high scores for both the ARC AGI 1 and the ARC AGI 2 Benchmark. In This section of the paper we will investigate their approches.
+) <arc-leaderboard-mini>
 
 == The ARChitects: A Perspective-Based Approach to ARC-AGI
 

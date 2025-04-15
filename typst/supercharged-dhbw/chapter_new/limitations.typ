@@ -3,7 +3,6 @@
 
 
 
-
 #let limitations = [
 
 = Limitations and Future Research Directions
@@ -29,7 +28,7 @@ This methodology would leverage the model's accumulated knowledge across differe
 
 == Foundation Model Selection Optimization
 
-Our research utilized base Qwen models as foundation architectures. However, initializing from models already fine-tuned for reasoning tasks could provide substantial performance advantages. Specifically, models such as NVIDIA's NeMo-Minitron series built on the LLaMA architecture have demonstrated enhanced reasoning capabilities that could serve as a more effective starting point for reinforcement learning optimization.
+Our research utilized base Qwen models as foundation architectures. However, initializing from models already fine-tuned for reasoning tasks could provide substantial performance advantages. Specifically, models such as NVIDIA's NeMo-Minitron series built on the LLaMA architecture have demonstrated enhanced reasoning capabilities that could serve as a more effective starting point for reinforcement learning.
 
 The principal advantage of such pre-optimized foundation models lies in their established reasoning pathways, which our reinforcement learning approach could potentially enhance rather than develop from rudimentary capabilities. This hypothesis is supported by our observation that the model could independently develop reasoning strategies for ARC tasks without explicit instruction, particularly when incentivized through our thinking-reward mechanism.
 
@@ -44,8 +43,6 @@ This computational augmentation approach would shift the model's operation from 
 Our experimental findings provide insights regarding emergent reasoning capabilities in language models. The results indicate that while reasoning models can be developed with relatively modest computational resources, the emergence of sophisticated reasoning patterns appears contingent upon foundational model intelligence. In scenarios where the base model lacks sufficient cognitive capacity, reasoning patterns do not spontaneously emerge through reinforcement learning alone.
 
 However, our most significant observation came from the training run incorporating explicit rewards for reasoning length, where we observed the emergence of more sophisticated analytical patterns. This suggests that while complete reasoning capabilities may not emerge spontaneously, they can be methodically cultivated through targeted incentive mechanisms that guide the model toward more structured analytical approaches.
-
-These findings contribute to our understanding of the conditions necessary for emergent reasoning in large language models and highlight promising directions for future research in this domain.
 
 
 ]

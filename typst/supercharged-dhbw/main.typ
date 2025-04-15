@@ -10,7 +10,6 @@
 
 #import "chapter_new/introduction.typ": introduction
 #import "chapter_new/background.typ": background
-#import "chapter_new/methodology.typ": methodology
 #import "chapter_new/experimental.typ": experimental
 #import "chapter_new/results.typ": results
 #import "chapter_new/conclusion.typ": conclusion
@@ -24,10 +23,11 @@
 #import "chapter_new/use_of_ai.typ": use_of_ai
 #import "chapter_new/post_training_benchmark.typ": post_training_benchmark
 #import "chapter_new/limitations.typ": limitations
+#import "chapter_new/chapter_authorship.typ": chapter_authorship
 
 
 #show: supercharged-dhbw.with(
-  title: "Exploring the Impact of Synthetic Chain-of-Thought Fine-Tuning on LLM Reasoning Abilities",
+  title: "Evaluating Synthetic Chain-of-Thought via RL Fine-Tuning for ARC-AGI Problem Solving",
   authors: (
     (name: "Lukas Marschhausen", student-id: "1840227", course: "TINF22AI1", course-of-studies: "Applied Computer Science", company: (
       (name: "Cisco Systems GmbH", post-code: "65760", city: "Eschborn")
@@ -130,6 +130,8 @@
 //Conclusion
 #conclusion
 
+
+#chapter_authorship
 
 
 
