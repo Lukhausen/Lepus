@@ -194,8 +194,8 @@ def evaluate_score(solution_str, test_answer, solution_str_full, score_variant= 
     if score_variant == RewardScoreVariants.THINK:
         think_score = check_think_length(solution_str_full)
         weight_syntax = 0.1
-        weight_content = 0.5
-        weight_think = 0.4
+        weight_content = 0.6
+        weight_think = 0.3
         return weight_think *think_score + weight_syntax * syntax_score + weight_content * content_score
     elif score_variant == RewardScoreVariants.NORMAL:
         weight_syntax = 0.1
