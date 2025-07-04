@@ -67,7 +67,9 @@ These augmentation strategies expanded the effective training dataset to 531,318
 The ARChitects' approach implements a three-stage inference optimization framework:
 
 + *Multi-perspective task presentation*: The system applies the same transformations used during training to generate 8-16 alternative perspectives of each input problem, enabling the model to approach problems from angles where the underlying pattern might be more apparent.
-+ *Depth-First Search (DFS) candidate generation*: Traditional token selection methods were replaced with a custom DFS algorithm that explores solution paths with cumulative probability exceeding a specified threshold, efficiently identifying solutions with highest overall confidence.
+
++ *Depth-First Search (DFS) candidate generation*: Rather than selecting the single 'best' next token at every step, the model branches out (as in DFS), following several almost-as-good next tokens all the way to the end of the answer and multiplying the probabilities along each branch. It then retains the branch with the highest total product (overall confidence), meaning that a slightly less probable intermediate token can still be successful if it leads to a much more definitive final answer.
+
 + *Cross-perspective candidate evaluation*: The selection strategy aggregates model confidence scores across multiple transformed perspectives of the same task, using the product of probabilities to identify consistently confident solutions.
 
 This selection stage improved their score by approximately 25% over baseline approaches, demonstrating the effectiveness of multi-perspective evaluation.
@@ -83,14 +85,11 @@ The submission by Johan Wind (known as "Icecuber") represents an wildly differen
 
 Wind's approach consisted of three main components:
 
-+ *Transformation Library*: A collection of 142 different image operations derived from 42 core concepts. These operations included basic functions like rotating images, isolating specific colors, finding the largest shape, and combining image components.
+- *Transformation Library*: A collection of 142 image processing operations derived from 42 core concepts. These operations included basic functions such as rotating images, isolating specific colours, identifying the largest shape and combining image components. Wind identified these operations manually by analysing approximately 200 ARC tasks and noting frequently recurring visual patterns, thus ensuring broad coverage of common task-solving primitives.
 
-+ *Search Process*: A systematic exploration of possible combinations of these transformations (up to 4 operations in sequence) until finding a sequence that correctly transformed all training examples for a given task.
+- *Search Process*: A systematic exploration of possible combinations of these transformations (up to four operations in sequence) until a sequence was found that correctly transformed all training examples for a given task. To optimise this search, every intermediate image was hashed (converted into a compact numerical fingerprint). If the solver encountered a state it had already seen, it skipped further exploration of that branch. This 'state deduplication' allowed the system to efficiently traverse a significantly larger search space within the competition’s computational limits.
 
-+ *Efficient Implementation*: The entire system was built in C++ with careful optimization for speed and memory usage, allowing the search process to explore more possibilities within the competition's time constraints.
-
-
-The DSL implementation encapsulated fundamental visual reasoning primitives including component segmentation, color manipulation, geometric transformation, and compositional operations. This transformation library was empirically derived through manual analysis of approximately 200 ARC tasks, ensuring comprehensive coverage of recurring visual patterns. The search process implemented state deduplication mechanisms through efficient hashing techniques, enabling the exploration of substantially larger solution spaces than would otherwise be feasible within the competition's computational constraints. For tasks where no single transformation sequence solved all training examples, the system employed a "greedy stacking" approach that combined multiple partial solutions by selecting the most effective transformation for each specific example.
+- *Efficient implementation*: The entire system was built in C++ with careful optimisation for speed and memory usage, enabling deeper exploration of solution sequences within tight time constraints. Additionally, for tasks where no single sequence could solve all the training examples, the system employed a pragmatic 'greedy stacking' strategy. It found the best-performing sequence for each example individually and then combined these partial solutions, selecting whichever transformation worked best for each specific case. This enabled Wind's solver to handle complex tasks that a single universal sequence could not solve, thereby significantly boosting the overall success rate without imposing excessive computational demands.
 
 === Solution Strategy
 
