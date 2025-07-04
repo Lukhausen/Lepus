@@ -3,20 +3,19 @@
 
 == Chain of Thought
 
-The chain-of-thought principle describes a strategy in which AI models formulate their 
-thought processes in several comprehensible intermediate steps instead of just 
-presenting the final result directly @IBM2024Chain. This is often done in larger language models in 
-order to deal with complex issues such as mathematical tasks, logical conclusions or 
-the comprehension of long texts @LarsenWessels2022. A simple example would be a maths problem in which the 
-model not only states the sum of two numbers, but also explains step by step how this 
-is arrived at: first the numbers are broken down into their place values and added 
-individually until the correct result is finally obtained. Thanks to this step-by-step 
-structuring and presentation of the solution, errors are easier to recognise and can be 
-corrected if necessary. In practice, the method is mainly used where a clear derivation 
-is crucial, for example in tricky puzzles, in the field of automated text analysis or 
-when analysing legal documents. This explicit disclosure of the thought process not 
-only increases accuracy, but also promotes trust in the answers of AI systems, as users 
-can better understand the explanations.
+The chain-of-thought principle describes a strategy in which AI models articulate their thought processes through several comprehensible intermediate steps, instead of presenting the final result directly @IBM2024Chain. This is frequently employed in larger language models to handle complex tasks such as mathematical problems, logical reasoning, or comprehending lengthy texts @LarsenWessels2022. A simple example is a math problem, where the model does not only state the sum of two numbers but also explains step by step how it arrived at the solution: first, the numbers are broken down into their place values and added individually until the correct result is obtained. Due to this step-by-step structuring and presentation of the solution, errors are easier to recognize and can be corrected if necessary.
+
+When people first adopted chain-of-thought in 2022, it was nothing more than a clever prompting cue: adding phrases such as "Let's think step by step." dramatically improved accuracy in arithmetic, logical riddles, and legal analyses. @wei2023chainofthoughtpromptingelicitsreasoning
+Yet, this test-time method of utilizing chain-of-thought was inconsistent and always required a prompt to function correctly. Moreover, the principle of self-correction was mostly absent from those prompted chains of thought. Once the model had made a misstep, it did not correct itself to revert to the truth but rather continued along the incorrect path.
+
+By 2023, the community began fine-tuning smaller models on step-by-step datasets such as ThoughtSource @OpenBioLink2023ThoughtSource and MathInstruct @Yue2023MathInstruct, which collected hundreds of thousands of human- or LLM-written chains of thought, allowing models to no longer require a special prompt.
+
+OpenAI joined this effort and published a fully human-generated reasoning chain-of-thought dataset consisting of 800k reasoning steps on the MATH benchmark @Hendrycks2021Math @prm800k.
+
+With the release of OpenAI's O1, the first large model with inherent test-time chain-of-thought reasoning capabilities was introduced, demonstrating that applying the chain-of-thought principle not only during prompting but also during training can significantly improve logical reasoning accuracy.
+
+In 2025, this means that nearly all state-of-the-art language models now utilize chain-of-thought during test time. The simple instruction "think step by step" has become obsolete yet remains integral, as it is effectively embedded within the model itself rather than functioning merely as a prompt.
+
 
 == Scaling Laws
 
