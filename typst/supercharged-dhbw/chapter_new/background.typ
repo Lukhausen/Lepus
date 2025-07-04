@@ -155,7 +155,7 @@ USER_PROMPT_TEMPLATE = (
 
 The experimental results revealed complete inefficacy, with zero correct predictions across all 120 evaluation tasks (0% success rate). Our experimental design utilized a temperature setting of 1 for GPT-4o across the comprehensive evaluation suite comprising 172 individual tests (as some tasks contain multiple test conditions). This methodology resulted in approximately 1 million tokens processed during evaluation, with associated computational costs of approximately €5 per complete benchmark evaluation.
 
-Given these resource constraints, we prioritized experimental breadth over replicated trials, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark.
+Given these resource constraints, we prioritized experimental breadth over replicated trials, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-2-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark.
 
 Our computational efficiency analysis identified tokenization overhead as a significant contributor to processing costs, with raw JSON string representations resulting in inefficient token utilization—nearly every character requiring individual tokenization.
 
@@ -220,7 +220,7 @@ Despite these methodological enhancements, experimental results maintained a 0% 
  caption: [The Type of Failure of the Second Run. For full run details, see  @marschhausen_lepus_benchmark_2],
 )
 
-Based on these experimental findings, we conclude that prompt engineering alone — even employing methodologies such as Chain of Thought reasoning and step-by-step verification — cannot overcome the fundamental abstraction limitations preventing LLMs from solving ARC-AGI-tasks.
+Based on these experimental findings, we conclude that prompt engineering alone — even employing methodologies such as Chain of Thought reasoning and step-by-step verification — cannot overcome the fundamental abstraction limitations preventing LLMs from solving ARC-AGI-2-tasks.
 
 ]
 

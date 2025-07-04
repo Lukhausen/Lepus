@@ -45,7 +45,7 @@ An intriguing development occurred during training — the model progressively i
   "[...] Wait, wait. Wait. That's an aha moment I can flag here. Let's reevaluate this step-by-step [...]"
 )
 
-Since this approach requires only input-output pairs as training data, we hypothesize that it could be applied to domains where LLMs have previously struggled to produce tangible results. One such domain is spatial generalization on novel tasks, as evaluated by the ARC-AGI-Benchmark. This benchmark consists of example grids that must be transformed into output grids, requiring models to learn from examples and generalize observed patterns to new tasks. Currently, the highest score on this benchmark is held by OpenAI's o3 model at 4%, compared to human performance of 100%. @arcprize_leaderboard
+Since this approach requires only input-output pairs as training data, we hypothesize that it could be applied to domains where LLMs have previously struggled to produce tangible results. One such domain is spatial generalization on novel tasks, as evaluated by the ARC-AGI-2-Benchmark. This benchmark consists of example grids that must be transformed into output grids, requiring models to learn from examples and generalize observed patterns to new tasks. Currently, the highest score on this benchmark is held by OpenAI's o3 model at 4%, compared to human performance of 100%. @arcprize_leaderboard
 
 Our research investigates whether DeepSeek's reinforcement learning methodology can be adapted to enhance pattern generalization capabilities on the ARC-AGI-2 dataset, potentially bridging the substantial gap between current AI systems and human-level performance in abstract reasoning tasks.
 
