@@ -25,18 +25,34 @@ We also use scalarisation functions to combine the separate ratings. These funct
 The score management in our evaluation system is designed around the insight that separating evaluation into distinct facets — syntax and content — can lead to a more nuanced and effective reward mechanism for our RL training. Building on the MORLAIF-inspired architecture, we decompose the problem into two specific evaluations.
 
 == Evaluation Framework for Grid and Content Similarity
+To assign a reliable reward score, we rely on two complementary functions @reward_score_arc_agi_two_py. *evaluate_grid_similarity* checks whether the model's output adheres to the expected grid structure (syntax evaluation), while *compare_answers* verifies that each cell's content matches the target solution (content evaluation). Together, they form a dual evaluation scheme for measuring both format and meaning.
 
 === Syntax (Structural) Evaluation
-The first component focuses on syntax evaluation, ensuring that LLM output adheres to the required grid format. The *evaluate_grid_similarity* function handles this assessment through several key steps:
+The *evaluate_grid_similarity* function takes two inputs *solution_str*, a string encoding of a candidate grid, and *test_answer*, a Python list of lists representing the expected grid-and returns a floating-point similarity score between 0.1 and 1.0. Internally, it proceeds in three main phases: parsing and structure validation, computation of a raw structural similarity metric, and finally an exponential mapping of that metric into the "reward" range.
 
-1. *Input Parsing* : Both the expected answer and solution are parsed into Python objects using a safe literal evaluation method. If parsing fails or the structure doesn't match the expected format (a list of lists), a minimal baseline score (0.1) is assigned.
+First, the function attempts to parse *solution_str* into a Python object using *ast.literal_eval*. This is a safe way to interpret a string as a Python literal (list, tuple, dict, etc.) without executing arbitrary code. If parsing fails for any reason-bad syntax, unexpected types, etc.-the function immediately returns the baseline score of 0.1, indicating essentially no structural match. Assuming no exception is raised, the parsed object (named *solution_grid*) is checked to ensure it is exactly a list of lists; if it is not (for example, if it is a flat list, or contains non-list elements), the function again returns
 
-2. *Structural Comparison*: The function measures similarity by first comparing the number of rows (calculating a row similarity ratio), then iterating through common rows to compute column-level similarity. For each row, it calculates the ratio between the lengths of corresponding rows.
+Once both *solution_grid* and the provided *test_answer* (aliased internally as *expected_grid*) are known to be list-of-list structures, the function measures two dimensions of similarity. The first is the row count similarity: if *n_expected* is the number of rows in the expected grid and *n_received* the number of rows in the candidate, the row similarity *row_sim* is defined as
+```python
+row_sim = min(n_expected, n_received) / max(n_expected, n_received)
+```
+so that identical row counts yield 1.0, and highly mismatched counts approach 0.0. The second dimension is column-length similarity computed across the first *common_rows = min(n_expected, n_received)* rows. For each shared row index *i*, the code compares the length of *expected_grid[i]* and *solution_grid[i]*. Two empty rows are considered a perfect match (*ratio = 1.0*), a single empty versus non-empty row becomes zero similarity, and otherwise the ratio of the smaller length to the larger length is taken. These per-row ratios are averaged (or, if there are no rows at all, defaulted to 0.1) to produce *avg_col_sim*.
 
-3. *Score Mapping*: An exponential transformation is applied to the structural score: $ "score" = 0.1 + 0.8 dot frac(e^(k dot "structural_score") - 1, e^k -1) $ Where structural_score is a combined metric reflecting both row and column similarity of the grids, and k=4 was selected after extensive testing.\ This k-value choice was deliberate - testing various values revealed that k=4 effectively penalizes outputs that fail to generate proper list/grid formats while providing appropriate rewards once the model produces correct list structures. This value also emphasizes the importance of achieving the right matrix dimensions. #figure(
+These two components are combined into a single raw structural score:
+```python
+structural_score = (row_sim + avg_col_sim) / 2.0
+```
+This value lies between 0.0 (completely mismatched dimensions) and 1.0 (perfectly matching dimensions).\
+In the final step, the function transforms *structural_score* with an exponential curve to emphasize reaching a fully correct grid structure. With a tunable parameter *k = 4*, the transformation is
+```python
+sim = 0.1 + 0.8 * (exp(k * structural_score) - 1) / (exp(k) - 1)
+```
+#figure(
   image("../assets/screenshots/syntax_graph.png", width: 80%),
   caption: [Exponential Score Mapping for Grid Structure Evaluation (k = 4)],
 )
+By construction, when *structural_score* is 0, *sim* ≈ 0.1; as structural_score approaches 1, sim approaches-but does not exceed-0.9. To allow the special case of a truly identical grid (where *structural_score == 1.0*), the function first checks for that exact match and returns 1.0 outright. Otherwise, if the exponential map were to slightly overshoot due to floating-point precision, it is capped at 0.9. This design both penalizes malformed or incomplete grids with a low floor and rewards incremental improvements in structural correctness, while reserving the top score only for exact structural replicas.
+
 
 === Content (Semantic) Evaluation
 The second component evaluates content quality through the compare_answers function:
