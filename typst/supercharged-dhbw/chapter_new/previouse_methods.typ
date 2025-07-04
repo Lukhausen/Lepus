@@ -56,7 +56,7 @@ The research team employed the Mistral-NeMo-Minitron-8B-Base model—a distilled
 
 A central innovation in their methodology was the systematic application of data transformations to enhance pattern recognition capability. These transformations included:
 
-- Spatial transformations (rotations and reflections forming D8 symmetry operations)
+- Spatial transformations (the group of eight symmetries of a square: the four rotational symmetries (0°, 90°, 180°, 270°) and the four reflection symmetries - denoted D#sub[8])
 - Color permutations (rearrangements of the 10 possible color values)
 - Example order permutations (varying the sequence of training examples)
 
