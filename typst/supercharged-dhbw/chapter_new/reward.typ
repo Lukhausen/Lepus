@@ -51,7 +51,7 @@ sim = 0.1 + 0.8 * (exp(k * structural_score) - 1) / (exp(k) - 1)
   image("../assets/screenshots/syntax_graph.png", width: 80%),
   caption: [Exponential Score Mapping for Grid Structure Evaluation (k = 4)],
 )
-By construction, when *structural_score* is 0, *sim* ≈ 0.1; as structural_score approaches 1, sim approaches-but does not exceed-0.9. To allow the special case of a truly identical grid (where *structural_score == 1.0*), the function first checks for that exact match and returns 1.0 outright. Otherwise, if the exponential map were to slightly overshoot due to floating-point precision, it is capped at 0.9. This design both penalizes malformed or incomplete grids with a low floor and rewards incremental improvements in structural correctness, while reserving the top score only for exact structural replicas.
+by construction, when *structural_score* is 0, *sim* ≈ 0.1; as structural_score approaches 1, sim approaches-but does not exceed-0.9. To allow the special case of a truly identical grid (where *structural_score == 1.0*), the function first checks for that exact match and returns 1.0 outright. Otherwise, if the exponential map were to slightly overshoot due to floating-point precision, it is capped at 0.9. This design both penalizes malformed or incomplete grids with a low floor and rewards incremental improvements in structural correctness, while reserving the top score only for exact structural replicas.
 
 
 === Content (Semantic) Evaluation
