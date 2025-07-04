@@ -22,4 +22,5 @@
   PRM: "Process Reward Model",
   RL: "Reinforcement Learning",
   VRAM: "Video Random Access Memory",
+  PPO: "Proximal Policy Optimization",
 )
