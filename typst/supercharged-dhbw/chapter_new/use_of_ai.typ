@@ -1,3 +1,5 @@
+#import "../utils/note.typ": note
+
 #let use_of_ai = [  
 = Use of AI in this Paper
 
@@ -10,6 +12,10 @@ _As an example of the extent of changes introduced into this work, the original,
 
 As artificial intelligence, especially large language models, are getting more capable by the second, this paper will make use of this technology. The reason for that is that we, as computer scientists and even as a society, have two options: either pretend that it does not exist and slowly fall behind in productivity, code quality, documentation quality, and efficiency, or we embrace it and use it where it can improve our work. We will not use large language models to generate content for this work, even if no one is capable (when applying clever obfuscation) of recognizing or checking if this work contains artificially generated content. We will use artificial intelligence to correct spelling and grammatical mistakes and have large language models suggest different, smoother, and better-to-understand versions of our sentences to improve readability and understandability. It may be a little too early to include this type of information in a project, but we are pretty sure that this needs to become a standard practice of declaring what kind of generative AI was used in the creation of any written work. So even though this paragraph could have been left out completely, we decided to put it in to be transparent and honest about the use of generative tools in this work.
 
+#note[
+All AI-suggested text incorporated into this paper was manually reviewed and edited by the authors. We have ensured that no factual inaccuracies, misrepresentations, or hallucinated content introduced by AI are present. All citations were human-inserted following verification. The provided example illustrates precisely how AI-suggested edits were further refined manually before inclusion.
+
+]
 
 
 ]
