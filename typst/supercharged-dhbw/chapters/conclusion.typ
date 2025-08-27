@@ -14,20 +14,20 @@ Second, we demonstrated that structural elements surrounding the training proces
 
 Third, we identified and addressed the challenge of reward hacking, where models optimize for high reward scores without developing meaningful reasoning strategies. Through careful reward function engineering that separated structural assessment from content evaluation, we implemented a more nuanced training that better guided model development.
 
-Fourth, we discovered that reasoning behaviors can be effectively cultivated through structured incentive mechanisms. When natural emergence failed, we successfully induced deeper reasoning patterns by explicitly rewarding longer reasoning chains, demonstrating that cognitive capabilities can be methodically developed rather than relying solely on spontaneous emergence.
+Fourth, our results provide evidence that reasoning behaviors can be effectively cultivated through structured incentive mechanisms. When natural emergence failed, we successfully induced deeper, more meaningful reasoning patterns by explicitly rewarding longer reasoning chains. This was not merely an encouragement of verbosity; the "kickstarted" model achieved a reward score of 0.22992, a substantial improvement over both the baseline model (0.12946) and a fine-tuned model that did not receive the kickstart incentive (0.15484). This demonstrates that cognitive capabilities can be methodically developed, leading to quantifiably better outcomes, rather than relying solely on spontaneous emergence.
 
 
 == Key Methodological Insights
 
 The reward function design proved absolutely critical. By evaluating structure and content separately, we created more precise training signals that balanced basic requirements with higher-level reasoning goals.
-We also made significant improvements in tokenization efficiency. Our analysis of Qwen2.5's tokenization patterns helped us develop grid representations that used 62% fewer tokens while preserving all the structural information. This made training much more efficient.
+We also made improvements in tokenization efficiency. Our analysis of Qwen2.5's tokenization patterns helped us develop grid representations that used 62% fewer tokens while preserving all the structural information. This made training much more efficient.
 When our initial approaches hit dead ends, we had to adapt. Our pivot to rewarding reasoning length first, then transitioning to content-focused rewards, helped guide our models through learning plateaus they otherwise couldn't overcome.
 
 == Practical Implications
 A really exciting aspect of our work is how accessible this kind of research has become. Our entire project cost only about €350 in on-demand cloud GPU resources, despite using hardware worth over €160,000. The fact that students can access this level of computing power is incredible.
 
-Our benchmarking showed that thinking-enabled models are genuinely more versatile. The thinking model achieved a reward score of 0.22992 compared to the base model's 0.12946. While neither model solved ARC problems perfectly, this improvement shows we're on the right track with our reasoning approach.
+Our benchmarking showed that thinking-enabled models are genuinely more versatile. The kickstarted thinking model achieved a reward score of 0.22992, significantly outperforming both the base model's 0.12946 and a fine-tuned model without the kickstart incentive, which scored 0.15484. While none of the models solved any ARC-AGI-2 problems fully, this marked improvement validates our kickstarting approach and demonstrates its effectiveness in cultivating meaningful reasoning.
 
-In conclusion, not every model can become a reasoning model - it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop reasoning chains that actually work. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
+In conclusion, not every model can become a reasoning model - it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop more substantive reasoning chains that are better aligned with a task's objectives. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
 
 ]
