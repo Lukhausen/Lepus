@@ -48,7 +48,7 @@ example is first run through the algorithm in a forward pass before the so-calle
 backpropagation step takes place. This process is used to change the parameters so that 
 the model can make increasingly reliable predictions. Depending on the complexity and 
 size of the network, training can take a long time and is usually associated with high 
-costs for hardware and energy @Isenberg2025.
+costs for hardware and energy @Isenberg2025. To further refine model behavior, this phase often incorporates specialized techniques such as Reinforcement Learning from Human Feedback (RLHF) and question-answering fine-tuning.
 
 As soon as the model is sufficiently well trained, it is transferred to the field. This 
 practical application is known as inference or 'test time'. The sole aim here is to 
