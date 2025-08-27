@@ -61,6 +61,18 @@ The second component evaluates content quality through the compare_answers funct
 
 2. *Flattening Technique:* When exact matches aren't achieved, the function "flattens" nested lists to create a simplified comparison baseline and uses SequenceMatcher to calculate content alignment.
 
+==== SequenceMatcher Algorithm Details
+The SequenceMatcher, based on the Ratcliff-Obershelp algorithm, works by finding the longest common subsequence between two flattened sequences. For example:
+- Expected grid: `[[3,2],[7,8]]` becomes `[3,2,7,8]`
+- Model output: `[[3,2],[7,9]]` becomes `[3,2,7,9]`
+
+The algorithm identifies matching elements in sequence order:
+1. Finds longest common subsequence: `[3,2,7]` (3 elements match)
+2. Calculates ratio: `2.0 × matching_elements / total_elements = 2.0 × 3 / 8 = 0.75`
+3. This ratio represents how much of the content aligns between expected and actual output
+
+The key insight is that SequenceMatcher rewards not just individual correct values, but correct values *in the right sequence*, making it sensitive to both content accuracy and positional correctness within the flattened grid structure.
+
 3. *Regex Fallback:* For solutions that resist direct parsing due to formatting issues, a regex-based mechanism extracts numbers and computes a similarity ratio between expected and provided values.
 
 4. *Similarity Scoring:* The content similarity is transformed using: $ "score" = 0.1 + 0.8 dot frac(e^("k" dot "ratio") - 1,e^(-"k")-1) $ Where ratio measures the similarity between expected and actual answers, and k=7 controls the sensitivity of the exponential scaling.\ This higher k-value (k=7) was selected after testing various parameters. It prioritizes achieving those final percentage points of accuracy, as testing revealed the model already produces answers with high correlation to correct responses based solely on the examples provided. #figure(
