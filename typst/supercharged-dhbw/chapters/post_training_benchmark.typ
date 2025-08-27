@@ -24,7 +24,7 @@ Our methodology follows these steps:
 4. *Score Aggregation:* The final output of the benchmarking process includes both the content reward score and the correctness percentage. These combined metrics offer a comprehensive view of the model's performance, highlighting strengths in content quality and areas that may need further refinement. 
 
 == Comparison of Base and Thinking Models
-In addition to the overall benchmarking process described earlier, we conducted a direct comparison between our base model (Qwen_2.5_7B) and the thinking-enhanced variant (Qwen_2.5_7B_ARC_v0.2_thinking). The base model, which served as our starting point, was trained without any additional incentives for extended reasoning. Its final performance on the test set was characterized by a RewardScore of approximately 0.12946 as seen in @exmaple-out-qwen_normal, even though both models registered zero correct outputs and 120 wrong outputs in terms of basic correctness.
+In addition to the overall benchmarking process described earlier, we conducted a direct comparison between our base model (Qwen_2.5_7B) and the thinking-enhanced variant (Qwen_2.5_7B_ARC_v0.2_thinking). The base model, which served as our starting point, was trained without any additional incentives for extended reasoning. Its final performance on the test set was characterized by a RewardScore of approximately 0.12946 as seen in @example-out-qwen_normal, even though both models registered zero correct outputs and 120 wrong outputs in terms of basic correctness.
 
 #figure(
 align(center)[
@@ -42,11 +42,11 @@ align(center)[
  ]
  )
 ], caption: "Benchmark output for the Qwen_2.5_7B model"
-) <exmaple-out-qwen_normal>
+) <example-out-qwen_normal>
 
 The thinking model, on the other hand, initially underwent the same standard training process as the base model. However, upon reaching a plateau in its reasoning development, we introduced a targeted intervention. Specifically, we provided a reward incentive for longer, more elaborate reasoning processes. This "kickstart" encouraged the model to develop a more in-depth thought process in its outputs. Once the model had sufficiently adopted this longer reasoning approach, we removed the extra reward and reverted to training exclusively with the standard RewardScore. The goal was to integrate the enhanced thinking capability with the model’s ability to generate correct and contextually relevant solutions.
 
-The results clearly show that the thinking model outperforms the base model in terms of the RewardScore, as evidenced by an increase from around 0.12946 to roughly 0.22992 as seen in @exmaple-out-qwen_rhinking. This improvement indicates that the additional reasoning component—enhanced during the specialized training phase—has a positive effect on the content quality assessment. Although neither model managed to produce correct responses as per the binary correctness evaluation in this benchmarking run, the higher RewardScore for the thinking model suggests it is better aligned with our desired output characteristics. This validates the approach of incentivizing extended reasoning during training, as it helps the model to combine a more robust thinking process with a relevant and solution-oriented output.
+The results clearly show that the thinking model outperforms the base model in terms of the RewardScore, as evidenced by an increase from around 0.12946 to roughly 0.22992 as seen in @example-out-qwen_thinking. This improvement indicates that the additional reasoning component—enhanced during the specialized training phase—has a positive effect on the content quality assessment. Although neither model managed to produce correct responses as per the binary correctness evaluation in this benchmarking run, the higher RewardScore for the thinking model suggests it is better aligned with our desired output characteristics. This validates the approach of incentivizing extended reasoning during training, as it helps the model to combine a more robust thinking process with a relevant and solution-oriented output.
 
 #figure(
 align(center)[
@@ -64,7 +64,7 @@ align(center)[
  ]
  )
 ], caption: "Benchmark output for the Qwen_2.5_7B_ARC_v0.2_thinking model"
-) <exmaple-out-qwen_rhinking>
+) <example-out-qwen_thinking>
 
 == Conclusion
 The benchmarking phase serves as a critical step in validating the effectiveness of our reinforcement learning approach. By isolating the evaluation of content from syntax and concentrating on the factual correctness of the output, we ensure that the models are not only well-trained in generating fluent language but also in delivering reliable and relevant information.
