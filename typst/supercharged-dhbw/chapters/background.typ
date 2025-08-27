@@ -98,7 +98,7 @@ GPT-4o responded with the following analysis:
 
 The analysis demonstrates that the LLM failed to identify the correct transformation rule—sorting colors in descending order of their frequency within the original input.
 
-Our initial experiments utilized the ARC-AGI-1 Dataset. However, with the release of the ARC-AGI-2 dataset in March 2024, we transitioned to this updated Benchmark for all subsequent experiments to maintain methodological consistency. The table below presents current performance benchmarks for various models on the ARC-AGI-2 Dataset @arcprize_leaderboard.
+Our initial experiments utilized the ARC-AGI-1 Dataset. However, with the release of the ARC-AGI-2 dataset in March 2024, we transitioned to this updated benchmark for all subsequent experiments to maintain methodological consistency. All experimental results and performance metrics presented in this paper are based on the ARC-AGI-2 dataset. The table below presents current performance benchmarks for various models on the ARC-AGI-2 Dataset @arcprize_leaderboard.
 
 
 
@@ -155,7 +155,7 @@ USER_PROMPT_TEMPLATE = (
 
 The experimental results revealed complete inefficacy, with zero correct predictions across all 120 evaluation tasks (0% success rate). Our experimental design utilized a temperature setting of 1 for GPT-4o across the comprehensive evaluation suite comprising 172 individual tests (as some tasks contain multiple test conditions). This methodology resulted in approximately 1 million tokens processed during evaluation, with associated computational costs of approximately €5 per complete benchmark evaluation.
 
-Given these resource constraints, we prioritized experimental breadth over replicated trials, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-2-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark.
+Given these resource constraints and budget limitations, we prioritized experimental breadth over replicated trials and exhaustive prompt testing, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-2-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark. While this suggests that prompt-based solutions may be insufficient for ARC-AGI-2 tasks, more sophisticated prompting strategies cannot be entirely ruled out without comprehensive evaluation.
 
 Our computational efficiency analysis identified tokenization overhead as a significant contributor to processing costs, with raw JSON string representations resulting in inefficient token utilization—nearly every character requiring individual tokenization.
 

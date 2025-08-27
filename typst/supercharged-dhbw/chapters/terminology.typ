@@ -59,7 +59,7 @@ of queries. In productive scenarios, efficient inference is therefore just as im
 as a well-organised training process, as the AI system used often has to deal with 
 large volumes of queries in a short space of time @Nanonets2023.
 
-== Test-Time Compute
+== Test-Time Compute <test-time-compute>
 
 Test-Time Compute (TTC) refers to the paradigm of allocating additional computational resources during the inference phase—or "test time"—to enhance a model's problem-solving capabilities, rather than relying solely on a single, rapid forward pass @Isenberg2025. This approach represents a strategic shift from exclusively scaling model parameters during training to optimizing computation at the point of use. It allows models to engage in more complex cognitive processes like iterative refinement, self-correction, and multi-step reasoning, trading increased latency for significantly improved performance and reliability @Sun2024.
 
