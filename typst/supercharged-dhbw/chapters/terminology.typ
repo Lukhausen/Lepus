@@ -119,8 +119,6 @@ which are optimized for handling multiple data points in parallel.
 
 In addition, the number of layers influences how deeply the model processes its inputs, 
 with more layers often meaning a higher computational load, but also a greater capacity 
-for abstraction. Finally, dropout plays an important role in regularisation: it 
-determines how many neurons are temporarily 'switched off' during training, which 
-should reduce overfitting and improve generalisation. All of these components together 
+for abstraction. All of these components together 
 significantly determine how well and how quickly a neural network learns.
 ] 
