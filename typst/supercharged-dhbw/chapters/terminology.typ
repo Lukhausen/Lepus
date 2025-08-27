@@ -56,6 +56,32 @@ of queries. In productive scenarios, efficient inference is therefore just as im
 as a well-organised training process, as the AI system used often has to deal with 
 large volumes of queries in a short space of time @Nanonets2023.
 
+== Test-Time Compute
+
+Test-Time Compute (TTC) refers to the paradigm of allocating additional computational resources during the inference phase—or "test time"—to enhance a model's problem-solving capabilities, rather than relying solely on a single, rapid forward pass @Isenberg2025. This approach represents a strategic shift from exclusively scaling model parameters during training to optimizing computation at the point of use. It allows models to engage in more complex cognitive processes like iterative refinement, self-correction, and multi-step reasoning, trading increased latency for significantly improved performance and reliability @Sun2024.
+
+The concept gained widespread attention with models like OpenAI's o1 and DeepSeek-R1, which demonstrated that structured, prolonged thinking during inference could unlock advanced reasoning abilities. Techniques central to TTC include chain-of-thought prompting, where a model verbalizes its reasoning steps, and verification mechanisms, where it checks its own work. For instance, DeepSeek's use of a `<think>...</think>` structure is a practical implementation of TTC, compelling the model to generate an explicit reasoning trace before delivering a final answer.
+
+== Fine-Tuning
+
+Fine-tuning refers to the process of taking a pre-trained model and adapting it to perform better on specific tasks or domains by continuing the training process on task-specific data. Rather than training a model from scratch, fine-tuning leverages the knowledge already encoded in the pre-trained model's parameters, which significantly reduces computational requirements and training time while often achieving superior performance on the target task @devlin2019bert @raffel2020t5.
+
+The fine-tuning process typically involves several key steps: starting with a pre-trained foundation model (such as GPT, BERT, or Qwen), preparing a dataset specific to the target task, and then continuing training with a lower learning rate to preserve the pre-trained knowledge while adapting to new patterns. This approach has become the standard methodology in modern machine learning, as it allows practitioners to benefit from large-scale pre-training while customizing models for specific applications @devlin2018bert @radford2018improving.
+
+=== Reinforcement Learning Fine-Tuning
+
+A particularly powerful variant of fine-tuning employs reinforcement learning (RL) techniques to optimize model behavior based on reward signals rather than supervised examples. RL fine-tuning has gained prominence following the success of models like ChatGPT and GPT-4, which utilize Reinforcement Learning from Human Feedback (RLHF) @xu2024dpo_vs_ppo. This approach enables models to learn complex behaviors that are difficult to capture through traditional supervised learning, such as generating helpful, harmless, and honest responses.
+
+The most widely used algorithm for RL fine-tuning is Proximal Policy Optimization (PPO) @zhu2024apa @xu2024dpo_vs_ppo, which balances exploration and exploitation while maintaining training stability. In the context of language models, PPO fine-tuning typically involves an actor-critic architecture where the actor model generates responses while a critic model evaluates their quality. The actor receives rewards based on various criteria—such as task accuracy, safety, or reasoning quality—and adjusts its behavior to maximize these rewards over time.
+
+This methodology proves particularly valuable for developing reasoning capabilities, as demonstrated by recent models like OpenAI's o1 series and DeepSeek-R1. By providing rewards for correct intermediate reasoning steps and penalizing incorrect logic, RL fine-tuning can encourage models to develop more structured and reliable thought processes @lightman2023letsverifystepstep.
+
+=== Question-Answering Fine-Tuning
+
+Question-answering (QA) fine-tuning represents a specialized application where models are trained specifically to respond accurately to questions across various domains and formats. This process typically involves curating datasets containing question-answer pairs, often with additional context or reasoning steps. The fine-tuning objective focuses on improving the model's ability to comprehend questions, retrieve relevant information from its training data, and formulate coherent, accurate responses.
+
+Modern QA fine-tuning often incorporates techniques such as few-shot learning, where models learn to answer questions with minimal examples, and multi-step reasoning, where complex questions are broken down into manageable components. This approach has proven essential for developing AI assistants capable of providing reliable information across diverse knowledge domains.
+
 == Hyperparameter Tuning
 Hyperparameter tuning refers to the systematic adjustment of certain settings in the 
 deep learning model in order to achieve the best possible results @AWS2024. The learning rate 
