@@ -46,6 +46,7 @@
   university: "Cooperative State University Baden-Württemberg",
   university-location: "Mannheim",
   university-short: "DHBW",
+  show-confidentiality-statement: false,
   abstract: abstract,
   // for more options check the package documentation (https://typst.app/universe/package/supercharged-dhbw)
 )

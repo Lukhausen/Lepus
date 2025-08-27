@@ -204,7 +204,7 @@ Comparative tokenization analysis between these representational formats provide
  caption: [Tokenization visualization comparing nested array representation (left) with compressed string format (right). Individual tokens are color-coded, demonstrating how the string format reduces token count while preserving grid structure for ARC tasks. @lukhausen2025tokenvisualisation]
 )
 
-This optimization approach yielded a 62% reduction in token count (from 29 to 11 tokens) in our experimental implementation while preserving all structural information necessary for pattern recognition—a significant efficiency enhancement with potential implications for computational resource utilization in the subsequent training runs.
+This optimization approach reduced the token count by 18 (from 29 to 11), a 62% reduction, in our experimental implementation while preserving all structural information necessary for pattern recognition—a significant efficiency enhancement with potential implications for computational resource utilization in the subsequent training runs.
 
 == Model Output Format Preference Analysis
 
