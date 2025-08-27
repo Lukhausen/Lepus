@@ -8,21 +8,21 @@
 //#import "chapters/our_approach.typ": our_approach
 
 
-#import "chapter_new/introduction.typ": introduction
-#import "chapter_new/background.typ": background
-#import "chapter_new/experimental.typ": experimental
-#import "chapter_new/results.typ": results
-#import "chapter_new/conclusion.typ": conclusion
-#import "chapter_new/reward.typ" : reward
-#import "chapter_new/data_augumentation.typ": data_augumentation
-#import "chapter_new/previouse_methods.typ": previouse_methods
-#import "chapter_new/our_approach.typ": our_approach  
-#import "chapter_new/terminology.typ": terminology
-#import "chapter_new/abstract.typ": abstract
-#import "chapter_new/use_of_ai.typ": use_of_ai
-#import "chapter_new/post_training_benchmark.typ": post_training_benchmark
-#import "chapter_new/limitations.typ": limitations
-#import "chapter_new/chapter_authorship.typ": chapter_authorship
+#import "chapters/introduction.typ": introduction
+#import "chapters/background.typ": background
+#import "chapters/experimental.typ": experimental
+#import "chapters/results.typ": results
+#import "chapters/conclusion.typ": conclusion
+#import "chapters/reward.typ" : reward
+#import "chapters/data_augumentation.typ": data_augumentation
+#import "chapters/previouse_methods.typ": previouse_methods
+#import "chapters/our_approach.typ": our_approach  
+#import "chapters/terminology.typ": terminology
+#import "chapters/abstract.typ": abstract
+#import "chapters/use_of_ai.typ": use_of_ai
+#import "chapters/post_training_benchmark.typ": post_training_benchmark
+#import "chapters/limitations.typ": limitations
+#import "chapters/chapter_authorship.typ": chapter_authorship
 
 
 #show: supercharged-dhbw.with(
