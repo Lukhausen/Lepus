@@ -17,6 +17,8 @@ To establish a foundation for our augmentation strategy, we first examined the s
   caption: [Distribution of ARC tasks based on the number of train and test examples per task. The Y-axis uses a logarithmic scale. @lukhausen2025dataaugmentation],
 ) <task-count-distribution>
 
+The chart displays the number of tasks (y-axis, logarithmic scale) categorized by the number of training (blue) and testing (orange) examples per task (x-axis).
+
 The distribution analysis reveals several statistical outliers that deviate from the normal distribution pattern. @outlier-examples presents two representative examples of these outliers.
 
 #figure(
@@ -28,6 +30,8 @@ The distribution analysis reveals several statistical outliers that deviate from
   ),
   caption: "Task 8dab14c2 with 4 test inputs and 794b24be with 10 train inputs"
 ) <outlier-examples>
+
+This analysis provides a clear statistical image of the task distribution, establishing a baseline understanding of the dataset's composition. The following sections detail our approach to enriching this dataset while preserving the semantic integrity of the original tasks.
 
 == Geometric Transformation Techniques
 
@@ -52,7 +56,7 @@ To further diversify the dataset while maintaining task integrity, we implemente
 
 === Boundary Padding
 
-We introduced a stochastic padding mechanism that adds uniform boundary elements around task grids. This transformation was applied independently to inputs and outputs with a 50% probability for each, resulting in four possible outcomes for any given task (no padding, input padding only, output padding only, or both input and output padding). This approach generated approximately 6,000 additional tasks, as the combined probability of applying padding to at least one component is 75% per task.
+We introduced a stochastic padding mechanism that adds uniform boundary elements around task grids. This transformation was applied independently to inputs and outputs with a 50% probability for each. For any given task, padding was applied consistently across all its constituent examples: the same boundary was added to all training and test inputs, and likewise for all outputs. This consistent application ensures the padding can be learned as a deductible, non-semantic feature, resulting in four possible structural variants for each task (no padding, input padding only, output padding only, or both). This approach generated approximately 6,000 additional tasks, as the combined probability of applying padding to at least one component is 75% per task.
 
 #figure(
   image("../assets/screenshots/train_example_variants.png", width: 100%),
@@ -126,7 +130,7 @@ Our approach to prompt optimization established a framework with three primary o
 
 These structural imperatives were derived from theoretical considerations regarding token-level processing in transformer-based architectures and subsequently validated through empirical testing.
 
-== Tokenization Analysis for Qwen2.5-3B Model
+== Tokenization Analysis for Qwen2.5-3B Model <tokenization-analysis>
 
 A critical component of our research involved tokenization analysis of the Qwen2.5-3B model @bai2023qwen when processing numerical grid representations. Given the central importance of grid-based pattern recognition in ARC tasks, this investigation was essential for establishing an empirical foundation for subsequent optimization strategies.
 

@@ -81,11 +81,11 @@ The most widely used algorithm for RL fine-tuning is Proximal Policy Optimizatio
 
 This methodology proves particularly valuable for developing reasoning capabilities, as demonstrated by recent models like OpenAI's o1 series and DeepSeek-R1. By providing rewards for correct intermediate reasoning steps and penalizing incorrect logic, RL fine-tuning can encourage models to develop more structured and reliable thought processes @lightman2023letsverifystepstep.
 
-=== Question-Answering Fine-Tuning
+=== Question-Answering Fine-Tuning <question-answering-fine-tuning>
 
 Question-answering (QA) fine-tuning represents a specialized application where models are trained specifically to respond accurately to questions across various domains and formats. This process typically involves curating datasets containing question-answer pairs, often with additional context or reasoning steps. The fine-tuning objective focuses on improving the model's ability to comprehend questions, retrieve relevant information from its training data, and formulate coherent, accurate responses.
 
-Modern QA fine-tuning often incorporates techniques such as few-shot learning, where models learn to answer questions with minimal examples, and multi-step reasoning, where complex questions are broken down into manageable components. This approach has proven essential for developing AI assistants capable of providing reliable information across diverse knowledge domains.
+Modern QA fine-tuning often incorporates techniques such as few-shot learning, where models learn to answer questions with minimal examples, and multi-step reasoning, where complex questions are broken down into manageable components. This approach has proven essential for developing AI assistants capable of providing reliable information across diverse knowledge domains. @ye202560datapointssufficient
 
 == Hyperparameter Tuning
 Hyperparameter tuning refers to the systematic adjustment of certain settings in the 
