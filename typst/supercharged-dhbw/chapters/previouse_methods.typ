@@ -1,7 +1,7 @@
 #import "@preview/supercharged-dhbw:3.4.0": acr, acrf
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
 
-#let previouse_methods = [
+#let previous_methods = [
 = Previous Methodologies and Approaches
 
 This chapter presents an examination of leading methodological frameworks that have demonstrated significant performance on the ARC-AGI Benchmark. While OpenAI's proprietary models currently occupy prominent positions on the leaderboard, our analysis focuses on two independent research teams—"ARChitects" and "Icecuber"—whose open methodologies have achieved substantial results across both the ARC-AGI-1 and ARC-AGI-2 Benchmarks, as illustrated in @arc-leaderboard-mini.
@@ -87,7 +87,7 @@ Wind's approach consisted of three main components:
 
 - *Transformation Library*: A collection of 142 image processing operations derived from 42 core concepts. These operations included basic functions such as rotating images, isolating specific colors, identifying the largest shape and combining image components. Wind identified these operations manually by analyzing approximately 200 ARC tasks and noting frequently recurring visual patterns, thus ensuring broad coverage of common task-solving primitives.
 
-- *Search Process*: A systematic exploration of possible combinations of these transformations (up to four operations in sequence) until a sequence was found that correctly transformed all training examples for a given task. To optimise this search, every intermediate image was hashed (converted into a compact numerical fingerprint). If the solver encountered a state it had already seen, it skipped further exploration of that branch. This 'state deduplication' allowed the system to efficiently traverse a significantly larger search space within the competition’s computational limits.
+- *Search Process*: A systematic exploration of possible combinations of these transformations (up to four operations in sequence) until a sequence was found that correctly transformed all training examples for a given task. To optimize this search, every intermediate image was hashed (converted into a compact numerical fingerprint). If the solver encountered a state it had already seen, it skipped further exploration of that branch. This 'state deduplication' allowed the system to efficiently traverse a significantly larger search space within the competition’s computational limits.
 
 - *Efficient implementation*: The entire system was built in C++ with careful optimization for speed and memory usage, enabling deeper exploration of solution sequences within tight time constraints. Additionally, for tasks where no single sequence could solve all the training examples, the system employed a pragmatic 'greedy stacking' strategy. It found the best-performing sequence for each example individually and then combined these partial solutions, selecting whichever transformation worked best for each specific case. This enabled Wind's solver to handle complex tasks that a single universal sequence could not solve, thereby significantly boosting the overall success rate without imposing excessive computational demands.
 
@@ -95,7 +95,7 @@ Wind's approach consisted of three main components:
 
 The search process worked by:
 
-+ Starting with an input images
++ Starting with an input image
 + Applying each possible transformation to create many intermediate images
 + Continuing this process up to 4 steps deep
 + Selecting the transformation sequence that correctly solved all training examples

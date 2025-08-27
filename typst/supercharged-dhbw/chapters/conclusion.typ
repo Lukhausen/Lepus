@@ -4,7 +4,7 @@
 #let conclusion = [
 = Conclusion
 
-This Paper provides insights into developing reasoning capabilities in language models for abstract spatial reasoning tasks, particularly within the context of the ARC-AGI-2 benchmark. Through systematic experimentation with reinforcement learning techniques, we have identified several critical factors that influence the emergence and enhancement of reasoning behaviors in transformer-based architectures.
+This paper provides insights into developing reasoning capabilities in language models for abstract spatial reasoning tasks, particularly within the context of the ARC-AGI-2 benchmark. Through systematic experimentation with reinforcement learning techniques, we have identified several critical factors that influence the emergence and enhancement of reasoning behaviors in transformer-based architectures.
 
 ==  Summary of Contributions
 
@@ -28,6 +28,6 @@ A really exciting aspect of our work is how accessible this kind of research has
 
 Our benchmarking showed that thinking-enabled models are genuinely more versatile. The kickstarted thinking model achieved a reward score of 0.22992, significantly outperforming both the base model's 0.12946 and a fine-tuned model without the kickstart incentive, which scored 0.15484. While none of the models solved any ARC-AGI-2 problems fully, this marked improvement validates our kickstarting approach and demonstrates its effectiveness in cultivating meaningful reasoning.
 
-In conclusion, not every model can become a reasoning model - it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop more substantive reasoning chains that are better aligned with a task's objectives. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
+In conclusion, not every model can become a reasoning model—it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop more substantive reasoning chains that are better aligned with a task's objectives. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
 
 ]

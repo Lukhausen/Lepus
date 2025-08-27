@@ -14,7 +14,7 @@
 #import "chapters/conclusion.typ": conclusion
 #import "chapters/reward.typ" : reward
 #import "chapters/data_augumentation.typ": data_augumentation
-#import "chapters/previouse_methods.typ": previouse_methods
+#import "chapters/previouse_methods.typ": previous_methods
 #import "chapters/our_approach.typ": our_approach  
 #import "chapters/terminology.typ": terminology
 #import "chapters/abstract.typ": abstract
@@ -107,7 +107,7 @@
 #background 
 
 //Methodology
-#previouse_methods  
+#previous_methods  
 
 #our_approach
 

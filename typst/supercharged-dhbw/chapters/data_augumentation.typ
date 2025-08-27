@@ -118,7 +118,7 @@ The optimization of prompt structures for abstract reasoning tasks necessitates 
 
 Empirical research quantified the substantial impact of example sequencing, demonstrating performance variance from 54% to 93% on sentiment analysis benchmarks based solely on permutations of identical training examples. @zhao2021calibrateuseimprovingfewshot This finding carries significant implications for abstract reasoning tasks where pattern recognition is highly context-dependent. Further investigations have documented a recency bias phenomenon in large language models (LLMs), whereby models assign disproportionate weight to examples appearing later in the sequence, potentially compromising generalization capabilities. @cleary2025fewshot
 
-Contrary to conventional assumptions regarding few-shot learning efficacy, recent findings from experiments with test-time compute models (@test-time-compute) indicate performance degradation. Researchers by OpenAI and Microsoft @nori2024medprompto1explorationruntime observed statistically significant decreases in task performance when applying few-shot prompting to the o1 model architecture. These results align with independent observations by DeepSeek regarding their test-time compute model DeepSeek-R1, suggesting a fundamental limitation in current few-shot learning paradigms for certain model architectures. @deepseekai2025deepseekr1incentivizingreasoningcapability
+Contrary to conventional assumptions regarding few-shot learning efficacy, recent findings from experiments with test-time compute models (@test-time-compute) indicate performance degradation. Researchers at OpenAI and Microsoft @nori2024medprompto1explorationruntime observed statistically significant decreases in task performance when applying few-shot prompting to the o1 model architecture. These results align with independent observations by DeepSeek regarding their test-time compute model DeepSeek-R1, suggesting a fundamental limitation in current few-shot learning paradigms for certain model architectures. @deepseekai2025deepseekr1incentivizingreasoningcapability
 
 == Prompt Structure Development
 
@@ -141,7 +141,7 @@ A critical component of our research involved tokenization analysis of the Qwen2
  image("../assets/screenshots/example_tokenization_1.png", width: 60%),  
  image("../assets/screenshots/example_tokenization_2.png", width: 100%),  
  ),  
- caption: [Token Visualisation of Different Strings. Each colored segment represents an individual token as processed by the model. @lukhausen2025tokenvisualisation]  
+ caption: [Token Visualization of Different Strings. Each colored segment represents an individual token as processed by the model. @lukhausen2025tokenvisualisation]  
 )
 
 Our analysis revealed a distinctive tokenization pattern wherein Qwen2.5-3B encodes individual numerals as discrete tokens, contrasting with the encoding mechanisms employed in GPT-3 model architectures. This tokenization characteristic aligns with research documenting enhanced mathematical processing capabilities through appropriate numerical tokenization strategies. @sun2023tokenizationconsistencymattersgenerative @bostrom2020bytepairencodingsuboptimal @singh2024tokenizationcountsimpacttokenization For ARC tasks specifically, this property facilitates precise numeric pattern recognition — a capability essential for abstract reasoning functions.
@@ -150,7 +150,7 @@ To establish tokenization consistency across varying syntactic contexts, we cond
 
 #figure(  
  image("../assets/screenshots/example_tokenization_3.png", width: 100%),  
- caption: [Token Visualisation of Different Strings @lukhausen2025tokenvisualisation]  
+ caption: [Token Visualization of Different Strings @lukhausen2025tokenvisualisation]  
 )
 
 The experimental results confirmed consistent preservation of individual token status for numerals regardless of delimiter presence, suggesting potential optimization opportunities for grid representation efficiency.

@@ -40,7 +40,7 @@ Humans readily identify the pattern in this example: colors are arranged based o
  caption: [Solution showing the completed transformation, where colors are arranged vertically in descending order of their frequency in the original input grid. (training set task 392: f8ff0b80.json) @chollet2019arc],
 ) <arc-example-solution>
 
-For LLMs, however, this transformation is considerably less intuitive. We evaluated GPT-4o's performance on this specific task, providing only the unmodified JSON input with a temperature setting of 1 to ensure deterministic output. The dataset utilizes numerical values (0-9) rather than colors for grid representation:
+For LLMs, however, this transformation is considerably less intuitive. We evaluated GPT-4o's performance on this specific task, providing only the unmodified JSON input with a temperature setting of 0 to ensure deterministic output. The dataset utilizes numerical values (0-9) rather than colors for grid representation:
 
 #figure(
  caption: [The actual representation of the task as it is represented in the JSON file #footnote("This is a simplified representation of the JSON structure for better readability. (training set task 392: f8ff0b80.json)")],
@@ -153,7 +153,7 @@ USER_PROMPT_TEMPLATE = (
  ```
 )
 
-The experimental results revealed complete inefficacy, with zero correct predictions across all 120 evaluation tasks (0% success rate). Our experimental design utilized a temperature setting of 1 for GPT-4o across the comprehensive evaluation suite comprising 172 individual tests (as some tasks contain multiple test conditions). This methodology resulted in approximately 1 million tokens processed during evaluation, with associated computational costs of approximately €5 per complete benchmark evaluation.
+The experimental results revealed complete inefficacy, with zero correct predictions across all 120 evaluation tasks (0% success rate). Our experimental design utilized a temperature setting of 0 for GPT-4o across the comprehensive evaluation suite comprising 172 individual tests (as some tasks contain multiple test conditions). This methodology resulted in approximately 1 million tokens processed during evaluation, with associated computational costs of approximately €5 per complete benchmark evaluation.
 
 Given these resource constraints and budget limitations, we prioritized experimental breadth over replicated trials and exhaustive prompt testing, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-2-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark. While this suggests that prompt-based solutions may be insufficient for ARC-AGI-2 tasks, more sophisticated prompting strategies cannot be entirely ruled out without comprehensive evaluation.
 
@@ -162,14 +162,14 @@ Our computational efficiency analysis identified tokenization overhead as a sign
 #figure(
  image("../assets/screenshots/excessive-tokenisation-example.png", width: 60%),
  caption: [Tokenization of the Input to the LLM for task 0934a4d8 @openai_tokenizer],
-) <excessive-tokenisazion-example>
+) <excessive-tokenization-example>
 
 To address these limitations, we implemented an alternative representation strategy with dual objectives: First, enhancing semantic interpretability by transforming JSON structures into human-readable grid formats, and second, optimizing computational efficiency through reduced token consumption. Interestingly, our analysis revealed that even with grid-formatted input, the tokenization pattern remained highly granular:
 
 #figure(
  image("../assets/screenshots/excessive-tokenisation-example2.png", width: 60%),
  caption: [Tokenization of the Input to the LLM for task 0934a4d8 @openai_tokenizer],
-) <excessive-tokenisazion-example>
+) <excessive-tokenization-example2>
 
 This tokenization behavior can be attributed to architectural attention mechanisms that benefit from precise information representation. Comparative analysis between GPT-3 and GPT-4 tokenization strategies reveals significant evolutionary improvements in numerical data processing—GPT-4 implements consistent tokenization where each number is processed as a discrete token regardless of contextual whitespace, whereas earlier models treated "3" and "3 " (with trailing space) as entirely distinct tokens.
 
