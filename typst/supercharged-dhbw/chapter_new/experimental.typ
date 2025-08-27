@@ -1,4 +1,4 @@
-#import "@preview/supercharged-dhbw:3.4.0": acr, acrf, sourcecode
+#import "@preview/supercharged-dhbw:3.4.0": acr, acrf
 #import "../utils/llm.typ": llm-input, llm-output, llm-interaction
 
 #let experimental = [
@@ -74,11 +74,18 @@ After preparing the training data, establishing the reward function, and tuning 
 
 #figure(
   caption: "Example of Local Minimum thinking pattern. This pattern was present in all outputs of the model",
-  sourcecode[```
-<think>
-Let me solve this step by step. 1. I'll compare the input and output for each example. 2. I'll look for common patterns in the number changes. 3. I'll try to find the transformation pattern. 4. I'll apply that pattern to the test input.
-</think>
-```],
+  block(
+    fill: rgb("#f8f8f8"), 
+    stroke: rgb("#e0e0e0"), 
+    inset: 8pt, 
+    radius: 4pt,
+    width: 100%,
+    ```
+    <think>
+    Let me solve this step by step. 1. I'll compare the input and output for each example. 2. I'll look for common patterns in the number changes. 3. I'll try to find the transformation pattern. 4. I'll apply that pattern to the test input.
+    </think>
+    ```
+  ),
 )
 
 After terminating this initial training run, we considered two potential explanations: either our reward function lacked proper balance, or the model's capacity (3B parameters) was insufficient to develop the complex reasoning capabilities required for ARC tasks. This limitation of smaller models to develop sophisticated reasoning capabilities aligns with observations documented by Jian Pan in the TinyZero project @pan2025tinyzero_run @pan2025tinyzero. In our case, the reward structure imposed a minimum score of 0.1 for structural compliance, with a maximum potential structural reward of 0.3. Combined with the minimum content reward of 0.1, this created a performance ceiling of approximately 0.4, which is evident in the critic reward plateau shown in Figure 18. The model failed to discover strategies for improving content quality beyond this threshold.

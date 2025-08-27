@@ -46,14 +46,14 @@
       
       if calc.even(i) {
         // Even positions (0, 2, 4...) are user messages
-        if type(message) == "dictionary" and message.keys().contains("content") {
+        if type(message) == dictionary and message.keys().contains("content") {
           llm-input(message.at("content"))
         } else {
           llm-input(message)
         }
       } else {
         // Odd positions (1, 3, 5...) are model responses
-        if type(message) == "dictionary" {
+        if type(message) == dictionary {
           let msg_model = message.at("model", default: model)
           let msg_content = message.at("content", default: message)
           llm-output(model: msg_model, msg_content)
