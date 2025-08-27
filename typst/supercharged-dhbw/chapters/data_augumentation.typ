@@ -128,16 +128,16 @@ These structural imperatives were derived from theoretical considerations regard
 
 == Tokenization Analysis for Qwen2.5-3B Model
 
-A critical component of our research involved tokenization analysis of the Qwen2.5-3B model when processing numerical grid representations. Given the central importance of grid-based pattern recognition in ARC tasks, this investigation was essential for establishing an empirical foundation for subsequent optimization strategies.
+A critical component of our research involved tokenization analysis of the Qwen2.5-3B model @bai2023qwen when processing numerical grid representations. Given the central importance of grid-based pattern recognition in ARC tasks, this investigation was essential for establishing an empirical foundation for subsequent optimization strategies.
 
-#figure(  
- grid(  
- rows: 2,  
- gutter: 2mm,  
- image("../assets/screenshots/example_tokenization_1.png", width: 60%),  
- image("../assets/screenshots/example_tokenization_2.png", width: 100%),  
- ),  
- caption: [Token Visualisation of Different Strings @lukhausen2025tokenvisualisation]  
+#figure(  
+ grid(  
+ rows: 2,  
+ gutter: 2mm,  
+ image("../assets/screenshots/example_tokenization_1.png", width: 60%),  
+ image("../assets/screenshots/example_tokenization_2.png", width: 100%),  
+ ),  
+ caption: [Token Visualisation of Different Strings. Each colored segment represents an individual token as processed by the model. @lukhausen2025tokenvisualisation]  
 )
 
 Our analysis revealed a distinctive tokenization pattern wherein Qwen2.5-3B encodes individual numerals as discrete tokens, contrasting with the encoding mechanisms employed in GPT-3 model architectures. This tokenization characteristic aligns with research documenting enhanced mathematical processing capabilities through appropriate numerical tokenization strategies. @sun2023tokenizationconsistencymattersgenerative @bostrom2020bytepairencodingsuboptimal @singh2024tokenizationcountsimpacttokenization For ARC tasks specifically, this property facilitates precise numeric pattern recognition — a capability essential for abstract reasoning functions.

@@ -13,7 +13,7 @@ We also installed NVIDIA Nsight Visual Studio Edition and set up additional comp
 Due to these ongoing challenges with the Windows setup, we ultimately switched to an on-demand cloud instance running Linux, where the setup process proved significantly smoother.\
 On the cloud instance we automated the deployment with a script to simplify future setups—this proved especially valuable since the entire environment is deleted when the instance is decommissioned.
 
-After successfully running the project on Linux, we encountered challenges related to insufficient GPU memory (VRAM) and optimization issues during training. Memory errors initially emerged due to high RAM requirements from long model sequences and large batch sizes. To address these issues, we conducted systematic hyperparameter tuning and hardware evaluations. Below is a detailed summary of our optimization strategy:
+After successfully running the project on Linux, we encountered challenges related to insufficient GPU memory (VRAM) and optimization issues during training. Memory errors initially emerged due to high RAM requirements from long model sequences and large batch sizes. These hyperparameter adjustments were necessary to optimize performance for efficient execution on H200 GPUs while preventing VRAM overflow and memory-related crashes that would terminate training runs. To address these issues, we conducted systematic hyperparameter tuning and hardware evaluations. Below is a detailed summary of our optimization strategy:
 == Hyperparameter Tuning Overview
 === Sequence Length Adjustments
 
