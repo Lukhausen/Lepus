@@ -4,6 +4,9 @@
 #let background = [
 
 = #acr("ARC")-AGI Benchmark <arc>
+
+To understand the challenges and limitations faced by current AI systems in abstract reasoning, we examine the ARC-AGI benchmark, a evaluation framework designed to measure genuine intelligence rather than memorized pattern recognition.
+
 == Introduction
 In 2019, François Chollet, a researcher at Google, introduced a framework to define and measure the intelligence of computational systems @chollet2019measureintelligence. Chollet differentiated between two distinct categories of intelligence: narrow, skill-based intelligence and generalization-capable intelligence. Narrow intelligence describes systems that excel at singular, predefined tasks but lack flexibility in adapting their knowledge to new or unfamiliar situations. \ 
 Conversely, generalization-capable intelligence encompasses systems that can effectively transfer learned patterns and experiences to novel tasks, adapting their understanding dynamically.
@@ -17,7 +20,7 @@ Central to this definition is a system's capability to generalize effectively, l
 
 == Dataset
 
-The ARC Dataset's fundamental concept is that its tasks are not memorizable, requiring LLMs to employ genuine reasoning rather than regurgitating previously encountered information. LLMs typically reproduce statistical patterns observed in their training data—learning which words frequently follow others in specific contexts. This baseline capability is evident in earlier iterations of the GPT series:
+The ARC Dataset's fundamental concept is that its tasks are not memorizable, requiring LLMs to employ genuine reasoning rather than regurgitating previously encountered information. LLMs typically reproduce statistical patterns observed in their training data, learning which words frequently follow others in specific contexts. This baseline capability is evident in earlier iterations of the GPT series:
 
  #llm-interaction(
  model: [gpt-3.5-turbo-instruct #footnote("This model is deprecated and no longer available via the OpenAI Platform. This example has been generated in July 2024")],
@@ -96,7 +99,7 @@ GPT-4o responded with the following analysis:
  ]
 )
 
-The analysis demonstrates that the LLM failed to identify the correct transformation rule—sorting colors in descending order of their frequency within the original input.
+The analysis demonstrates that the LLM failed to identify the correct transformation rule, sorting colors in descending order of their frequency within the original input.
 
 Our initial experiments utilized the ARC-AGI-1 Dataset. However, with the release of the ARC-AGI-2 dataset in March 2024, we transitioned to this updated benchmark for all subsequent experiments to align with current standards. All experimental results and performance metrics presented in this paper are based on the ARC-AGI-2 dataset. The table below presents current performance benchmarks for various models on the ARC-AGI-2 Dataset @arcprize_leaderboard.
 
@@ -157,7 +160,7 @@ The experimental results revealed complete inefficacy, with zero correct predict
 
 Given these resource constraints and budget limitations, we prioritized experimental breadth over replicated trials and exhaustive prompt testing, though we acknowledge that averaging across multiple runs would enhance statistical robustness. Our findings align with official ARC-AGI-2-Benchmark metrics, which report 0% performance for GPT-4o @arcprize_leaderboard. @marschhausen_lepus_benchmark. While this suggests that prompt-based solutions may be insufficient for ARC-AGI-2 tasks, more sophisticated prompting strategies cannot be entirely ruled out without comprehensive evaluation.
 
-Our computational efficiency analysis identified tokenization overhead as a significant contributor to processing costs, with raw JSON string representations resulting in inefficient token utilization—nearly every character requiring individual tokenization.
+Our computational efficiency analysis identified tokenization overhead as a significant contributor to processing costs, with raw JSON string representations resulting in inefficient token utilization, nearly every character requiring individual tokenization.
 
 #figure(
  image("../assets/screenshots/excessive-tokenisation-example.png", width: 60%),
@@ -171,7 +174,7 @@ To address these limitations, we implemented an alternative representation strat
  caption: [Tokenization of the Input to the LLM for task 0934a4d8 @openai_tokenizer],
 ) <excessive-tokenization-example2>
 
-This tokenization behavior can be attributed to architectural attention mechanisms that benefit from precise information representation. Comparative analysis between GPT-3 and GPT-4 tokenization strategies reveals significant evolutionary improvements in numerical data processing—GPT-4 implements consistent tokenization where each number is processed as a discrete token regardless of contextual whitespace, whereas earlier models treated "3" and "3 " (with trailing space) as entirely distinct tokens.
+This tokenization behavior can be attributed to architectural attention mechanisms that benefit from precise information representation. Comparative analysis between GPT-3 and GPT-4 tokenization strategies reveals significant evolutionary improvements in numerical data processing, GPT-4 implements consistent tokenization where each number is processed as a discrete token regardless of contextual whitespace, whereas earlier models treated "3" and "3 " (with trailing space) as entirely distinct tokens.
 
 This tokenization refinement directly enhances mathematical reasoning capabilities by maintaining referential integrity across computational contexts. Empirical research demonstrates that consistent tokenization significantly impacts arithmetic performance. Studies further indicate that models trained with consistently tokenized instances achieve enhanced cross-domain performance, accelerated convergence, and reduced hallucination. @sun2023tokenizationconsistencymattersgenerative @bostrom2020bytepairencodingsuboptimal @singh2024tokenizationcountsimpacttokenization.
 
@@ -180,9 +183,9 @@ This tokenization refinement directly enhances mathematical reasoning capabiliti
  caption: [Tokenization Comparison between GPT-4o and GPT-3 @openai_tokenizer],
 )
 
-After evaluating multiple representation strategies, we determined that our approach (@tokenization-analysis) optimized tokenization efficiency within text-based constraints without leveraging GPT-4o's visual processing capabilities. We deliberately chose not to use visual models for several reasons: first, the substantial GPU memory footprint of multimodal models would have exceeded our hardware constraints; second, initial testing revealed that visual models became overwhelmed by ARC task complexity and failed to correctly convert visual grids to structured text representations, often missing critical spatial relationships essential for pattern recognition. While theoretical alternatives exist—such as Unicode color block representation (🟥, 🟦, 🟧, 🟨, 🟩, 🟪, 🟫, ⬛, ⬜, 🔲, 🔳)—our analysis suggested minimal potential performance improvements from such adaptations.
+After evaluating multiple representation strategies, we determined that our approach (@tokenization-analysis) optimized tokenization efficiency within text-based constraints without leveraging GPT-4o's visual processing capabilities. We deliberately chose not to use visual models for several reasons: first, the substantial GPU memory footprint of multimodal models would have exceeded our hardware constraints; second, initial testing revealed that visual models became overwhelmed by ARC task complexity and failed to correctly convert visual grids to structured text representations, often missing critical spatial relationships essential for pattern recognition. While theoretical alternatives exist - such as Unicode color block representation (🟥, 🟦, 🟧, 🟨, 🟩, 🟪, 🟫, ⬛, ⬜, 🔲, 🔳) - our analysis suggested minimal potential performance improvements from such adaptations.
 
-For our second experimental condition, we implemented an enhanced prompt incorporating Chain of Thought reasoning and step-by-step verification methodologies—techniques empirically demonstrated to significantly improve model reasoning capabilities @lightman2023letsverifystepstep @wei2023chainofthoughtpromptingelicitsreasoning:
+For our second experimental condition, we implemented an enhanced prompt incorporating Chain of Thought reasoning and step-by-step verification methodologies, techniques empirically demonstrated to significantly improve model reasoning capabilities @lightman2023letsverifystepstep @wei2023chainofthoughtpromptingelicitsreasoning:
 
 #figure(
  caption: [The New Prompt Structure],
@@ -213,14 +216,14 @@ USER_PROMPT_TEMPLATE = (
 
 )
 
-Despite these methodological enhancements, experimental results maintained a 0% solve rate. Our analysis indicates that current LLMs fundamentally lack the necessary abstraction capabilities to understand the transformation logic underpinning ARC tasks—particularly those requiring world knowledge concepts such as gravity, suction, rotation, and mirroring. This experimental condition processed 865,000 input tokens across 174 API requests (120 tasks comprising 172 tests, plus 2 repeated requests due to API errors), with approximate computational costs of €5.
+Despite these methodological enhancements, experimental results maintained a 0% solve rate. Our analysis indicates that current LLMs fundamentally lack the necessary abstraction capabilities to understand the transformation logic underpinning ARC tasks, particularly those requiring world knowledge concepts such as gravity, suction, rotation, and mirroring. This experimental condition processed 865,000 input tokens across 174 API requests (120 tasks comprising 172 tests, plus 2 repeated requests due to API errors), with approximate computational costs of €5.
 
 #figure( 
  image("../assets/screenshots/benchmark-run-2-results.png", width: 50%),
  caption: [The Type of Failure of the Second Run. For full run details, see  @marschhausen_lepus_benchmark_2],
 )
 
-Based on these experimental findings, we conclude that prompt engineering alone — even employing methodologies such as Chain of Thought reasoning and step-by-step verification — cannot overcome the fundamental abstraction limitations preventing LLMs from solving ARC-AGI-2-tasks. While we acknowledge that not all prompt engineering strategies were exhaustively tested, the objective of this thesis was not to discover a functional prompt, a goal already shown to be elusive by official benchmark results.
+Based on these experimental findings, we conclude that prompt engineering alone - even employing methodologies such as Chain of Thought reasoning and step-by-step verification - cannot overcome the fundamental abstraction limitations preventing LLMs from solving ARC-AGI-2-tasks. While we acknowledge that not all prompt engineering strategies were exhaustively tested, the objective of this thesis was not to discover a functional prompt, a goal already shown to be elusive by official benchmark results.
 
 ]
 

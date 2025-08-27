@@ -10,7 +10,7 @@ This paper provides insights into developing reasoning capabilities in language 
 
 First, we established that model capacity represents a fundamental constraint for developing sophisticated reasoning capabilities, consistent with the emergent abilities phenomenon described in scaling laws. Our experiments with 3B and 7B parameter models revealed limitations in their ability to develop emergent reasoning for complex spatial abstraction tasks without explicit guidance. This finding aligns with the scaling laws principle that certain cognitive capabilities may only emerge beyond specific parameter thresholds, representing qualitative phase transitions rather than gradual improvements.
 
-Second, we demonstrated that structural elements surrounding the training process—particularly prompt engineering, data augmentation, and reward function design—significantly impact performance outcomes. Our targeted augmentation methodology expanded the original 1,000-task dataset to approximately 28,000 tasks through systematic geometric transformations and structural reorganizations, providing a more robust foundation for model learning.
+Second, we demonstrated that structural elements surrounding the training process, particularly prompt engineering, data augmentation, and reward function design, significantly impact performance outcomes. Our targeted augmentation methodology expanded the original 1,000-task dataset to approximately 28,000 tasks through systematic geometric transformations and structural reorganizations, providing a more robust foundation for model learning.
 
 Third, we identified and addressed the challenge of reward hacking, where models optimize for high reward scores without developing meaningful reasoning strategies. Through careful reward function engineering that separated structural assessment from content evaluation, we implemented a more nuanced training that better guided model development.
 
@@ -28,6 +28,6 @@ A really exciting aspect of our work is how accessible this kind of research has
 
 Our benchmarking showed that thinking-enabled models are genuinely more versatile. The kickstarted thinking model achieved a reward score of 0.22992, significantly outperforming both the base model's 0.12946 and a fine-tuned model without the kickstart incentive, which scored 0.15484. While none of the models solved any ARC-AGI-2 problems fully, this marked improvement validates our kickstarting approach and demonstrates its effectiveness in cultivating meaningful reasoning.
 
-In conclusion, not every model can become a reasoning model—it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop more substantive reasoning chains that are better aligned with a task's objectives. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
+In conclusion, not every model can become a reasoning model, it needs sufficient size and capability. But we've shown that with the right techniques, we can encourage models to develop more substantive reasoning chains that are better aligned with a task's objectives. There's definitely huge potential to improve performance on the ARC-AGI-2 benchmark with the post-training optimizations we've discussed.
 
 ]

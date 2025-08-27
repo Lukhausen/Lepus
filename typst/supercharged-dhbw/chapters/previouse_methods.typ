@@ -4,7 +4,7 @@
 #let previous_methods = [
 = Previous Methodologies and Approaches
 
-This chapter presents an examination of leading methodological frameworks that have demonstrated significant performance on the ARC-AGI Benchmark. While OpenAI's proprietary models currently occupy prominent positions on the leaderboard, our analysis focuses on two independent research teams—"ARChitects" and "Icecuber"—whose open methodologies have achieved substantial results across both the ARC-AGI-1 and ARC-AGI-2 Benchmarks, as illustrated in @arc-leaderboard-mini.
+This chapter presents an examination of leading methodological frameworks that have demonstrated significant performance on the ARC-AGI Benchmark. While OpenAI's proprietary models currently occupy prominent positions on the leaderboard, our analysis focuses on two independent research teams, "ARChitects" and "Icecuber", whose open methodologies have achieved substantial results across both the ARC-AGI-1 and ARC-AGI-2 Benchmarks, as illustrated in @arc-leaderboard-mini.
 
 #let models_2 = (
     ("Human Panel", "100.0%", "98.0%", "$17.00"),
@@ -34,7 +34,7 @@ The methodology developed by "The ARChitects" in "The LLM ARChitect: Solving ARC
 
 === Model Selection and Dataset Augmentation
 
-The research team employed the Mistral-NeMo-Minitron-8B-Base model—a distilled variant of Mistral optimized by NVIDIA for inference efficiency while maintaining high performance characteristics. This foundation model underwent fine-tuning on a comprehensive dataset comprising @sreenivas2024llmpruningdistillationpractice:
+The research team employed the Mistral-NeMo-Minitron-8B-Base model, a distilled variant of Mistral optimized by NVIDIA for inference efficiency while maintaining high performance characteristics. This foundation model underwent fine-tuning on a comprehensive dataset comprising @sreenivas2024llmpruningdistillationpractice:
 
 #let training_data = (
   ([Re-ARC @hodel2024addressingabstractionreasoningcorpus], "Up to 257,600"),

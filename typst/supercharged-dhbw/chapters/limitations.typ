@@ -15,7 +15,7 @@ The most evident limitation of our current approach involves parameter scale con
 
 == Advanced Inference Optimization Strategies
 
-While our research focused primarily on model training methodology rather than inference optimization, implementing multi-perspective inference would likely enhance performance substantially. Previous studies have demonstrated that transformation-based inference techniques—particularly those involving geometric manipulations such as rotation and mirroring—can significantly improve performance on ARC tasks. @franzen2024architect Our training data incorporated these transformations, but we did not leverage them during inference. 
+While our research focused primarily on model training methodology rather than inference optimization, implementing multi-perspective inference would likely enhance performance substantially. Previous studies have demonstrated that transformation-based inference techniques, particularly those involving geometric manipulations such as rotation and mirroring, can significantly improve performance on ARC tasks. @franzen2024architect Our training data incorporated these transformations, but we did not leverage them during inference. 
 
 A particularly promising approach would involve:
 

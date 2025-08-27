@@ -4,7 +4,7 @@
 #let post_training_benchmark = [
 = Benchmarking of the Trained Models
 
-In this chapter, we outline the process and methodology for benchmarking our models, which have been refined using reinforcement learning techniques. The primary focus during the benchmarking phase is to evaluate the content of the generated answers—assessing their correctness and relevance—without the distraction of syntax evaluation, which was primarily handled during training.
+In this chapter, we outline the process and methodology for benchmarking our models, which have been refined using reinforcement learning techniques. The primary focus during the benchmarking phase is to evaluate the content of the generated answers, assessing their correctness and relevance, without the distraction of syntax evaluation, which was primarily handled during training.
 
 == Overview of the Benchmarking Process
 After completing the training phase, where the reward function evaluated both output syntax and content, our benchmarking process isolates the content evaluation to ensure that the models generate accurate and meaningful responses. While syntax was necessary during training to guide the models toward well-structured output, the ultimate performance metric rests on the correctness and appropriateness of the content itself.
@@ -46,7 +46,7 @@ align(center)[
 
 The thinking model, on the other hand, initially underwent the same standard training process as the base model. However, upon reaching a plateau in its reasoning development, we introduced a targeted intervention. Specifically, we provided a reward incentive for longer, more elaborate reasoning processes. This "kickstart" encouraged the model to develop a more in-depth thought process in its outputs. Once the model had sufficiently adopted this longer reasoning approach, we removed the extra reward and reverted to training exclusively with the standard RewardScore. The goal was to integrate the enhanced thinking capability with the model’s ability to generate correct and contextually relevant solutions.
 
-The results clearly show that the thinking model outperforms the base model in terms of the RewardScore, as evidenced by an increase from around 0.12946 to roughly 0.22992 as seen in @example-out-qwen_thinking. This improvement indicates that the additional reasoning component—enhanced during the specialized training phase—has a positive effect on the content quality assessment. Although neither model managed to produce correct responses as per the binary correctness evaluation in this benchmarking run, the higher RewardScore for the thinking model suggests it is better aligned with our desired output characteristics. This validates the approach of incentivizing extended reasoning during training, as it helps the model to combine a more robust thinking process with a relevant and solution-oriented output.
+The results clearly show that the thinking model outperforms the base model in terms of the RewardScore, as evidenced by an increase from around 0.12946 to roughly 0.22992 as seen in @example-out-qwen_thinking. This improvement indicates that the additional reasoning component, enhanced during the specialized training phase, has a positive effect on the content quality assessment. Although neither model managed to produce correct responses as per the binary correctness evaluation in this benchmarking run, the higher RewardScore for the thinking model suggests it is better aligned with our desired output characteristics. This validates the approach of incentivizing extended reasoning during training, as it helps the model to combine a more robust thinking process with a relevant and solution-oriented output.
 
 #figure(
 align(center)[
@@ -69,5 +69,5 @@ align(center)[
 == Conclusion
 The benchmarking phase serves as a critical step in validating the effectiveness of our reinforcement learning approach. By isolating the evaluation of content from syntax and concentrating on the factual correctness of the output, we ensure that the models are not only well-trained in generating fluent language but also in delivering reliable and relevant information.
 
-The dual metrics—a detailed content reward score and a clear percentage of correct responses—provide a robust framework for continuous evaluation and future improvements. This structured approach to benchmarking not only confirms the current state of our models but also lays the groundwork for ongoing optimizations in response to real-world challenges.
+The dual metrics, a detailed content reward score and a clear percentage of correct responses, provide a robust framework for continuous evaluation and future improvements. This structured approach to benchmarking not only confirms the current state of our models but also lays the groundwork for ongoing optimizations in response to real-world challenges.
 ]

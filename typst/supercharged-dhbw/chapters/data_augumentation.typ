@@ -63,7 +63,7 @@ We introduced a stochastic padding mechanism that adds uniform boundary elements
   caption: [Visualization of augmentations applied to the first training example (input/output pair) from ARC task 8dab14c2. Each column represents a different transformation (Original, Horizontal Mirror (mh), Padding (pXcZ), Rotation (rX), or a combination), applied to both the input grid (top row) and the output grid (bottom row). @lukhausen2025dataaugmentation],
 )
 
-This phase of augmentation yielded approximately 14,000 tasks. While recent research suggests that even modest datasets can effectively guide LLM adaptation to novel behaviors @wu2024far100samplesgo—with OpenAI reporting successful fine-tuning with as few as 10 tasks @openai2025fine_tuning—we implemented several additional augmentation techniques to enhance dataset diversity without introducing statistical biases.
+This phase of augmentation yielded approximately 14,000 tasks. While recent research suggests that even modest datasets can effectively guide LLM adaptation to novel behaviors @wu2024far100samplesgo - with OpenAI reporting successful fine-tuning with as few as 10 tasks @openai2025fine_tuning - we implemented several additional augmentation techniques to enhance dataset diversity without introducing statistical biases.
 
 == Structural Modifications and Randomization
 
@@ -112,6 +112,8 @@ While Hodl's Re-ARC approach @hodel2024addressingabstractionreasoningcorpus prov
 
 = Prompt Structure Optimization
 
+Building upon our data augmentation efforts, we investigate how to optimally present training data to language models through systematic prompt design and tokenization analysis.
+
 == Prompt Engineering Context and Challenges
 
 The optimization of prompt structures for abstract reasoning tasks necessitates addressing multiple interdependent variables that significantly impact model performance. Our systematic analysis of current literature on few-shot prompting revealed factors affecting reasoning capabilities within the Abstract Reasoning Corpus (ARC) task domain.
@@ -144,7 +146,7 @@ A critical component of our research involved tokenization analysis of the Qwen2
  caption: [Token Visualization of Different Strings. Each colored segment represents an individual token as processed by the model. @lukhausen2025tokenvisualisation]  
 )
 
-Our analysis revealed a distinctive tokenization pattern wherein Qwen2.5-3B encodes individual numerals as discrete tokens, contrasting with the encoding mechanisms employed in GPT-3 model architectures. This tokenization characteristic aligns with research documenting enhanced mathematical processing capabilities through appropriate numerical tokenization strategies. @sun2023tokenizationconsistencymattersgenerative @bostrom2020bytepairencodingsuboptimal @singh2024tokenizationcountsimpacttokenization For ARC tasks specifically, this property facilitates precise numeric pattern recognition — a capability essential for abstract reasoning functions.
+Our analysis revealed a distinctive tokenization pattern wherein Qwen2.5-3B encodes individual numerals as discrete tokens, contrasting with the encoding mechanisms employed in GPT-3 model architectures. This tokenization characteristic aligns with research documenting enhanced mathematical processing capabilities through appropriate numerical tokenization strategies. @sun2023tokenizationconsistencymattersgenerative @bostrom2020bytepairencodingsuboptimal @singh2024tokenizationcountsimpacttokenization For ARC tasks specifically, this property facilitates precise numeric pattern recognition, a capability essential for abstract reasoning functions.
 
 To establish tokenization consistency across varying syntactic contexts, we conducted experiments examining numeral tokenization in the absence of delimiting characters:
 
@@ -208,7 +210,7 @@ Comparative tokenization analysis between these representational formats provide
  caption: [Tokenization visualization comparing nested array representation (left) with compressed string format (right). Individual tokens are color-coded, demonstrating how the string format reduces token count while preserving grid structure for ARC tasks. @lukhausen2025tokenvisualisation]
 )
 
-This optimization approach reduced the token count by 18 (from 29 to 11), a 62% reduction, in our experimental implementation while preserving all structural information necessary for pattern recognition—a significant efficiency enhancement with potential implications for computational resource utilization in the subsequent training runs.
+This optimization approach reduced the token count by 18 (from 29 to 11), a 62% reduction, in our experimental implementation while preserving all structural information necessary for pattern recognition, a significant efficiency enhancement with potential implications for computational resource utilization in the subsequent training runs.
 
 == Model Output Format Preference Analysis
 
@@ -282,7 +284,7 @@ The input consists of two numbers, 9 and 0. [...]
 ]
 )
 
-This pattern of structural misinterpretation demonstrated remarkable consistency across multiple experimental iterations (15/15 outputs), revealing a fundamental constraint in the model's capacity to infer unified grid structures from space-delimited representations. Instead of recognizing the spatial relationships that define grid structures, the model interpreted each line as containing discrete, unrelated values—essentially decomposing the two-dimensional representation into a one-dimensional sequence and thereby losing the critical spatial context necessary for abstract pattern recognition.
+This pattern of structural misinterpretation demonstrated remarkable consistency across multiple experimental iterations (15/15 outputs), revealing a fundamental constraint in the model's capacity to infer unified grid structures from space-delimited representations. Instead of recognizing the spatial relationships that define grid structures, the model interpreted each line as containing discrete, unrelated values, essentially decomposing the two-dimensional representation into a one-dimensional sequence and thereby losing the critical spatial context necessary for abstract pattern recognition.
 
 == Optimizing the Prompt Structure
 
