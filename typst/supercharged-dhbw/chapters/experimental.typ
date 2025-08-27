@@ -96,7 +96,7 @@ To test these hypotheses, we extracted a checkpoint from the initial model and m
   image("../assets/screenshots/stagnant_critic_chart.png", width: 100%)
 )
 
-Based on these results, we concluded that the 3-billion-parameter model lacked sufficient capacity to develop the reasoning capabilities required for ARC tasks, consistent with scaling laws that predict emergent abilities appear at specific parameter thresholds. We subsequently scaled up to a 7-billion-parameter model and repeated the experimental process to test whether this increased scale would trigger the emergence of reasoning capabilities.
+Based on these results, we concluded that the 3-billion-parameter model lacked sufficient capacity to develop the reasoning capabilities required for ARC tasks, consistent with scaling laws that predict that emergent abilities appear at specific parameter thresholds. We subsequently scaled up to a 7-billion-parameter model and repeated the experimental process to test whether this increased scale would trigger the emergence of reasoning capabilities.
 
 This larger model was trained for approximately 450 minutes (7.5 hours). Despite prior research by Jian Pan suggesting that models sometimes experience delayed emergence of reasoning capabilities, we observed no improvements in response quality or reward metrics throughout this extended training period, as illustrated in Figure 20.
 
@@ -136,9 +136,9 @@ Let me solve this step by step. 1. I observe that in each train example, the inp
 ```,
 )
 
-After successfully increasing the reasoning elaboration, we transitioned to a purely content-based reward function to encourage meaningful reasoning rather than merely verbose output.
+After successfully increasing the length and detail of the model's reasoning, we transitioned to a purely content-based reward function to encourage meaningful reasoning rather than merely verbose output.
 
-#figure(caption: [Running the purely content based reward. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vbfszi8j?nw=nwuserlukhausen],
+#figure(caption: [Running the purely content-based reward. https://wandb.ai/lukhausen-dhbw/TinyZero/runs/vbfszi8j?nw=nwuserlukhausen],
   image("../assets/screenshots/7b_run_only_content.png", width: 100%)
 )
 

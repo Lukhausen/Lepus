@@ -79,17 +79,17 @@ This selection stage improved their score by approximately 25% over baseline app
 
 == The Icecuber: A Search-Based Approach
 
-The submission by Johan Wind (known as "Icecuber") represents an wildly different approach to the ARC benchmark that diverges from conventional machine learning methods. @top-quarks_ARC_solution Instead of training a neural network, Wind developed a system that searches for sequences of image transformations to solve each task.
+The submission by Johan Wind (known as "Icecuber") represents a wildly different approach to the ARC benchmark that diverges from conventional machine learning methods. @top-quarks_ARC_solution Instead of training a neural network, Wind developed a system that searches for sequences of image transformations to solve each task.
 
 === Core Approach
 
 Wind's approach consisted of three main components:
 
-- *Transformation Library*: A collection of 142 image processing operations derived from 42 core concepts. These operations included basic functions such as rotating images, isolating specific colours, identifying the largest shape and combining image components. Wind identified these operations manually by analysing approximately 200 ARC tasks and noting frequently recurring visual patterns, thus ensuring broad coverage of common task-solving primitives.
+- *Transformation Library*: A collection of 142 image processing operations derived from 42 core concepts. These operations included basic functions such as rotating images, isolating specific colors, identifying the largest shape and combining image components. Wind identified these operations manually by analyzing approximately 200 ARC tasks and noting frequently recurring visual patterns, thus ensuring broad coverage of common task-solving primitives.
 
 - *Search Process*: A systematic exploration of possible combinations of these transformations (up to four operations in sequence) until a sequence was found that correctly transformed all training examples for a given task. To optimise this search, every intermediate image was hashed (converted into a compact numerical fingerprint). If the solver encountered a state it had already seen, it skipped further exploration of that branch. This 'state deduplication' allowed the system to efficiently traverse a significantly larger search space within the competition’s computational limits.
 
-- *Efficient implementation*: The entire system was built in C++ with careful optimisation for speed and memory usage, enabling deeper exploration of solution sequences within tight time constraints. Additionally, for tasks where no single sequence could solve all the training examples, the system employed a pragmatic 'greedy stacking' strategy. It found the best-performing sequence for each example individually and then combined these partial solutions, selecting whichever transformation worked best for each specific case. This enabled Wind's solver to handle complex tasks that a single universal sequence could not solve, thereby significantly boosting the overall success rate without imposing excessive computational demands.
+- *Efficient implementation*: The entire system was built in C++ with careful optimization for speed and memory usage, enabling deeper exploration of solution sequences within tight time constraints. Additionally, for tasks where no single sequence could solve all the training examples, the system employed a pragmatic 'greedy stacking' strategy. It found the best-performing sequence for each example individually and then combined these partial solutions, selecting whichever transformation worked best for each specific case. This enabled Wind's solver to handle complex tasks that a single universal sequence could not solve, thereby significantly boosting the overall success rate without imposing excessive computational demands.
 
 === Solution Strategy
 

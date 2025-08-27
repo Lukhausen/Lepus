@@ -35,7 +35,7 @@ A particularly significant aspect of scaling laws is the phenomenon of emergent 
 By analysing such scaling effects and emergent phenomena, predictions can be made as to how many 
 resources are required to achieve a certain level of performance, which is of considerable importance for the 
 planning of large-scale training projects. At the same time, 
-scaling laws help to assess where optimisations in the 
+scaling laws help to assess where optimizations in the 
 model design or in the data are most effective, while also informing decisions about when alternative approaches like test-time compute may be necessary to overcome scaling limitations. @hägele2024scalinglawscomputeoptimaltraining
 
 == Training process and inference (Train-Time vs. Test-Time)
@@ -43,7 +43,7 @@ model design or in the data are most effective, while also informing decisions a
 Two central phases can be distinguished in the context of modern AI applications: One 
 is the training process and the other is inference. During training, often referred to 
 as 'train time', a model is adapted using large amounts of data and special 
-optimisation methods. This requires extensive computing resources, as each input 
+optimization methods. This requires extensive computing resources, as each input 
 example is first run through the algorithm in a forward pass before the so-called 
 backpropagation step takes place. This process is used to change the parameters so that 
 the model can make increasingly reliable predictions. Depending on the complexity and 
@@ -97,7 +97,7 @@ Deep learning is a sub-area of machine learning that focuses on the use of artif
 neural networks with many layers (hence the term 'deep'). These networks are able to 
 automatically learn complex features and patterns in large amounts of data without 
 having to manually define these features in advance @IBM2024Deep. The hierarchical structure enables 
-deep learning models to recognise simple patterns (such as edges in images or simple 
+deep learning models to recognize simple patterns (such as edges in images or simple 
 speech sounds) at a low level and combine this information into increasingly abstract 
 concepts in higher layers. This makes deep learning particularly powerful in areas such 
 as image and speech recognition, natural language processing and many other 

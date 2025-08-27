@@ -6,7 +6,7 @@
 = Introduction <into>
 
 
-Large language models (LLMs) have historically improved through scaling laws, where increases in parameters and training data correlate with enhanced performance following predictable power-law relationships. These scaling laws revealed that certain emergent abilities, such as solving unseen mathematical problems, would suddenly appear at specific parameter thresholds rather than developing gradually. However, performance gains began to plateau nonlinearly: doubling model size no longer doubled capability, while computational costs grew superlinearly following power-law relationships. @wei2022emergentabilitieslargelanguage This diminishing return from traditional scaling laws necessitated alternative strategies, leading to the exploration of test-time compute — enhancing reasoning during inference rather than solely relying on larger architectures.
+Large language models (LLMs) have historically improved through scaling laws, where increases in parameters and training data correlate with enhanced performance following predictable power-law relationships. These scaling laws revealed that certain emergent abilities, such as solving unseen mathematical problems, would suddenly appear at specific parameter thresholds rather than developing gradually. However, performance gains began to plateau nonlinearly: doubling model size no longer doubled capability, while computational costs grew in a similar superlinear fashion. @wei2022emergentabilitieslargelanguage This diminishing return from traditional scaling laws necessitated alternative strategies, leading to the exploration of test-time compute — enhancing reasoning during inference rather than solely relying on larger architectures.
 
 Early LLMs (e.g., GPT-3) demonstrated that scaling parameters unlocked novel capabilities. However, as models grew beyond hundreds of billions of parameters, performance improvements became sublinear relative to resource investment, indicating fundamental limitations to the scaling paradigm.
 
@@ -23,7 +23,7 @@ not discuss any supervision the generator #footnote([The LLM that generated a re
 if trained with RL. Although finetuning the generator with RL is a natural next
 step, it is intentionally not the focus of this work."])
 
-This statement indicates the potential to fine-tune an LLM using this reward model to leverage chain-of-thought reasoning during inference. Approximately a year later, on September 12, 2024, OpenAI released o1 — the first LLM designed to incorporate chain-of-thought reasoning in its inference process by default. It demonstrated superior performance across mathematical and logical reasoning benchmarks at the time of its release. @openai2024o1systemcard
+This statement suggests the possibility of fine-tuning an LLM with this reward model, thereby enabling it to leverage chain-of-thought reasoning during inference. Approximately a year later, on September 12, 2024, OpenAI released o1 — the first LLM designed to incorporate chain-of-thought reasoning in its inference process by default. It demonstrated superior performance across mathematical and logical reasoning benchmarks at the time of its release. @openai2024o1systemcard
 
 Despite these advances, o1 still exhibits limitations with certain reasoning tasks. For example:
 
