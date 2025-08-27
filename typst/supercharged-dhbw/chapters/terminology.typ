@@ -1,6 +1,8 @@
 #let terminology = [
 = Basic Terminology
 
+This chapter defines key concepts and methodologies referenced throughout the paper, establishing a common vocabulary for subsequent discussions.
+
 == Chain of Thought
 
 The chain-of-thought principle describes a strategy in which AI models articulate their thought processes through several comprehensible intermediate steps, instead of presenting the final result directly @IBM2024Chain. This is frequently employed in larger language models to handle complex tasks such as mathematical problems, logical reasoning, or comprehending lengthy texts @LarsenWessels2022. A simple example is a math problem, where the model does not only state the sum of two numbers but also explains step by step how it arrived at the solution: first, the numbers are broken down into their place values and added individually until the correct result is obtained. Due to this step-by-step structuring and presentation of the solution, errors are easier to recognize and can be corrected if necessary.
@@ -26,15 +28,15 @@ neural network and the more extensive the training data, the more
 the accuracy can generally increase - however, diminishing marginal returns occur following a predictable power-law curve from a certain 
 point onwards. This means that while the accuracy is improved rapidly at the beginning by 
 additional growth of the model or more data samples, 
-the gain often only increases slowly later on with equally increasing effort.
+the gain often only increases slowly later on with equally increasing effort. @kaplan2020scalinglawsneurallanguage
 
-A particularly significant aspect of scaling laws is the phenomenon of emergent abilities - new capabilities that appear suddenly when models reach specific parameter thresholds rather than developing gradually. These phase transitions represent qualitative leaps in model capabilities, such as the ability to perform arithmetic, logical reasoning, or in-context learning. The emergence of such abilities cannot be predicted from smaller model performance, making parameter scale a critical factor in determining whether certain cognitive capabilities will manifest.
+A particularly significant aspect of scaling laws is the phenomenon of emergent abilities - new capabilities that appear suddenly when models reach specific parameter thresholds rather than developing gradually. These phase transitions represent qualitative leaps in model capabilities, such as the ability to perform arithmetic, logical reasoning, or in-context learning. The emergence of such abilities cannot be predicted from smaller model performance, making parameter scale a critical factor in determining whether certain cognitive capabilities will manifest.@wei2022emergentabilitieslargelanguage
 
 By analysing such scaling effects and emergent phenomena, predictions can be made as to how many 
 resources are required to achieve a certain level of performance, which is of considerable importance for the 
 planning of large-scale training projects. At the same time, 
 scaling laws help to assess where optimisations in the 
-model design or in the data are most effective, while also informing decisions about when alternative approaches like test-time compute may be necessary to overcome scaling limitations.
+model design or in the data are most effective, while also informing decisions about when alternative approaches like test-time compute may be necessary to overcome scaling limitations. @hägele2024scalinglawscomputeoptimaltraining
 
 == Training process and inference (Train-Time vs. Test-Time)
 

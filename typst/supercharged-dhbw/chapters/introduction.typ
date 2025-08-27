@@ -6,7 +6,7 @@
 = Introduction <into>
 
 
-Large language models (LLMs) have historically improved through scaling laws, where increases in parameters and training data correlate with enhanced performance following predictable power-law relationships. These scaling laws revealed that certain emergent abilities, such as solving unseen mathematical problems, would suddenly appear at specific parameter thresholds rather than developing gradually. However, performance gains began to plateau nonlinearly: doubling model size no longer doubled capability, while computational costs grew superlinearly following power-law relationships. This diminishing return from traditional scaling laws necessitated alternative strategies, leading to the exploration of test-time compute — enhancing reasoning during inference rather than solely relying on larger architectures.
+Large language models (LLMs) have historically improved through scaling laws, where increases in parameters and training data correlate with enhanced performance following predictable power-law relationships. These scaling laws revealed that certain emergent abilities, such as solving unseen mathematical problems, would suddenly appear at specific parameter thresholds rather than developing gradually. However, performance gains began to plateau nonlinearly: doubling model size no longer doubled capability, while computational costs grew superlinearly following power-law relationships. @wei2022emergentabilitieslargelanguage This diminishing return from traditional scaling laws necessitated alternative strategies, leading to the exploration of test-time compute — enhancing reasoning during inference rather than solely relying on larger architectures.
 
 Early LLMs (e.g., GPT-3) demonstrated that scaling parameters unlocked novel capabilities. However, as models grew beyond hundreds of billions of parameters, performance improvements became sublinear relative to resource investment, indicating fundamental limitations to the scaling paradigm.
 
@@ -49,7 +49,11 @@ Since this approach requires only input-output pairs as training data, we hypoth
 
 Our research investigates whether DeepSeek's reinforcement learning methodology can be adapted to enhance pattern generalization capabilities on the ARC-AGI-2 dataset, potentially bridging the substantial gap between current AI systems and human-level performance in abstract reasoning tasks.
 
-Specifically, our approach involves: (1) implementing a bifurcated reward function that evaluates structural and content components separately, (2) training 3B and 7B parameter models using reinforcement learning with incentives for extended reasoning chains, (3) testing the models' emergent reasoning capabilities, and (4) when natural emergence fails, strategically kickstarting reasoning development through targeted reward mechanisms that explicitly encourage longer reasoning patterns before transitioning to content-focused optimization. This methodology emphasizes the development of intermediate reasoning processes that more closely approximate human problem-solving strategies when addressing abstract reasoning challenges.
+Specifically, our approach involves: 
++ implementing a bifurcated reward function that evaluates structural and content components separately
++ training 3B and 7B parameter models using reinforcement learning with incentives for extended reasoning chains
++ testing the models' emergent reasoning capabilities
++ when natural emergence fails, strategically kickstarting reasoning development through targeted reward mechanisms that explicitly encourage longer reasoning patterns before transitioning to content-focused optimization. This methodology emphasizes the development of intermediate reasoning processes that more closely approximate human problem-solving strategies when addressing abstract reasoning challenges.
 
 ]
 
