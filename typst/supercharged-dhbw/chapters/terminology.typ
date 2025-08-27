@@ -19,19 +19,22 @@ In 2025, this means that nearly all state-of-the-art language models now utilize
 
 == Scaling Laws
 
-The term "scaling laws" refers to guidelines or observations that 
+The term "scaling laws" refers to empirically observed mathematical relationships that 
 describe how the performance of AI models develops depending on their size, the amount of data available 
-and the computing power used. The larger a 
+and the computing power used. These laws typically follow power-law relationships, where model performance scales predictably with increases in parameters, training data, and computational resources. The larger a 
 neural network and the more extensive the training data, the more 
-the accuracy can generally increase - however, diminishing marginal returns often occur from a certain 
+the accuracy can generally increase - however, diminishing marginal returns occur following a predictable power-law curve from a certain 
 point onwards. This means that while the accuracy is improved rapidly at the beginning by 
 additional growth of the model or more data samples, 
-the gain often only increases slowly later on with equally increasing effort. By 
-analysing such scaling effects, predictions can be made as to how many 
+the gain often only increases slowly later on with equally increasing effort.
+
+A particularly significant aspect of scaling laws is the phenomenon of emergent abilities - new capabilities that appear suddenly when models reach specific parameter thresholds rather than developing gradually. These phase transitions represent qualitative leaps in model capabilities, such as the ability to perform arithmetic, logical reasoning, or in-context learning. The emergence of such abilities cannot be predicted from smaller model performance, making parameter scale a critical factor in determining whether certain cognitive capabilities will manifest.
+
+By analysing such scaling effects and emergent phenomena, predictions can be made as to how many 
 resources are required to achieve a certain level of performance, which is of considerable importance for the 
 planning of large-scale training projects. At the same time, 
 scaling laws help to assess where optimisations in the 
-model design or in the data are most effective.
+model design or in the data are most effective, while also informing decisions about when alternative approaches like test-time compute may be necessary to overcome scaling limitations.
 
 == Training process and inference (Train-Time vs. Test-Time)
 

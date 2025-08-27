@@ -8,7 +8,7 @@ This Paper provides insights into developing reasoning capabilities in language 
 
 ==  Summary of Contributions
 
-First, we established that model capacity represents a fundamental constraint for developing sophisticated reasoning capabilities. Our experiments with 3B and 7B parameter models revealed limitations in their ability to develop emergent reasoning for complex spatial abstraction tasks without explicit guidance. This finding aligns with broader research indicating that certain cognitive capabilities may only emerge beyond specific parameter thresholds.
+First, we established that model capacity represents a fundamental constraint for developing sophisticated reasoning capabilities, consistent with the emergent abilities phenomenon described in scaling laws. Our experiments with 3B and 7B parameter models revealed limitations in their ability to develop emergent reasoning for complex spatial abstraction tasks without explicit guidance. This finding aligns with the scaling laws principle that certain cognitive capabilities may only emerge beyond specific parameter thresholds, representing qualitative phase transitions rather than gradual improvements.
 
 Second, we demonstrated that structural elements surrounding the training process—particularly prompt engineering, data augmentation, and reward function design—significantly impact performance outcomes. Our targeted augmentation methodology expanded the original 1,000-task dataset to approximately 28,000 tasks through systematic geometric transformations and structural reorganizations, providing a more robust foundation for model learning.
 

@@ -96,7 +96,7 @@ To test these hypotheses, we extracted a checkpoint from the initial model and m
   image("../assets/screenshots/stagnant_critic_chart.png", width: 100%)
 )
 
-Based on these results, we concluded that the 3-billion-parameter model lacked sufficient capacity to develop the reasoning capabilities required for ARC tasks. We subsequently scaled up to a 7-billion-parameter model and repeated the experimental process.
+Based on these results, we concluded that the 3-billion-parameter model lacked sufficient capacity to develop the reasoning capabilities required for ARC tasks, consistent with scaling laws that predict emergent abilities appear at specific parameter thresholds. We subsequently scaled up to a 7-billion-parameter model and repeated the experimental process to test whether this increased scale would trigger the emergence of reasoning capabilities.
 
 This larger model was trained for approximately 450 minutes (7.5 hours). Despite prior research by Jian Pan suggesting that models sometimes experience delayed emergence of reasoning capabilities, we observed no improvements in response quality or reward metrics throughout this extended training period, as illustrated in Figure 20.
 
@@ -146,7 +146,7 @@ Despite this intervention, we observed that output length decreased again, and e
 
 == Training on an Easier Dataset
 
-We hypothesized that the 7B parameter scale might be insufficient for developing the sophisticated reasoning capabilities required for complex ARC tasks. Due to budget constraints, we opted not to scale to a 14B model, as the required resources (minimum 4× H200 GPUs) were prohibitively expensive for on-demand cloud GPU instances. Instead, we  reduced task difficulty.
+We hypothesized that the 7B parameter scale might be insufficient for developing the sophisticated reasoning capabilities required for complex ARC tasks, as scaling laws suggest that emergent abilities may require even higher parameter thresholds for complex reasoning tasks. Due to budget constraints, we opted not to scale to a 14B model, as the required resources (minimum 4× H200 GPUs) were prohibitively expensive for on-demand cloud GPU instances. Instead, we reduced task difficulty to determine if the model could demonstrate emergent reasoning on simpler problems.
 
 Having focused exclusively on the ARC-AGI-2 dataset, we created a new dataset incorporating easier variants of similar tasks. This dataset combined the ARC-AGI-1 training set with the Concept Arc Dataset, which includes various simplified tasks @moskvichev2023the. Our strategy was to first determine if the model could develop emergent reasoning capabilities on simpler problems before gradually increasing task complexity. This approach is supported by research demonstrating that training on simpler examples can significantly enhance reasoning and generalization capabilities @hase2024unreasonableeffectivenesseasytraining.
 
